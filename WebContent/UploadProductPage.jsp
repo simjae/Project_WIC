@@ -14,7 +14,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-	<link rel="stylesheet" href="resource/style/UploadProductPage-style.css">
+	<link rel="stylesheet" href="resource/style/uploadProductPage-style.css">
 	<link rel="stylesheet" href="resource/style/bootstrap-grid.css">
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<script src="resource/javascript/bootstrap.bundle.js"></script> 
@@ -27,8 +27,7 @@
 		<div class="row py-4">
 			<h1 class="mx-auto py-4 ">Product</h1>
 		</div>
-		<form action="" id="upload" name="upload"
-			enctype="multipart/form-data" method="post">
+		<form action="<%=request.getContextPath()%>/uploadProduct.Pd" enctype="multipart/form-data" method="post" id="upload">
 			<div class="row">
 				<div class="col-md-6">
 					<div class="container">
@@ -52,24 +51,27 @@
 						<br>
 						<div class="ml-4 mb-4">
 							<h3>상품 설명을 해 주세요</h3>
-							<textarea class="col-md-10"></textarea>
+							<textarea class="col-md-10" id="context" name="context"></textarea>
 						</div>
 
 					</div>
 				</div>
 				<div class="col-md-6">
+				<input class="mx-auto" type="submit" id="submit" name="submit" value="UPLOAD">
+				<input class="mx-auto" type="reset" id="reset" name="reset" value="CANCLE">
 					<div class="col-md-10 mx-auto" id="drop">
 						<div class="col-md-12 mx-auto mt-3" id="file_add">
 						<p class="mt-4" style="text-align:center;"> Drag file Or Click to add files</p>
 						
 						</div>
-					
+
 						<input type="file" id="fileProfile" name="fileProfile" accept="image/*">
 						<div id="thumbnails" class="col-md-12 row mr-0 ml-0">
 							
 						</div>
 					</div>
 				</div>
+				
 			</div>
 		</form>
 	</div>

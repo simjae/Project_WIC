@@ -11,6 +11,10 @@ $(function(){
 		e.preventDefault();
 	}).on("drop",function(e){
 		e.preventDefault();
+   		$("input[type='file']")
+        .prop("files", e.originalEvent.dataTransfer.files)  // put files into element
+        .closest("form")
+        .submit();  // autosubmit as well
 		$(this).removeClass('drag-over');
 		var files= e.originalEvent.dataTransfer.files;
 		console.log(files);
@@ -69,7 +73,7 @@ $(function(){
     	thumbnail(fileList);
     	
         $("#fileProfile").val();
-        var frm = document.getElementById('upload');
+      var frm = document.getElementById('upload');
         var fileData = new FormData(frm);
         console.log(fileData);
         
@@ -92,4 +96,4 @@ $(function(){
         }); */
 	
 	}))
-})
+});

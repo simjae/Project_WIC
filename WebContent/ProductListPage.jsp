@@ -10,6 +10,7 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core" %>    
 
 <!DOCTYPE html>
 <html>
@@ -37,6 +38,7 @@
 			</div>
 		</form>
 	</div>
+	<c:set var="list" value="${requestScope.}"/>
 	<!-- 지금은 예시를 보여줄라고 이렇게 많이 해놓은거 사실상 한 세트만 보면 됨 -->
 	<div class="col-md-9 mx-auto my-2" id="autoScroll">
 		<div class="grid" id="grid">
