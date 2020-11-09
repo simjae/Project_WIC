@@ -41,13 +41,13 @@
 						<img src="resource/image/prdDetail1.jpg" alt="">		
 					</div>
 					<div class="carousel-item">
-						<img src="resource/image/prdDetail2.jpeg" alt="">			
+						<img src="resource/image/prdDetail2.jpg" alt="">			
 					</div>
 					<div class="carousel-item">
-						<img src="resource/image/prdDetail3.jpeg" alt="">
+						<img src="resource/image/prdDetail3.jpg" alt="">
 					</div>
 					<div class="carousel-item">
-						<img src="resource/image/prdDetail4.jpeg" alt="">
+						<img src="resource/image/prdDetail4.jpg" alt="">
 					</div>
 					<a class="carousel-control-prev" href="#imgCarousel" role="button" data-slide="prev">
 						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -133,6 +133,7 @@
 		</div>
 	</div>
 </div>
+<div class="mb-5"></div>
 <jsp:include page="WEB-INF/views/common/Bottom.jsp"></jsp:include>
 </body>
 
