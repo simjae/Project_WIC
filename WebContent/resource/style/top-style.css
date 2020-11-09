@@ -1,0 +1,110 @@
+@charset "UTF-8";
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
+body{
+	margin: 0;
+	padding: 0;
+}
+
+#topNav{
+    background: #fff;
+    padding: 10px 40px 10px 70px;
+    border: 1px solid black;
+    border-left: none;
+    border-right: none;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+#topNav > ul{
+	margin: 0;
+	padding: 0;
+    display: flex;
+    list-style: none;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+#topNav ul li.logo{
+    flex: 1;
+    font-size: 30px;
+    font-weight: 700;
+    height: 40px;
+    
+}
+
+
+#topNav .items li a:hover{
+    color : #FF416C
+}
+
+#topNav .items li a:active{
+    color : #FF416C
+}
+
+#topNav ul div.items{
+    padding: 0 25px;
+    display: inline-flex;
+}
+
+#topNav ul div.items a{
+    text-decoration: none;
+    font-size: 18px;
+    padding: 0 12px;
+    color: black;
+}
+
+#topNav ul .search-icon{
+    height: 40px;
+    width: 240px;
+    display: flex;
+    background: #f2f2f2;
+    border-radius: 5px;
+}
+
+#topNav ul .search-icon input{
+    height: 100%;
+    width: 100%;
+    border: none;
+    outline: none;
+    padding: 0 10px;
+    color: #000;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+#topNav form {
+    display: flex;
+    height: 40px;
+    background: #FF416C;
+    min-width: 18%!important;
+    border: 1px solid black;
+    box-sizing: border-box;
+}
+
+#topNav form button{
+    padding: 0 15px;
+    background: #FF416C;
+    border: none;
+    cursor: pointer;
+    font-size: 17px;
+    color: #000;
+    border-radius: 2px;
+}
+
+
+@media screen and (max-width : 1052px){
+    #topNav{
+        padding: 10px 40px 10px 0px;
+    }
+    #topNav ul li.logo{
+        display: none;
+    }
+    #topNav ul div.items{
+        flex: 4;
+    }
+}
