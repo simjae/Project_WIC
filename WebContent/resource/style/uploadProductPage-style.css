@@ -1,0 +1,36 @@
+@charset "UTF-8";
+.content {
+	background-color: #ffcccc;
+	border-radius: 25px;
+}
+
+div>input {
+	border-top: 0;
+	border-left: 0;
+	border-right: 0;
+	border-bottom: 1;
+	background: hsla(0, 100%, 100%, 0);
+}
+
+textarea {
+	border: 3px solid white;
+	background: hsla(0, 100%, 100%, 1);
+	height: 250px;
+	resize: none;
+}
+#drop{
+	border: 2px solid;
+	border-radius: 25px;
+}
+
+#file_add{
+	border: 4px dotted;
+	border-radius: 20px;
+	height:220px;
+}
+
+
+
+#fileProfile{
+	opacity:0;
+}
