@@ -1,3 +1,11 @@
+<%
+/* 
+@Project : WIC
+@File name : loginRegister.jsp
+@Date : 2020.11.09
+@Author : 문지연
+*/
+%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%><!DOCTYPE html>
 <html>
