@@ -1,15 +1,18 @@
 package kr.or.wic.dto;
 
 import java.util.Date;
+import java.util.List;
 
 public class ProductDTO {
 	private int prd_num;
 	private String prd_title;
+	private int prd_price;
 	private Date prd_date;
 	private String prd_content;
 	private int prd_state;
 	private int prd_count;
 	private int closet_num;
+	private List<FilesDTO> files;
 	public int getPrd_num() {
 		return prd_num;
 	}
@@ -21,6 +24,12 @@ public class ProductDTO {
 	}
 	public void setPrd_title(String prd_title) {
 		this.prd_title = prd_title;
+	}
+	public int getPrd_price() {
+		return prd_price;
+	}
+	public void setPrd_price(int prd_price) {
+		this.prd_price = prd_price;
 	}
 	public Date getPrd_date() {
 		return prd_date;
@@ -52,11 +61,17 @@ public class ProductDTO {
 	public void setCloset_num(int closet_num) {
 		this.closet_num = closet_num;
 	}
+	public List<FilesDTO> getFiles() {
+		return files;
+	}
+	public void setFiles(List<FilesDTO> files) {
+		this.files = files;
+	}
 	@Override
 	public String toString() {
-		return "ProductDTO [prd_num=" + prd_num + ", prd_title=" + prd_title + ", prd_date=" + prd_date
-				+ ", prd_content=" + prd_content + ", prd_state=" + prd_state + ", prd_count=" + prd_count
-				+ ", closet_num=" + closet_num + "]";
+		return "ProductDTO [prd_num=" + prd_num + ", prd_title=" + prd_title + ", prd_price=" + prd_price
+				+ ", prd_date=" + prd_date + ", prd_content=" + prd_content + ", prd_state=" + prd_state
+				+ ", prd_count=" + prd_count + ", closet_num=" + closet_num + ", files=" + files + "]";
 	}
 	
 	
