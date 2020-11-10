@@ -20,6 +20,20 @@ $(function(){
 		console.log(files);
 		thumbnail(files)
 		
+		var formData = new FormData();
+		formData.append('upload-file', files[0], files.name);
+		
+		$.ajax({
+		url: 'fileUpload.Ajax',
+		data : formData,
+		type : 'post',
+		contentType : false,
+		processData: false,
+		success : function(ret) {
+		
+		}
+		});
+		
 	});
 	
 	function thumbnail(files){
@@ -34,7 +48,7 @@ $(function(){
 	}
 	
 	function preview(file,idx){
-		var reader = new FileReader();
+		let reader = new FileReader();
 		reader.onload =(function(f,idx){
 				return function(e){
 					console.log(f);
@@ -43,10 +57,13 @@ $(function(){
 						<img class="col-md-12 px-0 mx-0" src="'+e.target.result+'"title="'+escape(f.name)+'"/>\
 						</div>';
 						$('#thumbnails').append(div);
+						
+						
 				};
 		})(file,idx);
 		reader.readAsDataURL(file);
 	}
+	
 	$('#thumbnails').on("click",".close",function(e){
 		var $target = $(e.target);
 		var idx=$target.attr('data-idx');
@@ -67,18 +84,49 @@ $(function(){
     input.addEventListener('change',(function(e){
     	
     	var fileList = input.files;
-    	
         console.log($("#fileProfile").val());
-		
     	thumbnail(fileList);
-    	
         $("#fileProfile").val();
-        var frm = document.getElementById('upload');
-        var fileData = new FormData(frm);
-        console.log(fileData);
-        fileList.push(filData);
-    	console.log(typeof(fileList));
-       
-	
+    	console.log(fileList);
+		
+		var formData = new FormData();
+		formData.append('upload-file', fileList[0], fileList.name);
+		
+		$.ajax({
+		url: 'fileUpload.Ajax',
+		data : formData,
+		type : 'post',
+		contentType : false,
+		processData: false,
+		success : function(ret) {
+		
+		}
+		});
+		
+		
 	}))
+	
+	
+	function readFiles(file){
+		let reader = new FileReader();
+		reader.onload=function(e){
+			var bin = e.target.result;	
+			console.log(bin);
+			var formData = new FormData(); 
+			formData.append("filelist",bin)
+			
+			}
+		reader.readAsDataURL(file);
+	};
+	
+	$("#submit").click(function(){
+
+		
+
+
+		
+        console.log(formData);
+
+	})
+	
 })

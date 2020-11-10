@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.or.wic.action.Action;
 import kr.or.wic.action.ActionForward;
+import kr.or.wic.service.ProductFileDeleteAjaxAction;
+import kr.or.wic.service.ProductUploadAjaxAction;
 
 /*
  * 비동기 관련 컨트롤러 
@@ -38,20 +40,28 @@ public class AjaxController extends HttpServlet {
     	Action action = null;
     	ActionForward forward = null;
     	
-    	if(url_Command.equals("idCheck.ajax")) { //아이디 중복체크
+    	if(url_Command.equals("idCheck.Ajax")) { //아이디 중복체크
     		
-    	} else if (url_Command.equals("myCartPage.ajax")) { //찜 내역(상품)
+    	} else if (url_Command.equals("myCartPage.Ajax")) { //찜 내역(상품)
     		
-    	} else if (url_Command.equals("mySale.ajax")) { //판매내역
+    	} else if (url_Command.equals("mySale.Ajax")) { //판매내역
     		
-    	} else if (url_Command.equals("csNoticeList.ajax")) { //고객센터 분류(공지사항)
+    	} else if (url_Command.equals("csNoticeList.Ajax")) { //고객센터 분류(공지사항)
     		
-    	} else if (url_Command.equals("csQNAList.ajax")) { //고객센터 분류(QnA)
+    	} else if (url_Command.equals("csQNAList.Ajax")) { //고객센터 분류(QnA)
     		
+    	} else if (url_Command.equals("/fileUpload.Ajax")) { //파일업로드
+    		action = new ProductUploadAjaxAction();
+    		forward = action.execute(request, response);
+    	} else if (url_Command.equals("/fileDelete.Ajax")) { //파일삭제
+    		action = new ProductFileDeleteAjaxAction();
+    		forward = action.execute(request, response);
     	}
     	
+    	if(forward != null) {
     	RequestDispatcher dis = request.getRequestDispatcher(forward.getPath());
     	dis.forward(request, response);
+    	}
     }
     
     

@@ -64,8 +64,8 @@
 						<p class="mt-4" style="text-align:center;"> Drag file Or Click to add files</p>
 						
 						</div>
-
-						<input type="file" id="fileProfile" name="fileProfile" accept="image/*" multiple/>
+					
+						<input type="file" id="fileProfile" name="fileProfile" accept="image/*" multiple>
 						<div id="thumbnails" class="col-md-12 row mr-0 ml-0">
 							
 						</div>
