@@ -22,7 +22,14 @@
 </head>
 
 <body>
+<!-- Top -->
 <jsp:include page="/WEB-INF/views/common/Top.jsp"></jsp:include>
+
+	<!-- Product 객체 호출(product, member addr, files 정보 호출해야 함) -->
+	<c:set var="product" value="${requestScope.product}" />
+	<c:set var="member" value="${requestScope.member}" />
+	<c:set var="files" value="${requestScope.files}" />
+	
 	<div class="container content my-4">
 		<div class="row py-4">
 			<h1 class="mx-auto py-4 ">Product(수정)</h1>
@@ -35,24 +42,24 @@
 						<div class="row ml-4">
 							<h3 class="my-0">상품 이름 :</h3>
 							&nbsp;<input class="col-sm-7" type="text" id="productName"
-								name="productName" value="입력한 상품 이름">
+								name="productName" value="${product.prd_title}">
 						</div>
 						<br>
 						<div class="row ml-4">
 							<h3 class="my-0">지역 :</h3>
 							&nbsp;<input class="col-sm-8" type="text" id="location"
-								name="location" value="입력한 지역">
+								name="location" value="${member.addr}">
 						</div>
 						<br>
 						<div class="row ml-4">
 							<h3 class="my-0">가격 :</h3>
 							&nbsp; <input class="col-sm-8" type="text" id="productPrice"
-								name="productPrice" value="입력한 가격">
+								name="productPrice" value="${product.prd_price}">
 						</div>
 						<br>
 						<div class="ml-4 mb-4">
 							<h3>상품 설명을 해 주세요</h3>
-							<textarea class="col-md-10">입력한 설명</textarea>
+							<textarea class="col-md-10">${product.prd_content}</textarea>
 						</div>
 
 					</div>
@@ -60,8 +67,7 @@
 				<div class="col-md-6">
 					<div class="col-md-10 mx-auto" id="drop">
 						<div class="col-md-12 mx-auto mt-3" id="file_add">
-						<p class="mt-4" style="text-align:center;"> Drag file Or Click to add files</p>
-						
+							<p class="mt-4" style="text-align:center;"> Drag file Or Click to add files</p>
 						</div>
 					
 						<input type="file" id="fileProfile" name="fileProfile" accept="image/*">

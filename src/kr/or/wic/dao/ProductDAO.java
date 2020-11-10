@@ -72,7 +72,7 @@ public class ProductDAO {
 		return productList;
 	}
 	
-	//2.회원별 상품 보기(return the productList by ID)
+	//2.회원별 상품 조회(return the productList by ID)
 	public List<ProductDTO> getProductListById(String id) {
 		List<ProductDTO> productList = new ArrayList<ProductDTO>();
 		
@@ -110,6 +110,40 @@ public class ProductDAO {
 			}
 		}
 		return productList;
+	}
+	
+	//2-1.상품번호로 상품 조회(return the product by prd_num)
+	public ProductDTO getProduct(int prd_num) {
+		ProductDTO product = new ProductDTO();
+		try {
+			conn = ds.getConnection();
+			String sql = "select prd_title, prd_price, prd_date, prd_content, prd_state, prd_count, closet_num"
+						+ "from product where prd_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, prd_num);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				product.setPrd_title(rs.getString("prd_title"));
+				product.setPrd_price(rs.getInt("prd_price"));
+				product.setPrd_date(rs.getDate("prd_date"));
+				product.setPrd_content(rs.getString("prd_content"));
+				product.setPrd_state(rs.getInt("prd_state"));
+				product.setPrd_count(rs.getInt("prd_count"));
+				product.setCloset_num(rs.getInt("closet_num"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return product;
 	}
 	
 	//3.상품 정보 등록(insert the new product)
