@@ -12,7 +12,7 @@ public class ProductDTO {
 	private int prd_state;
 	private int prd_count;
 	private int closet_num;
-	private List<FilesDTO> files;
+
 	public int getPrd_num() {
 		return prd_num;
 	}
@@ -61,17 +61,11 @@ public class ProductDTO {
 	public void setCloset_num(int closet_num) {
 		this.closet_num = closet_num;
 	}
-	public List<FilesDTO> getFiles() {
-		return files;
-	}
-	public void setFiles(List<FilesDTO> files) {
-		this.files = files;
-	}
 	@Override
 	public String toString() {
 		return "ProductDTO [prd_num=" + prd_num + ", prd_title=" + prd_title + ", prd_price=" + prd_price
 				+ ", prd_date=" + prd_date + ", prd_content=" + prd_content + ", prd_state=" + prd_state
-				+ ", prd_count=" + prd_count + ", closet_num=" + closet_num + ", files=" + files + "]";
+				+ ", prd_count=" + prd_count + ", closet_num=" + closet_num + "]";
 	}
 	
 	
