@@ -1,33 +1,50 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
         <title>옷장 페이지</title>
+        
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
         <link rel="stylesheet" href="resource/style/myPage-style.css">
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="js/main.js"></script>
+        	
     </head>
     <body>
+    		
         <section>
+			<!-- Top -->
             <header>
-                <a href="#"><img src="resource/image/mypage/logo.png" class="logo" width="80px" height="80px" alt="" ></a>
-                <ul>
-                    <li><a href="#">HOME</a></li>
-                    <li><a href="#">MYCLOSET</a></li>
-                    <li><a href="#">LOGOUT</a></li>
-                    <li><a href="#">SEARCH</a></li>
-                </ul>
+				<jsp:include page="WEB-INF/views/common/Top.jsp"></jsp:include>
             </header>
+
             <!--Profile-->
             <div class ="container" >
+            	<div>
+						<i id="heart" class="far fa-heart"></i>
+						<div id="cnt">
+							100
+						</div>
+				</div>
                 <div class="profile">
                 <div class="profile-image">
                     <img src="resource/image/mypage/man.png"  alt="">
                     
                 </div>
                 <div class="profile-user-setting">
-                    <h1 class="profile-user-name">채채니</h1>
+                	<c:set var="username" value="${requestScope.username}"/>
+                    <h1 class="profile-user-name">${username}</h1>
         
                 </div>
-                <p>서울특별시 강남구</p>
+                <div>
+                	<p>서울특별시 강남구</p>
+                </div>
+                
                 <!--
                 <div class="profile-stats">
                     <ul>
@@ -38,14 +55,28 @@
                 </div>
                 -->
                 <div class="profile-bio">
-                    <p> 안녕하세요 ^^ <br> 좋아요 눌러주세요 </p>
+                	<!-- <input type="text" name="intro" placeholder="자기소개">-->
+                    <c:set var="userintro" value="${requestScope.userintro}"/>
+                    <p>${userintro}</p>
                 </div>
                 </div>
-                
-                <button class="btn-profile-edit">Edit</button>
+                <form action="MyCloset_Test.jsp">
+   					 <button type="submit">수정</button>
+				</form>
             </div>
             
             <main>
+            	<div class="nav1">
+            	<ul>
+            		<li>
+            			<a href="#tabContent01" >판매내역</a>
+            		</li>
+            		<li>
+            			<a href="#tabContent01" >찜내역</a>
+            		</li>
+            	</ul>
+            	</div>
+            	
                 <div class="gallery">
                     <div class="gallery-item" tabindex="0">
                         <img class="gallery-image" src="resource/image/mypage/1.jpg" width="200px" height="200px" alt="">
@@ -106,6 +137,6 @@
             </div>
         
         </section>
-
+	<jsp:include page="WEB-INF/views/common/Bottom.jsp"></jsp:include>
     </body>
 </html>
