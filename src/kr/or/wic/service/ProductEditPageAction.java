@@ -8,7 +8,7 @@ import kr.or.wic.action.ActionForward;
 import kr.or.wic.dto.ProductDTO;
 import kr.or.wic.dao.ProductDAO;
 
-public class ProductEditAction implements Action{
+public class ProductEditPageAction implements Action{
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
@@ -28,13 +28,14 @@ public class ProductEditAction implements Action{
 		*/
 		
 		//DAO, DTO 처리
-		//*상품을 클릭하여 상품 상세 페이지로 이동 시 상품 객체를 이미 받은 상태라면 service 처리가 필요 없음
 		int prd_num = Integer.parseInt(request.getParameter("prd_num"));
 		
+		//product 정보
 		ProductDAO dao = new ProductDAO();
 		ProductDTO product = dao.getProduct(prd_num);
-		
 		request.setAttribute("product", product);
+		
+		//
 		
 		//이동경로(viewpage)
 		viewpage = "ProductEditPage.jsp";
