@@ -10,7 +10,7 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html>
@@ -38,7 +38,30 @@
 			</div>
 		</form>
 	</div>
-	<c:set var="list" value="${requestScope.}"/>
+	
+	<!-- prdList, filesList(JSTL) / test -->
+	<c:set var="prdList" value="${requestScope.productList}"/>
+	<c:set var="filesList" value="${requestScope.filesList}"/>
+	
+	<div class="col-md-9 mx-auto my-2" id="autoScroll">
+		<div class="grid" id="grid">
+			<c:forEach var="product" items="${prdList}">
+				<div class="grid-item">
+					<a href="location.href='<%=request.getContextPath()%>/ProductDetailPage.Pd?prd_num=${product.prd_num}'">
+						<img src="resource/image/710cae15d1a6ea3efbedb8baf2319151-sticker.png">
+					</a>
+					<div class="overlay"> 
+						<h3>${product.prd_title}</h3>
+						<p> ${product.prd_content}</p>
+						<button id="like">좋아요</button>
+						${product.prd_num}
+						<button onclick="location.href='<%=request.getContextPath()%>/ProductDetailPage.Pd?prd_num=${product.prd_num}'">상세보기</button>
+					</div>	
+				</div>
+			</c:forEach>
+		</div>
+	</div>
+	
 	<!-- 지금은 예시를 보여줄라고 이렇게 많이 해놓은거 사실상 한 세트만 보면 됨 -->
 	<div class="col-md-9 mx-auto my-2" id="autoScroll">
 		<div class="grid" id="grid">
@@ -180,7 +203,6 @@
 	
 </body>
 <script src="resource/javascript/masonry.pkgd.min.js"></script>
-<script src="resource/javascript/infinite-scroll.pkgd.js"></script>
 <script>
 $('.grid').masonry({
 	  // options
