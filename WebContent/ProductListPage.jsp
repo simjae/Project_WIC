@@ -39,7 +39,7 @@
 		</form>
 	</div>
 	
-	<!-- prdList, filesList(JSTL) -->
+	<!-- prdList, filesList(JSTL) / test -->
 	<c:set var="prdList" value="${requestScope.productList}"/>
 	<c:set var="filesList" value="${requestScope.filesList}"/>
 	

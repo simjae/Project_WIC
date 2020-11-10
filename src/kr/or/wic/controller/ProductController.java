@@ -65,9 +65,11 @@ public class ProductController extends HttpServlet {
     	} else if (url_Command.equals("/ProductEditCancle.Pd")) { //상품 수정 취소 
     		
     	}   
-    	RequestDispatcher dis = request.getRequestDispatcher(forward.getPath());
-    	dis.forward(request, response);
-    
+    	
+    	if(forward != null) {
+	    	RequestDispatcher dis = request.getRequestDispatcher(forward.getPath());
+	    	dis.forward(request, response);
+    	}
     }
 
     
