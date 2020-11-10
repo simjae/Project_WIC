@@ -8,6 +8,7 @@
 %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,6 +26,10 @@
     <link href="resource/style/top-bottom/top-style.css" rel="stylesheet">
 </head>
 <body>
+	<c:set var="dto" value="${requestScope.dto}"/>
+	<c:set var="currentPage" value="${requestScope.currentPage}"/>
+	<c:set var="pageSize" value="${requestScope.pageSize}"/>
+
 	<!-- Header-->
 		<jsp:include page="WEB-INF/views/common/Top.jsp"></jsp:include>
 	<!-- /Header -->
@@ -53,27 +58,27 @@
       </div>
       <div class="row">
           <div class="col-md-12">
-                  <form action="#">
+                  <form action="<%=request.getContextPath()%>/csWrite.cs">
                       <fieldset class="p-4">
                           <div class="form-group">
                               <div class="row">
                                   <div class="col-lg-6 pt-2">
-                                    ID <input type="email" value="minchan@naver.com" class="form-control" readonly>
+                                    ID <input type="email" value="${dto.id}" class="form-control" readonly id="id">
                                   </div>
                                   <div class="col-lg-6 py-2">
-                                    NAME <input type="text" value="minchan" class="form-control" readonly>
+                                    NAME <input type="text" value="${dto.name}" class="form-control" readonly id="name">
                                   </div>
                                 </div>    
                           </div>   
                             SUBJECT
-                            <input type="text" placeholder="subject *" class="form-control" required>
+                            <input type="text" placeholder="subject *" class="form-control" required id="title">
                             <br>
-                          <textarea name="message" id=""  placeholder="Message *" class="border w-100 p-3 mt-3 mt-lg-4"></textarea>
+                          <textarea name="message"  placeholder="Message *" class="border w-100 p-3 mt-3 mt-lg-4" required id="content"></textarea>
                           <div class="btn-grounp">
                               <button type="summit" class="btn btn-primary mt-2 float-right">작성하기</button>
-                              <a href="minchan.html">
-                              <imput type="button" class="btn btn-primary mt-2">뒤로가기</button>
-                              </a>
+                              <a href="<%=request.getContextPath()%>/csPage.cs?currentPage=${currentPage}&pageSize=${pageSize}">
+                              	<input type="button" class="btn btn-primary mt-2" value="뒤로가기">
+                         	  </a>
                           </div>
                       </fieldset>
                   </form>
