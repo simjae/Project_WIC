@@ -68,7 +68,7 @@
 						채채니<br>
 						<i id="heart" class="far fa-heart"></i><span id="cnt">100</span>
 					</div>
-					<button id="edit" class="btn btn-primary">글수정</button>
+					<button id="edit" class="btn btn-primary" onclick="location.href='<%=request.getContextPath()%>/ProductEdit.Pd'">글수정</button>
 				</div>
 			</div>
 			<div class="mb-3">
