@@ -6,7 +6,6 @@ public class CustomerServiceDTO {
 	private int cs_num;
 	private String cs_title;
 	private String cs_content;
-	private String cs_file;
 	private int cs_reffer;
 	private int cs_depth;
 	private int cs_step;
@@ -32,12 +31,7 @@ public class CustomerServiceDTO {
 	public void setCs_content(String cs_content) {
 		this.cs_content = cs_content;
 	}
-	public String getCs_file() {
-		return cs_file;
-	}
-	public void setCs_file(String cs_file) {
-		this.cs_file = cs_file;
-	}
+
 	public int getCs_reffer() {
 		return cs_reffer;
 	}
@@ -83,7 +77,7 @@ public class CustomerServiceDTO {
 	@Override
 	public String toString() {
 		return "CustumoerServiceDTO [cs_num=" + cs_num + ", cs_title=" + cs_title + ", cs_content=" + cs_content
-				+ ", cs_file=" + cs_file + ", cs_reffer=" + cs_reffer + ", cs_depth=" + cs_depth + ", cs_step="
+				+ ", cs_reffer=" + cs_reffer + ", cs_depth=" + cs_depth + ", cs_step="
 				+ cs_step + ", cs_count=" + cs_count + ", cs_date=" + cs_date + ", cs_notice=" + cs_notice + ", id="
 				+ id + "]";
 	}
