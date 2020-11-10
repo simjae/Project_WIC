@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.or.wic.action.Action;
 import kr.or.wic.action.ActionForward;
+import kr.or.wic.dao.ProductDAO;
 
 public class ProductFileDeleteAjaxAction implements Action {
 
@@ -22,6 +23,9 @@ public class ProductFileDeleteAjaxAction implements Action {
 		
 		if(deleteFile.exists()) {
 			deleteFile.delete();
+			ProductDAO dao = new ProductDAO();
+			dao.deleteFile(filename);
+		
 		}else {
 			
 		}

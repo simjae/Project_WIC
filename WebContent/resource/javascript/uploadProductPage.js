@@ -10,18 +10,19 @@ $(function(){
 		e.stopPropagation();
 		e.preventDefault();
 	}).on("drop",function(e){
+		var files= e.originalEvent.dataTransfer.files;
 		e.preventDefault();
    		$("input[type='file']")
-        .prop("files", e.originalEvent.dataTransfer.files)  // put files into element
+        .prop("files", files)  // put files into element
         .closest("form")
         .submit();  // autosubmit as well
 		$(this).removeClass('drag-over');
-		var files= e.originalEvent.dataTransfer.files;
 		console.log(files);
 		thumbnail(files)
 		
 		var formData = new FormData();
 		formData.append('upload-file', files[0], files.name);
+		
 		
 		$.ajax({
 		url: 'fileUpload.Ajax',
@@ -30,7 +31,7 @@ $(function(){
 		contentType : false,
 		processData: false,
 		success : function(ret) {
-		
+			console.log(ret);
 		}
 		});
 		
@@ -126,14 +127,5 @@ $(function(){
 		reader.readAsDataURL(file);
 	};
 	
-	$("#submit").click(function(){
-
-		
-
-
-		
-        console.log(formData);
-
-	})
 	
 })

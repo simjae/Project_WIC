@@ -27,7 +27,7 @@
 		<div class="row py-4">
 			<h1 class="mx-auto py-4 ">Product</h1>
 		</div>
-		<form action="<%=request.getContextPath()%>/uploadProduct.Pd" enctype="multipart/form-data" method="post" id="upload">
+		<form action="<%=request.getContextPath()%>/uploadProduct.Pd" method="post" id="upload">
 			<div class="row">
 				<div class="col-md-6">
 					<div class="container">
@@ -66,9 +66,8 @@
 						<p class="mt-4" style="text-align:center;"> Drag file Or Click to add files</p>
 						
 						</div>
-					
-						<input type="file" id="fileProfile" name="fileProfile" accept="image/*" multiple>
-						<div id="thumbnails" class="col-md-12 row mr-0 ml-0">
+						
+						<div id="thumbnails" class="col-md-12 row mr-0 ml-0 mb-3">
 							
 						</div>
 					</div>
@@ -76,6 +75,7 @@
 				
 			</div>
 		</form>
+		<input type="file" id="fileProfile" name="fileProfile" accept="image/*" multiple hidden>
 	</div>
 	<jsp:include page="WEB-INF/views/common/Bottom.jsp"></jsp:include>
 
