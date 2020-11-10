@@ -38,17 +38,24 @@ public class ManageController extends HttpServlet {
     	
     	if(url_Command.equals("managePage.Mg")) { //관리자 페이지 
     		
+    		
     	} else if (url_Command.equals("manageMemberPage.Mg")) { //회원 리스트 페이지 
+    		
     		
     	} else if (url_Command.equals("manageMemeberDetailPage.Mg")) { //회원 상세페이지 
     		
+    		
     	} else if (url_Command.equals("manageMemberEditPage.Mg")) { //회원 정보 수정페이지 
+    		
     		
     	} else if (url_Command.equals("manageMemberEdit.Mg")) { //회원 정보 수정 
     		
+    		
     	} else if (url_Command.equals("manageMemberEditCancle.Mg")) { //회원 정보 수정 취소
     		
+    		
     	} else if (url_Command.equals("manageMemberDelete.Mg")) { //회원 삭제
+    		
     		
     	} 
     	

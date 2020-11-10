@@ -57,8 +57,10 @@
 					</div>
 				</div>
 				<div class="col-md-6">
-				<input class="mx-auto" type="submit" id="submit" name="submit" value="UPLOAD">
-				<input class="mx-auto" type="reset" id="reset" name="reset" value="CANCLE">
+				<div class =" row">
+				<input class="col-md-3 mx-auto mb-3" type="submit" id="submit" name="submit" value="UPLOAD">
+				<input class="col-md-3 mx-auto mb-3" type="reset" id="reset" name="reset" value="CANCLE">
+				</div>
 					<div class="col-md-10 mx-auto" id="drop">
 						<div class="col-md-12 mx-auto mt-3" id="file_add">
 						<p class="mt-4" style="text-align:center;"> Drag file Or Click to add files</p>

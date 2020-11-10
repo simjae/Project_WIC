@@ -70,6 +70,13 @@ $(function(){
 		uploadFiles[idx].upload='disable';
 		$target.parent().remove();
 		
+		$.ajax({
+			url:'fileDelete.Ajax',
+			data: {filename:uploadFiles[idx].name},
+			type: 'post'
+			
+		});
+		
 	})
 	
 	

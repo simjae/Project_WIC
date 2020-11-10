@@ -42,13 +42,18 @@ public class AjaxController extends HttpServlet {
     	
     	if(url_Command.equals("idCheck.Ajax")) { //아이디 중복체크
     		
+    		
     	} else if (url_Command.equals("myCartPage.Ajax")) { //찜 내역(상품)
+    		
     		
     	} else if (url_Command.equals("mySale.Ajax")) { //판매내역
     		
+    		
     	} else if (url_Command.equals("csNoticeList.Ajax")) { //고객센터 분류(공지사항)
     		
+    		
     	} else if (url_Command.equals("csQNAList.Ajax")) { //고객센터 분류(QnA)
+    		
     		
     	} else if (url_Command.equals("/fileUpload.Ajax")) { //파일업로드
     		action = new ProductUploadAjaxAction();
