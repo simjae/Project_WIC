@@ -69,31 +69,16 @@ $(function(){
     	var fileList = input.files;
     	
         console.log($("#fileProfile").val());
-    	console.log(fileList);
+		
     	thumbnail(fileList);
     	
         $("#fileProfile").val();
-      var frm = document.getElementById('upload');
+        var frm = document.getElementById('upload');
         var fileData = new FormData(frm);
         console.log(fileData);
-        
-        frm.method = 'POST';
-        frm.enctype = 'multipart/form-data';
+        fileList.push(filData);
+    	console.log(typeof(fileList));
        
-        
-        /* $.ajax({
-            type:'POST',
-            url:'/BoardProject/profileUpdate.ref',
-            data:fileData,
-            processData: false,
-            contentType: false,
-            success : function(data, textStatus, xhr) {
-                console.log('success');
-            },
-            error : function(request,status,error) {  
-               alert("code:"+request.status+"\n"+"error:"+error);
-            }
-        }); */
 	
 	}))
-});
+})

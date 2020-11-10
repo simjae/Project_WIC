@@ -65,7 +65,7 @@
 						
 						</div>
 
-						<input type="file" id="fileProfile" name="fileProfile" accept="image/*">
+						<input type="file" id="fileProfile" name="fileProfile" accept="image/*" multiple/>
 						<div id="thumbnails" class="col-md-12 row mr-0 ml-0">
 							
 						</div>
