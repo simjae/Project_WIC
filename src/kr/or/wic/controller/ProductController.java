@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import kr.or.wic.action.Action;
 import kr.or.wic.action.ActionForward;
 import kr.or.wic.service.ProductEditAction;
+import kr.or.wic.service.ProductListPageAction;
 import kr.or.wic.service.ProductUploadAction;
 
 /*
@@ -47,7 +48,8 @@ public class ProductController extends HttpServlet {
     	} else if (url_Command.equals("uploadProductCancle.Pd")) { //상품 등록 취소  
     		
     	} else if (url_Command.equals("ProductListPage.Pd")) { //상품 목록 페이지
-    		
+    		action = new ProductListPageAction();
+    		forward = action.execute(request, response);
     	} else if (url_Command.equals("ProductDetailPage.Pd")) { //상품 상세 페이지 
     		
     	} else if (url_Command.equals("ProductAskPage.Pd")) { //상품 문의하기 페이지 

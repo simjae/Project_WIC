@@ -10,7 +10,7 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html>
@@ -38,7 +38,39 @@
 			</div>
 		</form>
 	</div>
-	<c:set var="list" value="${requestScope.}"/>
+	
+	
+	
+	<!-- !TEST! product, file 리스트(JSTL) -->
+	<c:set var="prdList" value="requestScope.productList"/>
+	<c:set var="fileList" value="requestScope.filesList"/>
+	
+	<c:forEach var="product" items="${prdList}">
+		<div class="col-md-9 mx-auto my-2" id="autoScroll">
+			<div class="grid" id="grid">
+				<div class="grid-item">
+					<a href="<%=request.getContextPath()%>/ProductDetailPage.Pd?prd_num=${product.prd_num}">
+						<c:forEach var="file" items="${filesList}">
+							<c:choose>
+								<c:when test="${file.prd_num == product.prd_num}">
+									<img src="upload/${file.filename}">
+								</c:when>
+							</c:choose>
+						</c:forEach>
+					</a>
+					<div class="overlay"> 
+						<h3>${product.prd_title}</h3>
+						<p>${product.prd_content}</p>
+						<button id="like">좋아요</button>
+					</div>	
+				</div>
+			</div>
+		</div>
+	</c:forEach>
+	
+	
+	
+	
 	<!-- 지금은 예시를 보여줄라고 이렇게 많이 해놓은거 사실상 한 세트만 보면 됨 -->
 	<div class="col-md-9 mx-auto my-2" id="autoScroll">
 		<div class="grid" id="grid">

@@ -32,7 +32,7 @@ public class ProductDAO {
 		}
 	}
 	
-	//1.상품정보 보기(return the product list)
+	//1.상품정보 조회(return the product list)
 	public List<ProductDTO> getAllProductList(){
 		List<ProductDTO> productList = new ArrayList<ProductDTO>();
 		
@@ -54,6 +54,41 @@ public class ProductDAO {
 				product.setPrd_state(rs.getInt("prd_state"));
 				product.setPrd_count(rs.getInt("prd_count"));
 				product.setCloset_num(rs.getInt("closet_num"));
+				
+				productList.add(product);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return productList;
+	}
+	
+	//1-1.상품정보 조회(ProductListPage 정보만 조회(prd_num, prd_title, prd_content)
+	//(굳이 세개만 조회해야 하나? 이게 효율이 좋나, 아니면 그냥 정보 조회 모두 한 다음에 prd객체에서 해당 정보만 뽑아 오는 것이 좋나?)
+	public List<ProductDTO> getProductNumTitleContentList(){
+		List<ProductDTO> productList = new ArrayList<ProductDTO>();
+		
+		try {
+			conn = ds.getConnection();
+			
+			String sql = "select prd_num, prd_title, prd_content from product";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				ProductDTO product = new ProductDTO();
+				
+				product.setPrd_num(rs.getInt("prd_num"));
+				product.setPrd_title(rs.getString("prd_title"));
+				product.setPrd_content(rs.getString("prd_content"));
 				
 				productList.add(product);
 			}
@@ -183,7 +218,7 @@ public class ProductDAO {
 		int row =0;
 		
 		try {
-			conn = ds.getConnection(); //prd_title, prd_price, prd_content, prd_state,
+			conn = ds.getConnection();
 			String sql = "update product set prd_title=? , prd_price=? , prd_content=? , prd_state=? where prd_num=?";
 			pstmt = conn.prepareStatement(sql);
 			
