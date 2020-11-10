@@ -39,37 +39,28 @@
 		</form>
 	</div>
 	
+	<!-- prdList, filesList(JSTL) -->
+	<c:set var="prdList" value="${requestScope.productList}"/>
+	<c:set var="filesList" value="${requestScope.filesList}"/>
 	
-	
-	<!-- !TEST! product, file 리스트(JSTL) -->
-	<c:set var="prdList" value="requestScope.productList"/>
-	<c:set var="fileList" value="requestScope.filesList"/>
-	
-	<c:forEach var="product" items="${prdList}">
-		<div class="col-md-9 mx-auto my-2" id="autoScroll">
-			<div class="grid" id="grid">
+	<div class="col-md-9 mx-auto my-2" id="autoScroll">
+		<div class="grid" id="grid">
+			<c:forEach var="product" items="${prdList}">
 				<div class="grid-item">
-					<a href="<%=request.getContextPath()%>/ProductDetailPage.Pd?prd_num=${product.prd_num}">
-						<c:forEach var="file" items="${filesList}">
-							<c:choose>
-								<c:when test="${file.prd_num == product.prd_num}">
-									<img src="upload/${file.filename}">
-								</c:when>
-							</c:choose>
-						</c:forEach>
+					<a href="location.href='<%=request.getContextPath()%>/ProductDetailPage.Pd?prd_num=${product.prd_num}'">
+						<img src="resource/image/710cae15d1a6ea3efbedb8baf2319151-sticker.png">
 					</a>
 					<div class="overlay"> 
 						<h3>${product.prd_title}</h3>
-						<p>${product.prd_content}</p>
+						<p> ${product.prd_content}</p>
 						<button id="like">좋아요</button>
+						${product.prd_num}
+						<button onclick="location.href='<%=request.getContextPath()%>/ProductDetailPage.Pd?prd_num=${product.prd_num}'">상세보기</button>
 					</div>	
 				</div>
-			</div>
+			</c:forEach>
 		</div>
-	</c:forEach>
-	
-	
-	
+	</div>
 	
 	<!-- 지금은 예시를 보여줄라고 이렇게 많이 해놓은거 사실상 한 세트만 보면 됨 -->
 	<div class="col-md-9 mx-auto my-2" id="autoScroll">
@@ -212,7 +203,6 @@
 	
 </body>
 <script src="resource/javascript/masonry.pkgd.min.js"></script>
-<script src="resource/javascript/infinite-scroll.pkgd.js"></script>
 <script>
 $('.grid').masonry({
 	  // options

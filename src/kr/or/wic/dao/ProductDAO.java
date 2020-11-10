@@ -78,14 +78,12 @@ public class ProductDAO {
 		
 		try {
 			conn = ds.getConnection();
-			
 			String sql = "select prd_num, prd_title, prd_content from product";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
 				ProductDTO product = new ProductDTO();
-				
 				product.setPrd_num(rs.getInt("prd_num"));
 				product.setPrd_title(rs.getString("prd_title"));
 				product.setPrd_content(rs.getString("prd_content"));
@@ -151,8 +149,7 @@ public class ProductDAO {
 		ProductDTO product = new ProductDTO();
 		try {
 			conn = ds.getConnection();
-			String sql = "select prd_title, prd_price, prd_date, prd_content, prd_state, prd_count, closet_num"
-						+ "from product where prd_num=?";
+			String sql = "select prd_title, prd_price, prd_date, prd_content, prd_state, prd_count, closet_num from product where prd_num=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, prd_num);
 			rs = pstmt.executeQuery();
@@ -177,6 +174,7 @@ public class ProductDAO {
 				e.printStackTrace();
 			}
 		}
+		System.out.println(product);
 		return product;
 	}
 	

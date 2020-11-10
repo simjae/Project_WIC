@@ -76,7 +76,7 @@ public class FilesDAO {
 		try {
 			conn = ds.getConnection();
 			
-			String sql = "select files_num, prd_num from files";
+			String sql = "select files_name, prd_num from files";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
@@ -85,7 +85,6 @@ public class FilesDAO {
 				
 				file.setFiles_name(rs.getString("files_name"));
 				file.setPrd_num(rs.getInt("prd_num"));
-				
 				filesList.add(file);
 			}
 		} catch (SQLException e) {
