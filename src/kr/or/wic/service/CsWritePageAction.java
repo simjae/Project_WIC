@@ -14,7 +14,7 @@ public class CsWritePageAction implements Action{
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		
 		
-		String id=null;
+		String id="";
 		int currentPage = 1;
 		int pageSize = 10;
 		
@@ -35,7 +35,7 @@ public class CsWritePageAction implements Action{
 		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("pageSize", pageSize);
 		
-		
+		System.out.println("CsWritePageAction");
 		ActionForward forward = new ActionForward();
 		forward.setPath("CsWritePage.jsp");
 		System.out.println("csWritePageAction 실행 완료");

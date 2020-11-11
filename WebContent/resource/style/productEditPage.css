@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+#prdEditSubmit{
+	color: #000000;
+	font-weight: bold;
+	font-size: 1.2rem;
+	background-color: #ffffff9e;
+	border: 1px solid #ffffff;
+	border-radius: 5px;
+	font-family: 'Montserrat', sans-serif;
+}
+#prdEditSubmit:hover {
+	background-color: #ffffff;
+	border: 1px solid #ffffff;
+	cursor: pointer;
+}

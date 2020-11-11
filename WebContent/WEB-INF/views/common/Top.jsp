@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    
 <!DOCTYPE html>
 
 <head>
@@ -10,15 +12,31 @@
     <title>Document</title>
 </head>
 <body>
-
+	<c:set var="id" value="${sessionScope.id }"/>
     <header>
     	<nav id="topNav">
         <ul>
             <li class="logo">WIC</li>
             <div class="items">
-                <li><a href="#">HOME</a></li>
-                <li><a href="#">MY CLOSET</a></li>
-                <li><a href="#">LOGIN/REGISTER</a></li>
+            <c:choose >
+            	<c:when test="${not empty id }">
+	            	<c:if test="${id=='admin@admin.com'}">
+	                <li><a href="<%=request.getContextPath()%>/mainPage.my">HOME</a></li>
+	                <li><a href="<%=request.getContextPath()%>/myPage.my">MY CLOSET</a></li>
+	                <li><a href="<%=request.getContextPath()%>/managePage.Mg">MANAGE</a></li>
+	                <li><a href="<%=request.getContextPath()%>/signOut.my">LOGOUT</a></li>
+	                </c:if>
+	                <c:if test="${id !='admin@admin.com' }">
+	                <li><a href="<%=request.getContextPath()%>/mainPage.my">HOME</a></li>
+	                <li><a href="<%=request.getContextPath()%>/myPage.my">MY CLOSET</a></li>
+	                <li><a href="<%=request.getContextPath()%>/signOut.my">LOGOUT</a></li>
+	                </c:if>
+	                </c:when>
+                <c:otherwise>
+                <li><a href="<%=request.getContextPath()%>/mainPage.my">HOME</a></li>
+                <li><a href="<%=request.getContextPath()%>/signUpPage.my">SIGN UP/REGISTER</a></li>
+                </c:otherwise>
+            </c:choose>   
             </div>
             <li class="search-icon">
                 <form action="#">
@@ -30,4 +48,4 @@
     </nav>
     </header>
 </body>
-</html>
+</html> 

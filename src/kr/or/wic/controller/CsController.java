@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import kr.or.wic.action.Action;
 import kr.or.wic.action.ActionForward;
 import kr.or.wic.service.CsPageAction;
+import kr.or.wic.service.CsWriteAction;
 import kr.or.wic.service.CsWritePageAction;
 
 /*
@@ -33,7 +34,6 @@ public class CsController extends HttpServlet {
     	String contextPath = request.getContextPath();
     	String url_Command = requestURI.substring(contextPath.length());
     	
-    	String viewpage="";
     	
     	Action action = null;
     	ActionForward forward = null;
@@ -46,15 +46,19 @@ public class CsController extends HttpServlet {
     	} else if (url_Command.equals("/csWritePage.cs")) { //고객센터 글쓰기 페이지
     		System.out.println("csWritePage.cs 컨트롤러 탄다!");
     		action = new CsWritePageAction();
+    		System.out.println("csWritePage.cs 컨트롤러 끝!");
     		forward = action.execute(request, response);
     	
-    	} else if (url_Command.equals("csWrite.cs")) { //고객센터 글쓰기
+    	} else if (url_Command.equals("/csWrite.cs")) { //고객센터 글쓰기
     		System.out.println("csWrite.cs 컨트롤러 탄다!");
-    		action = new CsWritePageAction();
+    		action = new CsWriteAction();
+    		System.out.println("컨트롤러 실행완료");
     		forward = action.execute(request, response);
-    	
-    	} else if (url_Command.equals("csWriteCancle.cs")) { //고객센터 글쓰기 취소
-    		
+    	} else if (url_Command.equals("/csDetailPage.cs")) { //고객센터 글쓰기 취소
+    		System.out.println("csWrite.cs 컨트롤러 탄다!");
+    		action = new CsWriteAction();
+    		System.out.println("컨트롤러 실행완료");
+    		forward = action.execute(request, response);
     	} 
     	
     	RequestDispatcher dis = request.getRequestDispatcher(forward.getPath());

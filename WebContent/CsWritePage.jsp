@@ -63,19 +63,20 @@
                           <div class="form-group">
                               <div class="row">
                                   <div class="col-lg-6 pt-2">
-                                    ID <input type="email" value="${dto.id}" class="form-control" readonly id="id">
+                                    ID <input type="email" value="${dto.id}" class="form-control" readonly name="id">
                                   </div>
                                   <div class="col-lg-6 py-2">
-                                    NAME <input type="text" value="${dto.name}" class="form-control" readonly id="name">
+                                    NAME <input type="text" value="${dto.name}" class="form-control" readonly name="name">
                                   </div>
                                 </div>    
                           </div>   
                             SUBJECT
-                            <input type="text" placeholder="subject *" class="form-control" required id="title">
+                            <input type="text" placeholder="subject *" class="form-control" required name="title">
                             <br>
-                          <textarea name="message"  placeholder="Message *" class="border w-100 p-3 mt-3 mt-lg-4" required id="content"></textarea>
+                          <textarea  placeholder="Message *" class="border w-100 p-3 mt-3 mt-lg-4" required name="content"></textarea>
                           <div class="btn-grounp">
                               <button type="summit" class="btn btn-primary mt-2 float-right">작성하기</button>
+                          
                               <a href="<%=request.getContextPath()%>/csPage.cs?currentPage=${currentPage}&pageSize=${pageSize}">
                               	<input type="button" class="btn btn-primary mt-2" value="뒤로가기">
                          	  </a>

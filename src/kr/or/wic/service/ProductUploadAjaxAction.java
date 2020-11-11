@@ -1,6 +1,7 @@
 package kr.or.wic.service;
 
 import java.io.IOException;
+import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,6 +11,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import kr.or.wic.action.Action;
 import kr.or.wic.action.ActionForward;
+import kr.or.wic.dao.ProductDAO;
 
 public class ProductUploadAjaxAction implements Action{
 
@@ -35,6 +37,15 @@ public class ProductUploadAjaxAction implements Action{
 			e.printStackTrace();
 			System.out.println("여긴가?");
 		} //파일 업로드 완료
+		String filename ="";
+		
+		Enumeration filenames = multi.getFileNames();	
+		String file = (String)filenames.nextElement();
+		filename = multi.getFilesystemName(file);
+		System.out.println(filename);
+		
+		ProductDAO dao = new ProductDAO();
+		dao.updateFile(filename, uploadpath+"/"+filename);
 		
 		return null;
 	}

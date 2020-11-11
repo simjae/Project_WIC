@@ -43,6 +43,7 @@ public class ProductListPageAction implements Action{
 		//이동경로(viewpage)
 		viewpage = "ProductListPage.jsp";
 		forward.setPath(viewpage);
+		
 		return forward;
 	}
 

@@ -155,6 +155,7 @@ public class ProductDAO {
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
+				product.setPrd_num(prd_num);
 				product.setPrd_title(rs.getString("prd_title"));
 				product.setPrd_price(rs.getInt("prd_price"));
 				product.setPrd_date(rs.getDate("prd_date"));
@@ -174,7 +175,6 @@ public class ProductDAO {
 				e.printStackTrace();
 			}
 		}
-		System.out.println(product);
 		return product;
 	}
 	
@@ -250,6 +250,67 @@ public class ProductDAO {
 			pstmt.setInt(1, prd_num);
 			row = pstmt.executeUpdate();
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return row;
+	}
+	
+	//6.파일 등록 (upload the file)
+	public int updateFile(String files_name, String files_path) {
+		int row = 0;
+		
+		try {
+			conn = ds.getConnection();
+			String sql = "select max(prd_num) from product";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			
+			if(rs.next()) {
+				
+				System.out.println("maxprdnum: " + rs.getInt("max(prd_num)"));
+				sql = "insert into files (files_num,files_name,files_path,prd_num) values(prd_num.nextval,?,?,?)";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, files_name);
+				pstmt.setString(2, files_path);
+				pstmt.setInt(3, rs.getInt("max(prd_num)"));
+				row = pstmt.executeUpdate();
+				
+			}else {
+				System.out.println("rs 없음 ");
+			}
+			
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return row;
+	}
+	
+	public int deleteFile(String files_name) {
+		int row=0;
+		try {
+			conn = ds.getConnection();
+			String sql = "delete from files where files_name=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, files_name);
+			row = pstmt.executeUpdate();
+			
+		}catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			try {

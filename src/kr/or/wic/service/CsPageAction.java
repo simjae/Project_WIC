@@ -17,29 +17,45 @@ public class CsPageAction implements Action{
 		
 		CustomerServiceDAO dao = new CustomerServiceDAO();
 		
-		int currentPage = 1;
-		int pageSize = 10;
-		int pageCount = 0;
-		int csListCount = dao.getCsListCount();
-		
+		int currentPage = 1;	//현재페이지
+		int pageSize = 10;		//페이지 사이즈
+		int maxPageCount = 0;		//총 페이지 수
+		int csListCount = dao.getCsListCount();	//총 게시글 수 
+
+		//현재 페이지 재설정
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			System.out.println();
 		}
+		
+		//페이지 사이즈 재설정
 		if(request.getParameter("pageSize") != null) {
 			pageSize = Integer.parseInt(request.getParameter("pageSize"));
 		}
+		
+		//총 페이지 수(with 총 게시물 수와 페이지 사이즈)
 		if (csListCount % pageSize == 0) { 
-			pageCount = csListCount / pageSize;
+			maxPageCount = csListCount / pageSize;
 		} else {
-			pageCount = (csListCount / pageSize) + 1;
+			maxPageCount = (csListCount / pageSize) + 1;
 		}
 		
+		
+		int startPage =  ((currentPage-1)/5)*5+1;	//하단 페이징 시작 번호
+		int endPage = startPage + 5 -1; //하단 페이징 끝 번호
+		if(endPage > maxPageCount){
+			endPage = maxPageCount;
+		}
+
 		List<CustomerServiceDTO> csList = dao.getCsList(currentPage, pageSize);
 		
 		request.setAttribute("csList", csList);
 		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("pageSize", pageSize);
-		request.setAttribute("pageCount", pageCount);
+		request.setAttribute("maxPageCount", maxPageCount);
+		request.setAttribute("startPage", startPage);
+		request.setAttribute("endPage", endPage);
+		
 		
 		ActionForward forward = new ActionForward();
 		forward.setPath("CsPage.jsp");
