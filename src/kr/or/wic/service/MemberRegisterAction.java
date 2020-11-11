@@ -60,7 +60,7 @@ public class MemberRegisterAction implements Action{
 			
 			
 			if(result != 0) {
-				viewpage = "Index.html";
+				viewpage = "Main.jsp";
 			}else {
 				viewpage = "loginRegister.jsp";
 			}

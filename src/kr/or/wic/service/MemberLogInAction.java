@@ -38,7 +38,7 @@ public class MemberLogInAction implements Action{
 		} else if(memberDto.getPwd() ==null) {
 			viewpage = "loginRegister.jsp";
 		} else {
-			viewpage = "Index.html";
+			viewpage = "Main.jsp";
 			HttpSession session = request.getSession();
 			session.setAttribute("id", memberDto.getId());	
 			System.out.println("signed in");

@@ -14,6 +14,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
 	integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhnd0JK28anvf"
@@ -35,7 +36,7 @@
 			<div>
 				<div style="width: 100%;">
 					<input type="email" id="id" name="id" placeholder="email@email.com" />
-					<input type="button" id="check_btn" name="check_btn" value="Check" />
+					<input type="button" id="check_btn" class="check_btn" name="check_btn" value="Check" />
 				</div>
             <input type="password" id="pwd" name="pwd" placeholder="Password" />
             <input type="text" id="name" name="name" placeholder="UserName" />
