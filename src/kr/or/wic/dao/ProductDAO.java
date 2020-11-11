@@ -271,16 +271,23 @@ public class ProductDAO {
 			String sql = "select max(prd_num) from product";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
+			
+			
 			if(rs.next()) {
-				sql = "insert into files (files_num,files_name,files_path,prd_num) valuse(next.val(),?,?,?)";
+				
+				System.out.println("maxprdnum: " + rs.getInt("max(prd_num)"));
+				sql = "insert into files (files_num,files_name,files_path,prd_num) values(prd_num.nextval,?,?,?)";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, files_name);
 				pstmt.setString(2, files_path);
-				pstmt.setInt(3, rs.getInt("max(prd_num)")+1);
+				pstmt.setInt(3, rs.getInt("max(prd_num)"));
+				row = pstmt.executeUpdate();
+				
+			}else {
+				System.out.println("rs 없음 ");
 			}
 			
 		
-			row = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
