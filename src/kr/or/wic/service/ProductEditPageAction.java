@@ -6,15 +6,10 @@ import javax.servlet.http.HttpServletResponse;
 import kr.or.wic.action.Action;
 import kr.or.wic.action.ActionForward;
 import kr.or.wic.dto.ProductDTO;
-import kr.or.wic.dao.MemberDAO;
 import kr.or.wic.dao.ProductDAO;
 
-public class ProductEditAction implements Action{
-/*
- * 
- * 수정예정!!!!!
- * 
- */
+public class ProductEditPageAction implements Action{
+
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		response.setContentType("text/html;charset=UTF-8"); // 클라언트에게 전달한 페이지의 정보 구성
@@ -40,8 +35,7 @@ public class ProductEditAction implements Action{
 		ProductDTO product = dao.getProduct(prd_num);
 		request.setAttribute("product", product);
 		
-		//member 정보
-		MemberDAO mdao = new MemberDAO();
+		//
 		
 		//이동경로(viewpage)
 		viewpage = "ProductEditPage.jsp";

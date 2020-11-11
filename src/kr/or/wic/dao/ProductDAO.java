@@ -155,6 +155,7 @@ public class ProductDAO {
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
+				product.setPrd_num(prd_num);
 				product.setPrd_title(rs.getString("prd_title"));
 				product.setPrd_price(rs.getInt("prd_price"));
 				product.setPrd_date(rs.getDate("prd_date"));
@@ -174,7 +175,6 @@ public class ProductDAO {
 				e.printStackTrace();
 			}
 		}
-		System.out.println(product);
 		return product;
 	}
 	

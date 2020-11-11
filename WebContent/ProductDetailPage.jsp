@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -68,18 +69,19 @@
 						채채니<br>
 						<i id="heart" class="far fa-heart"></i><span id="cnt">100</span>
 					</div>
-					<button id="edit" class="btn btn-primary" onclick="location.href='<%=request.getContextPath()%>/ProductEdit.Pd'">글수정</button>
+					<!-- product 객체(JSTL) -->
+					<c:set var="product" value="${requestScope.product}"></c:set>
+					<button id="edit" class="btn btn-primary" onclick="location.href='<%=request.getContextPath()%>/ProductEditPage.Pd?prd_num=${product.prd_num}'">글수정</button>
 				</div>
 			</div>
 			<div class="mb-3">
-				<h3 id="title">에르메스 트윌리 데르메스</h3>
+				<h3 id="title">${product.prd_title}</h3>
 			</div>
 			<div class="mb-2">
-				<h5 id="price">90,000원<span id="location">서울시 강남구</span></h5>
+				<h5 id="price">${product.prd_price}<span id="location">서울시 강남구</span></h5>
 			</div>
 			<div class="mb-4 description">
-				상품 상세 설명에 대한 내용을 적는 공간임..상품 상세 설명에 대한 내용을 적는 공간임..상품 상세 설명에 대한 내용을 적는 공간임..
-				상품 상세 설명에 대한 내용을 적는 공간임..상품 상세 설명에 대한 내용을 적는 공간임..상품 상세 설명에 대한 내용을 적는 공간임..
+				${product.prd_content}
 			</div>
 			<div class="mb-2 d-flex justify-content-between">
 				<span class="prdReply">상품문의</span>
