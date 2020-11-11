@@ -19,12 +19,12 @@ import kr.or.wic.dto.MemberDTO;
 public class MemberRegisterAction implements Action{
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response){
+		System.out.println("member register action");
 		ClosetDAO closetDao = new ClosetDAO();
-		ClosetDTO closetDto = new ClosetDTO();
 		MemberDAO memberDao = new MemberDAO();
 		MemberDTO memberDto = new MemberDTO();
+		int result_closet=0;
 		int result = 0;
-		int result2 = 0;
 		
 		String uploadpath = request.getSession().getServletContext().getRealPath("upload");
 		int filesize = 10 * 1024 * 1024; // 10M
@@ -53,17 +53,20 @@ public class MemberRegisterAction implements Action{
 		memberDto.setAddr(multi.getParameter("addr"));
 		memberDto.setProfile_pic(filename);
 		
-		result = closetDao.createCloset(closetDto);
-		result2 = memberDao.insertMember(memberDto);
-		
+		result_closet = closetDao.createCloset();
 		String viewpage ="";
-		if(result != 0) {
-			viewpage = "Index.html";
-		}else {
-			viewpage = "loginRegister.jsp";
+		if(result_closet!=0) {
+			result = memberDao.insertMember(memberDto);
+			
+			
+			if(result != 0) {
+				viewpage = "Index.html";
+			}else {
+				viewpage = "loginRegister.jsp";
+			}
+			
 		}
 		
-		//이동경로(viewpage)
 		ActionForward forward = new ActionForward();
 		forward.setPath(viewpage);
 		

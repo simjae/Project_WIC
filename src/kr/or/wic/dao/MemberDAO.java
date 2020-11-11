@@ -38,9 +38,7 @@ public class MemberDAO {
 		try {
 			conn = ds.getConnection();
 			
-			//closetDAO호출 >> closet insert >> member insert
-		
-			String sql = "insert into member(id,pwd,name,addr,profile_pic,closet_num) values(?,?,?,?,?,?)";
+			String sql = "insert into member(id,pwd,name,addr,profile_pic,closet_num) values(?,?,?,?,?,closet_seq.currval)";
 
 			pstmt = conn.prepareStatement(sql);
 
@@ -49,7 +47,7 @@ public class MemberDAO {
 			pstmt.setString(3, memberdto.getName());
 			pstmt.setString(4, memberdto.getAddr());
 			pstmt.setString(5, memberdto.getProfile_pic());
-			pstmt.setInt(6, closetDto.getCloset_num());
+			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("insertMember error");
@@ -95,7 +93,45 @@ public class MemberDAO {
 		System.out.println(result);
 		return result;
 	}
-
+	
+	
+	//sign In
+	public MemberDTO signedIn(String id, String pwd) {
+		MemberDTO memberDto = new MemberDTO();
+		
+		try {
+			conn = ds.getConnection();
+			String sql = "select id, pwd from member where id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				if (pwd.equals(rs.getString("pwd"))) {
+					memberDto.setId(rs.getString("id"));
+					memberDto.setPwd(rs.getString("pwd"));
+				} else {
+					memberDto.setId(rs.getString("id"));
+					memberDto.setPwd(null);
+				}
+			} else {
+				memberDto.setPwd(null);
+				memberDto.setId(null);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return memberDto;
+	}
+	
 	public MemberDTO getMemberInfoForCs(String id) {
 
 		MemberDTO dto = new MemberDTO();
