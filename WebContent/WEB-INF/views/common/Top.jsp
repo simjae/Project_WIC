@@ -20,13 +20,13 @@
             <div class="items">
             <c:choose >
             	<c:when test="${not empty id }">
-	            	<c:if test="${id=='admin'}">
+	            	<c:if test="${id=='admin@admin.com'}">
 	                <li><a href="<%=request.getContextPath()%>/mainPage.my">HOME</a></li>
 	                <li><a href="<%=request.getContextPath()%>/myPage.my">MY CLOSET</a></li>
 	                <li><a href="<%=request.getContextPath()%>/managePage.Mg">MANAGE</a></li>
 	                <li><a href="<%=request.getContextPath()%>/signOut.my">LOGOUT</a></li>
 	                </c:if>
-	                <c:if test="${id !='admin' }">
+	                <c:if test="${id !='admin@admin.com' }">
 	                <li><a href="<%=request.getContextPath()%>/mainPage.my">HOME</a></li>
 	                <li><a href="<%=request.getContextPath()%>/myPage.my">MY CLOSET</a></li>
 	                <li><a href="<%=request.getContextPath()%>/signOut.my">LOGOUT</a></li>
@@ -34,8 +34,7 @@
 	                </c:when>
                 <c:otherwise>
                 <li><a href="<%=request.getContextPath()%>/mainPage.my">HOME</a></li>
-                <li><a href="<%=request.getContextPath()%>/signIn.my">MY CLOSET</a></li>
-                <li><a href="<%=request.getContextPath()%>/signIn.my">LOGIN</a></li>
+                <li><a href="<%=request.getContextPath()%>/signUpPage.my">SIGN UP/REGISTER</a></li>
                 </c:otherwise>
             </c:choose>   
             </div>
@@ -49,4 +48,4 @@
     </nav>
     </header>
 </body>
-</html>
+</html> 
