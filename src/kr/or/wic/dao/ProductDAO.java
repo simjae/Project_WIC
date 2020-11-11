@@ -11,6 +11,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import kr.or.wic.dto.ClosetDTO;
+import kr.or.wic.dto.FilesDTO;
 import kr.or.wic.dto.ProductDTO;
 
 public class ProductDAO {
@@ -78,17 +80,22 @@ public class ProductDAO {
 		
 		try {
 			conn = ds.getConnection();
-			String sql = "select prd_num, prd_title, prd_content from product";
+			String sql = "select p.prd_num, p.prd_title, p.prd_content f.files_name, f.files_path from product p join files f on p.prd_num = f.prd_num";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
 				ProductDTO product = new ProductDTO();
-				product.setPrd_num(rs.getInt("prd_num"));
-				product.setPrd_title(rs.getString("prd_title"));
-				product.setPrd_content(rs.getString("prd_content"));
+				product.setPrd_num(rs.getInt("p.prd_num"));
+				product.setPrd_title(rs.getString("p.prd_title"));
+				product.setPrd_content(rs.getString("p.prd_content"));
+				FilesDTO file = new FilesDTO();
+				file.setFiles_name(rs.getString("f.files_name"));
+				file.setFiles_path(rs.getString("f.files_path"));
+				product.setFiles(file);
 				
 				productList.add(product);
+				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -179,29 +186,57 @@ public class ProductDAO {
 	}
 	
 	//3.상품 정보 등록(insert the new product)
-	public int insertProduct(ProductDTO product) {
+	public int insertProduct(ProductDTO product,String id) {
 		int result = 0;
+	
 		try {
-			conn = ds.getConnection();
-			String sql = "insert into product(prd_num, prd_title, prd_price, prd_date, prd_content, prd_state, prd_count, closet_num)"
-						+ "values(?,?,?,?,?,?,?)";
-			
+			String sql = "select files_name from files where id = ? and prd_num is null";
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,id);
+			System.out.println(rs);
+			rs = pstmt.executeQuery();
 			
-			pstmt.setInt(1, product.getPrd_num());
-			pstmt.setString(2, product.getPrd_title());
-			pstmt.setInt(3, product.getPrd_price());
-			pstmt.setDate(4, (java.sql.Date)product.getPrd_date());
-			pstmt.setString(5, product.getPrd_content());
-			pstmt.setInt(6, product.getPrd_state());
-			pstmt.setInt(7, product.getPrd_count());
-			pstmt.setInt(8, product.getCloset_num());
 			
-			result = pstmt.executeUpdate();
+			if(rs.next()) {
+				sql = "delete from files where id=? and prd_num is null";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, id);
+				result = pstmt.executeUpdate();
+				
+			}
+			
+			sql ="select closet_num from member where id=?";
+			pstmt =conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			System.out.println(rs);
+			rs = pstmt.executeQuery();
+
+			
+			if(rs.next()) {
+				ClosetDTO cdto = new ClosetDTO();
+				cdto.setCloset_num(rs.getInt("closet_num"));
+				sql = "insert into product(prd_num, prd_title, prd_price, prd_date, prd_content, prd_state, prd_count, closet_num)"
+						+ "values(prd_num.nextval,?,?,sysdate,?,0,0,?)";
+				
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, product.getPrd_title());
+				pstmt.setInt(2, product.getPrd_price());
+				pstmt.setString(3, product.getPrd_content());
+				pstmt.setInt(4, cdto.getCloset_num());
+				result = pstmt.executeUpdate();
+				
+				sql = "update files set prd_num=prd_num.currval where prd_num is null and id=?";
+				pstmt.setString(1,id);
+				result = pstmt.executeUpdate();
+			}
+			
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			try {
+				rs.close();
 				pstmt.close();
 				conn.close();
 			} catch (SQLException e) {
@@ -263,30 +298,17 @@ public class ProductDAO {
 	}
 	
 	//6.파일 등록 (upload the file)
-	public int updateFile(String files_name, String files_path) {
+	public int updateFile(String files_name, String files_path, String id) {
 		int row = 0;
 		
 		try {
 			conn = ds.getConnection();
-			String sql = "select max(prd_num) from product";
+			String sql = "insert into files (files_num,files_name,files_path,id) values(filesNum.nextval,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-			
-			
-			if(rs.next()) {
-				
-				System.out.println("maxprdnum: " + rs.getInt("max(prd_num)"));
-				sql = "insert into files (files_num,files_name,files_path,prd_num) values(prd_num.nextval,?,?,?)";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, files_name);
-				pstmt.setString(2, files_path);
-				pstmt.setInt(3, rs.getInt("max(prd_num)"));
-				row = pstmt.executeUpdate();
-				
-			}else {
-				System.out.println("rs 없음 ");
-			}
-			
+			pstmt.setString(1, files_name);
+			pstmt.setString(2, files_path);
+			pstmt.setString(3, id);
+			row = pstmt.executeUpdate();
 		
 		} catch (SQLException e) {
 			e.printStackTrace();

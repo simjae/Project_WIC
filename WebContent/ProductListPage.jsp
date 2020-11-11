@@ -48,7 +48,7 @@
 			<c:forEach var="product" items="${prdList}">
 				<div class="grid-item">
 					<a href="location.href='<%=request.getContextPath()%>/ProductDetailPage.Pd?prd_num=${product.prd_num}'">
-						<img src="resource/image/710cae15d1a6ea3efbedb8baf2319151-sticker.png">
+						<img src="upload/${fileList.filename}"ß>
 					</a>
 					<div class="overlay"> 
 						<h3>${product.prd_title}</h3>

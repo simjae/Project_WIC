@@ -22,6 +22,7 @@ public class ProductUploadAjaxAction implements Action{
 		System.out.println(uploadpath);
 		int size = 1024*1024*10;
 		MultipartRequest multi=null;
+		String id = (String) request.getSession().getAttribute("id");
 		
 		try {
 			 multi = new MultipartRequest(
@@ -45,7 +46,7 @@ public class ProductUploadAjaxAction implements Action{
 		System.out.println(filename);
 		
 		ProductDAO dao = new ProductDAO();
-		dao.updateFile(filename, uploadpath+"/"+filename);
+		dao.updateFile(filename, uploadpath+"/"+filename,id);
 		
 		return null;
 	}
