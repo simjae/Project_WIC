@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.or.wic.action.Action;
 import kr.or.wic.action.ActionForward;
-import kr.or.wic.service.MemberCheckIdAction;
+import kr.or.wic.service.MemberLogInAction;
 import kr.or.wic.service.MemberRegisterAction;
 
 
@@ -51,11 +51,11 @@ public class MemberController extends HttpServlet {
     	} else if (url_Command.equals("/checkId.my")) { //아이디체크
     		System.out.println("checkId.my");
     		//action = new MemberCheckIdAction();
-    		forward = action.execute(request, response);
+    		//forward = action.execute(request, response);
     	} else if (url_Command.equals("/signIn.my")) { //로그인 
     		System.out.println("sign in.my");
-    		//action=new MemberLogInAction();
-    		//forward=action.execute(request, response);
+    		action=new MemberLogInAction();
+    		forward=action.execute(request, response);
     	} else if (url_Command.equals("/signOut.my")) { //로그아웃
     		
     	} else if (url_Command.equals("/myPage.my")) { //마이페이지 

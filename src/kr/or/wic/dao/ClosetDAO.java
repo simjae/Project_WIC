@@ -10,7 +10,12 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import kr.or.wic.dto.ClosetDTO;
-
+/* 
+@Project : WIC
+@File name : closetDAO.java
+@Date : 2020.11.11
+@Author : 문지연
+*/
 public class ClosetDAO {
 	static DataSource ds;
 	public Connection conn = null;
@@ -29,12 +34,12 @@ public class ClosetDAO {
 	}
 	
 	//createCloset
-	public int createCloset(ClosetDTO closetDto) {
+	public int createCloset() {
 		System.out.println("enter create closet");
 		int result = 0;
 		try {
 			conn=ds.getConnection();
-			String sql = "insert into closet(closet_num,closet_title,closet_content) values(closet_num_seq.nextval,?,?)";
+			String sql = "insert into closet(closet_num) values(closet_seq.nextval)";
 	
 			pstmt=conn.prepareStatement(sql);
 			result = pstmt.executeUpdate();
