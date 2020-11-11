@@ -11,12 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.or.wic.action.Action;
 import kr.or.wic.action.ActionForward;
+import kr.or.wic.service.CsPageAction;
+import kr.or.wic.service.CsWritePageAction;
 
 /*
  * 고객센터 관련 컨트롤
  */
 
-@WebServlet("*.Cs")
+@WebServlet("*.cs")
 public class CsController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -36,13 +38,22 @@ public class CsController extends HttpServlet {
     	Action action = null;
     	ActionForward forward = null;
     	
-    	if(url_Command.equals("csPage.Cs")) { //고객센터 페이지 
-    		
-    	} else if (url_Command.equals("csWritePage.Cs")) { //고객센터 글쓰기 페이지
-    		
-    	} else if (url_Command.equals("csWrite.Cs")) { //고객센터 글쓰기
-    		
-    	} else if (url_Command.equals("csWriteCancle.Cs")) { //고객센터 글쓰기 취소
+    	if(url_Command.equals("/csPage.cs")) { //고객센터 페이지
+    		System.out.println("csPage.cs 컨트롤러 탄다!");
+    		action = new CsPageAction();
+    		forward = action.execute(request, response);
+    	
+    	} else if (url_Command.equals("/csWritePage.cs")) { //고객센터 글쓰기 페이지
+    		System.out.println("csWritePage.cs 컨트롤러 탄다!");
+    		action = new CsWritePageAction();
+    		forward = action.execute(request, response);
+    	
+    	} else if (url_Command.equals("csWrite.cs")) { //고객센터 글쓰기
+    		System.out.println("csWrite.cs 컨트롤러 탄다!");
+    		action = new CsWritePageAction();
+    		forward = action.execute(request, response);
+    	
+    	} else if (url_Command.equals("csWriteCancle.cs")) { //고객센터 글쓰기 취소
     		
     	} 
     	

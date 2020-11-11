@@ -38,25 +38,36 @@ public class MemberController extends HttpServlet {
     	
     	if(url_Command.equals("mainPage.my")) { //메인페이지 
     		
+    		
     	} else if (url_Command.equals("signUpPage.my")) { //회원가입 페이지  
+    		
     		
     	} else if (url_Command.equals("signUp.my")) { //회원 가입 
     		
+    		
     	} else if (url_Command.equals("signInPage.my")) { //로그인 페이지
+    		
     		
     	} else if (url_Command.equals("signIn.my")) { //로그인 
     		
+    		
     	} else if (url_Command.equals("signOut.my")) { //로그아웃
+    		
     		
     	} else if (url_Command.equals("myPage.my")) { //마이페이지 
     		
+    		
     	} else if (url_Command.equals("myInfoEditPage.my")) { //내 정보 수정 페이지 & 정보 수정 취소 페이지
+    		
     		
     	} else if (url_Command.equals("myInfoEdit.my")) { //정보 수정하기 
     		
+    		
     	} else if (url_Command.equals("myCart.my")) { //찜하기
     		
+    		
     	} else if (url_Command.equals("Like.my")) { //좋아요 (사람)
+    		
     		
     	} 
     	

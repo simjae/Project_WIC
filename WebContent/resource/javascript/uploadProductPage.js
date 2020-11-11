@@ -10,15 +10,30 @@ $(function(){
 		e.stopPropagation();
 		e.preventDefault();
 	}).on("drop",function(e){
+		var files= e.originalEvent.dataTransfer.files;
 		e.preventDefault();
    		$("input[type='file']")
-        .prop("files", e.originalEvent.dataTransfer.files)  // put files into element
+        .prop("files", files)  // put files into element
         .closest("form")
         .submit();  // autosubmit as well
 		$(this).removeClass('drag-over');
-		var files= e.originalEvent.dataTransfer.files;
 		console.log(files);
 		thumbnail(files)
+		
+		var formData = new FormData();
+		formData.append('upload-file', files[0], files.name);
+		
+		
+		$.ajax({
+		url: 'fileUpload.Ajax',
+		data : formData,
+		type : 'post',
+		contentType : false,
+		processData: false,
+		success : function(ret) {
+			console.log(ret);
+		}
+		});
 		
 	});
 	
@@ -34,7 +49,7 @@ $(function(){
 	}
 	
 	function preview(file,idx){
-		var reader = new FileReader();
+		let reader = new FileReader();
 		reader.onload =(function(f,idx){
 				return function(e){
 					console.log(f);
@@ -43,15 +58,25 @@ $(function(){
 						<img class="col-md-12 px-0 mx-0" src="'+e.target.result+'"title="'+escape(f.name)+'"/>\
 						</div>';
 						$('#thumbnails').append(div);
+						
+						
 				};
 		})(file,idx);
 		reader.readAsDataURL(file);
 	}
+	
 	$('#thumbnails').on("click",".close",function(e){
 		var $target = $(e.target);
 		var idx=$target.attr('data-idx');
 		uploadFiles[idx].upload='disable';
 		$target.parent().remove();
+		
+		$.ajax({
+			url:'fileDelete.Ajax',
+			data: {filename:uploadFiles[idx].name},
+			type: 'post'
+			
+		});
 		
 	})
 	
@@ -67,33 +92,40 @@ $(function(){
     input.addEventListener('change',(function(e){
     	
     	var fileList = input.files;
-    	
         console.log($("#fileProfile").val());
-    	console.log(fileList);
     	thumbnail(fileList);
-    	
         $("#fileProfile").val();
-      var frm = document.getElementById('upload');
-        var fileData = new FormData(frm);
-        console.log(fileData);
-        
-        frm.method = 'POST';
-        frm.enctype = 'multipart/form-data';
-       
-        
-        /* $.ajax({
-            type:'POST',
-            url:'/BoardProject/profileUpdate.ref',
-            data:fileData,
-            processData: false,
-            contentType: false,
-            success : function(data, textStatus, xhr) {
-                console.log('success');
-            },
-            error : function(request,status,error) {  
-               alert("code:"+request.status+"\n"+"error:"+error);
-            }
-        }); */
-	
+    	console.log(fileList);
+		
+		var formData = new FormData();
+		formData.append('upload-file', fileList[0], fileList.name);
+		
+		$.ajax({
+		url: 'fileUpload.Ajax',
+		data : formData,
+		type : 'post',
+		contentType : false,
+		processData: false,
+		success : function(ret) {
+		
+		}
+		});
+		
+		
 	}))
-});
+	
+	
+	function readFiles(file){
+		let reader = new FileReader();
+		reader.onload=function(e){
+			var bin = e.target.result;	
+			console.log(bin);
+			var formData = new FormData(); 
+			formData.append("filelist",bin)
+			
+			}
+		reader.readAsDataURL(file);
+	};
+	
+	
+})

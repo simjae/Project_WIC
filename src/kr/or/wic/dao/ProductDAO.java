@@ -261,4 +261,58 @@ public class ProductDAO {
 		}
 		return row;
 	}
+	
+	//6.파일 등록 (upload the file)
+	public int updateFile(String files_name, String files_path) {
+		int row = 0;
+		
+		try {
+			conn = ds.getConnection();
+			String sql = "select max(prd_num) from product";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				sql = "insert into files (files_num,files_name,files_path,prd_num) valuse(next.val(),?,?,?)";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, files_name);
+				pstmt.setString(2, files_path);
+				pstmt.setInt(3, rs.getInt("max(prd_num)")+1);
+			}
+			
+		
+			row = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return row;
+	}
+	
+	public int deleteFile(String files_name) {
+		int row=0;
+		try {
+			conn = ds.getConnection();
+			String sql = "delete from files where files_name=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, files_name);
+			row = pstmt.executeUpdate();
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return row;
+	}
 }
