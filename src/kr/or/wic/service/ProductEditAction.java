@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import kr.or.wic.action.Action;
 import kr.or.wic.action.ActionForward;
 import kr.or.wic.dto.ProductDTO;
+import kr.or.wic.dao.MemberDAO;
 import kr.or.wic.dao.ProductDAO;
 
 public class ProductEditAction implements Action{
@@ -39,7 +40,8 @@ public class ProductEditAction implements Action{
 		ProductDTO product = dao.getProduct(prd_num);
 		request.setAttribute("product", product);
 		
-		//
+		//member 정보
+		MemberDAO mdao = new MemberDAO();
 		
 		//이동경로(viewpage)
 		viewpage = "ProductEditPage.jsp";
