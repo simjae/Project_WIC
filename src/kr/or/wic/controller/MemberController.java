@@ -41,7 +41,7 @@ public class MemberController extends HttpServlet {
     	ActionForward forward = null;
     	
     	if(url_Command.equals("/mainPage.my")) { //메인페이지 
-    		
+    	
     	} else if (url_Command.equals("/signUpPage.my")) { //회원가입 페이지  
     		
     	} else if (url_Command.equals("/signUp.my")) { //회원 가입 

@@ -35,6 +35,7 @@
                 <c:otherwise>
                 <li><a href="<%=request.getContextPath()%>/mainPage.my">HOME</a></li>
                 <li><a href="<%=request.getContextPath()%>/signIn.my">MY CLOSET</a></li>
+                <li><a href="<%=request.getContextPath()%>/signIn.my">LOGIN</a></li>
                 </c:otherwise>
             </c:choose>   
             </div>

@@ -25,7 +25,6 @@ public class ProductUploadAction implements Action{
 			int productPrice = Integer.parseInt(request.getParameter("productPrice"));
 			String context = request.getParameter("context");
 			
-			FilesDTO fdto = new FilesDTO();
 			ProductDTO pdto = new ProductDTO();
 			pdto.setPrd_title(productName);
 			pdto.setPrd_price(productPrice);
