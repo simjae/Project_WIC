@@ -54,8 +54,11 @@ public class CsController extends HttpServlet {
     		action = new CsWriteAction();
     		System.out.println("컨트롤러 실행완료");
     		forward = action.execute(request, response);
-    	} else if (url_Command.equals("csWriteCancle.cs")) { //고객센터 글쓰기 취소
-    		
+    	} else if (url_Command.equals("/csDetailPage.cs")) { //고객센터 글쓰기 취소
+    		System.out.println("csWrite.cs 컨트롤러 탄다!");
+    		action = new CsWriteAction();
+    		System.out.println("컨트롤러 실행완료");
+    		forward = action.execute(request, response);
     	} 
     	
     	RequestDispatcher dis = request.getRequestDispatcher(forward.getPath());
