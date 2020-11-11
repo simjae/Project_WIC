@@ -6,13 +6,25 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>옷장 회원정보 수정</title>
+        <title>옷장 페이지</title>
         
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
         <link rel="stylesheet" href="resource/style/myPage-style.css">
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="js/main.js"></script>
+        
+        
+        
+        <!-- ajax -->
+        <script>
+        	$(function(){
+        		$('editButton').click(function(){
+        			//a.load(b)
+        			$('#div1').load('demo_test.txt');
+        		})
+        	})
+        </script>
         	
     </head>
     <body>
@@ -31,34 +43,31 @@
 							100
 						</div>
 				</div>
-				<form name="profileEdit" action>
                 <div class="profile">
                 <div class="profile-image">
                     <img src="resource/image/mypage/man.png"  alt="">
                     
                 </div>
                 <div class="profile-user-setting">
-                    <input type="text" name="username" placeholder="이름">
+                	<c:set var="username" value="${requestScope.name}"/>
+                    <h1 class="profile-user-name">${username}</h1>
+        
                 </div>
                 <div>
-                	<input type="text" name="address" placeholder="주소" readonly>
+                	<c:set var="useraddr" value="${requestScope.addr}"/>
+                    <p>"${useraddr}"</p>
                 </div>
-               
-                <!--
-                <div class="profile-stats">
-                    <ul>
-                        <li><span class="profile-stat-count">164러ㅏ어라어라어라어ㅏ</span>posts</li>
-                        <li><span class="profile-stat-count">188</span>followers</li>
-                        <li><span class="profile-stat-count">206</span>following</li>
-                    </ul>
-                </div>
-                -->
+              
                 <div class="profile-bio">
                 	<!-- <input type="text" name="intro" placeholder="자기소개">-->
-                    <input type="text" name="intro" placeholder="자기소개">
+                    <c:set var="userintro" value="${requestScope.intro}"/>
+                    <!--<p>${userintro}</p>-->
+                    <p>자기소개 안녕하세요 ~</p>
+                    
                 </div>
                 </div>
-                
+                <form>
+   					
                 <div>
                 	<button type="submit" formaction="MyCloset.jsp"
                           formmethod="get" formtarget="_blank">취소</button>

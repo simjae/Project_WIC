@@ -13,6 +13,24 @@
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="js/main.js"></script>
+        
+        
+        
+        <!-- ajax -->
+        <script type="text/javascript">
+        	var request=new XMLHttpRequest();
+        	//////////////////////////////////
+        
+        
+        
+        
+        	$(function(){
+        		$('editButton').click(function(){
+        			//a.load(b)
+        			$('#div1').load('demo_test.txt');
+        		})
+        	})
+        </script>
         	
     </head>
     <body>
@@ -37,12 +55,13 @@
                     
                 </div>
                 <div class="profile-user-setting">
-                	<c:set var="username" value="${requestScope.username}"/>
+                	<c:set var="username" value="${requestScope.name}"/>
                     <h1 class="profile-user-name">${username}</h1>
         
                 </div>
                 <div>
-                	<p>서울특별시 강남구</p>
+                	<c:set var="useraddr" value="${requestScope.addr}"/>
+                    <p>"${useraddr}"</p>
                 </div>
                 
                 <!--
@@ -56,13 +75,15 @@
                 -->
                 <div class="profile-bio">
                 	<!-- <input type="text" name="intro" placeholder="자기소개">-->
-                    <c:set var="userintro" value="${requestScope.userintro}"/>
-                    <p>${userintro}</p>
+                    <c:set var="userintro" value="${requestScope.intro}"/>
+                    <!--<p>${userintro}</p>-->
+                    <p>자기소개 안녕하세요 ~</p>
+                    
                 </div>
                 </div>
-                <form action="MyCloset_Test.jsp">
-   					 <button type="submit">수정</button>
-				</form>
+                <!-- <form action="MyCloset_Test.jsp"> -->
+   					 <button id="editBtn" onclick="editFunction" type="button">수정</button>
+				<!-- </form> -->
             </div>
             
             <main>
