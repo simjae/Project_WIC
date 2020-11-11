@@ -52,7 +52,6 @@
 			<div class="row">
 				<form>
 					<select name="pageSize" class="form-control" onchange="submit()">
-						
 						<c:forEach var="i" begin="10" end="20" step="5">
 							<c:choose>
 								<c:when test="${pageSize == i}">
@@ -84,7 +83,7 @@
 								<td> 
 									<a href="<%= request.getContextPath()%>/BoardDetail.do?cs_num=${csList.cs_num}&currentPage=${currentPage}&pageSize=${pageSize}">${csList.cs_title}</a>
 									</td>
-								<td>${csList.ID}</td>
+								<td>${csList.id}</td>
 								<td>${csList.cs_date}</td>
 								<td>${csList.cs_count}</td>
 							</tr>
@@ -93,24 +92,27 @@
 				
 				<c:set var="currentPage" value="${requestScope.currentPage}"/>
 				<c:set var="pageSize" value="${requestScope.pageSize}"/>			
-				<c:set var="pageCount" value="${requestScope.pageCount}"/>
+				<c:set var="maxPageCount" value="${requestScope.maxPageCount}"/>
+				<c:set var="startPage" value="${requestScope.startPage}"/>
+				<c:set var="endPage" value="${requestScope.endPage}"/>
 				<table class="table table-striped table-responsive-md text-center">
 					<tr>
 						<td>
 							<c:if test="${currentPage>1}">
-								<a href="<%= request.getContextPath()%>/BoardList.do?page=${currentPage-1}">이전</a>
+								<a href="<%= request.getContextPath()%>/csPage.cs?currentPage=${currentPage-1}&pageSize=${pageSize}">이전</a>
 							</c:if> 
 							<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
 								<c:choose>
 									<c:when test="${currentPage==i}">${i}</c:when>
 									<c:otherwise>
 										<a
-											href="<%= request.getContextPath()%>/BoardList.do?page=${i}"><b>${i}</b></a>
+											href="<%= request.getContextPath()%>/csPage.cs?currentPage=${i}&pageSize=${pageSize}"><b>${i}</b></a>
 									</c:otherwise>
 								</c:choose>
-							</c:forEach> <c:if test="${currentPage<maxPage}">
+							</c:forEach> 
+							<c:if test="${currentPage<pageCount}">
 								<a
-									href="<%= request.getContextPath()%>/csPage.cs?currentPage=${currentPage+1}">다음</a>
+									href="<%= request.getContextPath()%>/csPage.cs?currentPage=${currentPage+1}&pageSize=${pageSize}">다음</a>
 							</c:if></td>
 					</tr>
 				</table>

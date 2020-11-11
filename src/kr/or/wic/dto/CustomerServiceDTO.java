@@ -3,16 +3,16 @@ package kr.or.wic.dto;
 import java.util.Date;
 
 public class CustomerServiceDTO {
-	private int cs_num;
-	private String cs_title;
-	private String cs_content;
-	private int cs_reffer;
-	private int cs_depth;
-	private int cs_step;
-	private int cs_count;
-	private Date cs_date;
-	private int cs_notice;
-	private String id;
+	private int cs_num;			//게시물 고유번호
+	private String cs_title;	//게시물 제목
+	private String cs_content;	//게시물 내용
+	private int cs_reffer;		//게시물 그룹 
+	private int cs_depth;		//게시물 그룹 내 순서
+	private int cs_step;		//답글 들여쓰기
+	private int cs_count;		//조회수
+	private Date cs_date;		//작성일자 
+	private int cs_notice;		//공지사항여부  ->  0:일반글, 1:공지글
+	private String id;			//작성자 아이디
 	public int getCs_num() {
 		return cs_num;
 	}
