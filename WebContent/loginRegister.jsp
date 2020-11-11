@@ -8,6 +8,7 @@
 %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%><!DOCTYPE html>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
 <meta charset="UTF-8" />
@@ -30,32 +31,34 @@
 
 	<div class="container" id="container">
 		<div class="form-container sign-up-container">
-			<form action="#">
+			<form action="<%= request.getContextPath()%>/signUp.my" method="post" enctype="multipart/form-data">
+			<div>
 				<div style="width: 100%;">
-				<input type="email" id="id" placeholder="email@email.com" />
-				<input type="button" id="check_btn" onclick="checkEmail()" value="Check" />
-			</div>
-            <input type="password" id="pwd" placeholder="Password" />
-            <input type="text" id="name" placeholder="UserName" />
-            <div style="width: 100%;">
-					<input type="text" id="postcode" placeholder="postcode"> 
-					<input type="button" id="postcode_btn" onclick="findAddress()"
-						value="postcode" />
+					<input type="email" id="id" name="id" placeholder="email@email.com" />
+					<input type="button" id="check_btn" name="check_btn" value="Check" />
 				</div>
-				<input type="text" id="address" placeholder="address"> 
-				<input type="text" id="detailAddr" placeholder="detail Address"> 
-				<input type="file" id="fileName" accept="image/*">
-				<button>Sign Up</button>
+            <input type="password" id="pwd" name="pwd" placeholder="Password" />
+            <input type="text" id="name" name="name" placeholder="UserName" />
+            <div style="width: 100%;">
+					<input type="text" id="postcode" name="postcode" placeholder="postcode"> 
+					<input type="button" id="postcode_btn" name="postcode_btn" onclick="findAddress()"
+						value="postcode" />
+			</div>
+				<input type="text" id="addr" name="addr" placeholder="address"> 
+				<input type="text" id="detailAddr" name="detailAddr" placeholder="detail Address"> 
+				<input type="file" id="filename" name="filename" accept="image/*">
+				<input type="submit" id="signup_btn" name="signup_btn" value="Sign Up">
+			</div>
 			</form>
 		</div>
 		<div class="form-container sign-in-container">
-			<form action="#">
+			<form action="<%= request.getContextPath()%>/signIn.my" method="post">
 				<h1>Sign in</h1>
 
-				<input type="email" id="id" placeholder="email@email.com" /> 
-				<input type="password" id="pwd" placeholder="Password" />
+				<input type="email" id="id" name="id" placeholder="email@email.com" /> 
+				<input type="password" id="pwd" name="pwd" placeholder="Password" />
 
-				<button>Sign In</button>
+				<input type="submit" id="signin_btn" name="signin_btn" value="Sign In">
 			</form>
 		</div>
 		<div class="overlay-container">

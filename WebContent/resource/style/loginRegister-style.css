@@ -52,6 +52,36 @@ button {
     margin: 10px;
 }
 
+#signin_btn {
+	border-radius: 20px;
+	border: 1px solid #FF4B2B;
+	background-color: #FF4B2B;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 12px 45px;
+	letter-spacing: 1.5px;
+	text-transform: uppercase;
+    transition: transform 80ms ease-in;
+    margin: 10px;
+    width: 30%
+}
+
+#signup_btn {
+	border-radius: 20px;
+	border: 1px solid #FF4B2B;
+	background-color: #FF4B2B;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 12px 45px;
+	letter-spacing: 1.5px;
+	text-transform: uppercase;
+    transition: transform 80ms ease-in;
+    margin: 10px;
+    width: 30%
+}
+
 button:active {
 	transform: scale(0.95);
 }
@@ -67,14 +97,14 @@ button.ghost {
 
 .sign-up-container #id {
 	float: left;
-	width: 68%;
+	width: 70%;
 }
 
 
 
 #check_btn {
 	float : left;
-	width: 30%;
+	width: 25%;
 	border-radius: 20px;
 	border: 1px solid #FF4B2B;
 	background-color: #FF4B2B;
@@ -84,17 +114,17 @@ button.ghost {
 	letter-spacing: 1px;
 	text-transform: uppercase;
 	transition: transform 80ms ease-in;
-	margin-left: 2%;
+	margin-left: 5%;
 }
 
 #postcode {
 	float: left;
-	width: 60%;
+	width: 70%;
 }
 
 #postcode_btn {
 	float : left;
-	width: 35%;
+	width: 25%;
 	border-radius: 20px;
 	border: 1px solid #FF4B2B;
 	background-color: #FF4B2B;
@@ -251,5 +281,3 @@ button.ghost {
 .container.right-panel-active .overlay-right {
 	transform: translateX(20%);
 }
-
-

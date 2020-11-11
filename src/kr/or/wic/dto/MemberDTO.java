@@ -2,15 +2,22 @@ package kr.or.wic.dto;
 
 public class MemberDTO {
 	private String id;
+	private String pwd;
 	private String name;
 	private String addr;
-	private String procile_pic;
+	private String profile_pic;
 	private int closet_num;
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public String getPwd() {
+		return pwd;
+	}
+	public void setPwd(String pwd) {
+		this.pwd = pwd;
 	}
 	public String getName() {
 		return name;
@@ -24,11 +31,11 @@ public class MemberDTO {
 	public void setAddr(String addr) {
 		this.addr = addr;
 	}
-	public String getProcile_pic() {
-		return procile_pic;
+	public String getProfile_pic() {
+		return profile_pic;
 	}
-	public void setProcile_pic(String procile_pic) {
-		this.procile_pic = procile_pic;
+	public void setProfile_pic(String profile_pic) {
+		this.profile_pic = profile_pic;
 	}
 	public int getCloset_num() {
 		return closet_num;
@@ -38,8 +45,9 @@ public class MemberDTO {
 	}
 	@Override
 	public String toString() {
-		return "MemberDTO [id=" + id + ", name=" + name + ", addr=" + addr + ", procile_pic=" + procile_pic
-				+ ", closet_num=" + closet_num + "]";
+		return "MemberDTO [id=" + id + ", pwd=" + pwd + ", name=" + name + ", addr=" + addr + ", profile_pic="
+				+ profile_pic + ", closet_num=" + closet_num + "]";
 	}
+	
 	
 }

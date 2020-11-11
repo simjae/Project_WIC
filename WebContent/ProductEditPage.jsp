@@ -15,6 +15,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 	<link rel="stylesheet" href="resource/style/uploadProductPage-style.css">
+	<link rel="stylesheet" href="resource/style/productEditPage.css">
 	<link rel="stylesheet" href="resource/style/bootstrap-grid.css">
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<script src="resource/javascript/bootstrap.bundle.js"></script> 
@@ -34,7 +35,7 @@
 		<div class="row py-4">
 			<h1 class="mx-auto py-4 ">Product(수정)</h1>
 		</div>
-		<form action="" id="upload" name="upload"
+		<form action="<%=request.getContextPath()%>/ProductEdit.Pd" id="upload" name="upload"
 			enctype="multipart/form-data" method="post">
 			<div class="row">
 				<div class="col-md-6">
@@ -60,6 +61,9 @@
 						<div class="ml-4 mb-4">
 							<h3>상품 설명을 해 주세요</h3>
 							<textarea class="col-md-10">${product.prd_content}</textarea>
+						</div>
+						<div class="ml-4 mb-4">
+							<input id="prdEditSubmit" type="submit" value="수정">
 						</div>
 
 					</div>
