@@ -86,6 +86,34 @@ function findAddress() {
 	}
 	
 	
+/*check id for register */
+
+$(function(){
+			   $('#check_btn').click(function(){
+				   $.ajax(
+						{
+							url: "checkId.my",
+							data:{id:$('#id').val()},
+							type:"get",
+							dataType:"html",  
+							success:function(responsedata){
+								console.log(typeof(responsedata));	
+								console.log('>' + responsedata + '<');	
+								if(responsedata == "true"){
+									alert("사용가능한 이메일입니다.");
+								}else if (responsedata == "false"){
+									alert("존재하는 이메일입니다.");
+								}
+							},
+							error:function(xhr){
+								alert(xhr.status + " : ERROR");
+							}
+							
+						}	   
+				   );
+			   });
+		  });
+	
 
 	
 

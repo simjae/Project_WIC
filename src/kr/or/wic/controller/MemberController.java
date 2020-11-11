@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.or.wic.action.Action;
 import kr.or.wic.action.ActionForward;
+import kr.or.wic.service.MemberCheckIdAction;
 import kr.or.wic.service.MemberLogInAction;
 import kr.or.wic.service.MemberRegisterAction;
 
@@ -41,17 +42,19 @@ public class MemberController extends HttpServlet {
     	ActionForward forward = null;
     	
     	if(url_Command.equals("/mainPage.my")) { //메인페이지 
-    		
+    		forward = new ActionForward();
+    		forward.setPath("Main.jsp");
     	} else if (url_Command.equals("/signUpPage.my")) { //회원가입 페이지  
-    		
+    		forward = new ActionForward();
+    		forward.setPath("loginRegister.jsp");
     	} else if (url_Command.equals("/signUp.my")) { //회원 가입 
     		System.out.println("sign up.my");
     		action = new MemberRegisterAction();
     		forward = action.execute(request, response);
     	} else if (url_Command.equals("/checkId.my")) { //아이디체크
     		System.out.println("checkId.my");
-    		//action = new MemberCheckIdAction();
-    		//forward = action.execute(request, response);
+    		action = new MemberCheckIdAction();
+    		forward = action.execute(request, response);
     	} else if (url_Command.equals("/signIn.my")) { //로그인 
     		System.out.println("sign in.my");
     		action=new MemberLogInAction();
