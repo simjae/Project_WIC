@@ -35,8 +35,8 @@ public class CustomerServiceDAO {
 	public List<CustomerServiceDTO> getCsList(int currentPage ,int pageSize){
 		
 		List<CustomerServiceDTO> csList = new ArrayList<CustomerServiceDTO>();
-		int startRow = (currentPage - 1) * pageSize + 1; //읽기 시작할 row 번호.
-		int endRow = startRow + pageSize - 1;
+		int startRow = (currentPage - 1) * pageSize + 1; // 시작 row 번호
+		int endRow = startRow + pageSize - 1;	// 끝 row 번호
 		System.out.println(startRow);
 		System.out.println(endRow);
 		
@@ -136,7 +136,43 @@ public class CustomerServiceDAO {
 				e.printStackTrace();
 			}		
 		}
+	}
+	
+	//공지사항 상세페이지 
+	public int csDetailPage(int cs_num) {
+		System.out.println("csDetailPage() 진입");
+		CustomerServiceDTO dto = new CustomerServiceDTO();
 		
-		return;
+		try {
+			conn  = ds.getConnection();
+			String sql = "select * from customerservice where cs_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cs_num);	
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				dto.setCs_num(rs.getInt("CS_NUM"));	//글번호
+				dto.setCs_title(rs.getString("CS_TITLE"));	 //글제목
+				dto.setCs_content(rs.getString("CS_CONTENT"));	//글내용
+//				dto.setCs_reffer(rs.getInt("CS_REFFER"));	//그룹번호
+//				dto.setCs_depth(rs.getInt("CS_DEPTH"));	//그룹 내 순서
+//				dto.setCs_step(rs.getInt("CS_STEP"));	//들여쓰기
+				dto.setCs_count(rs.getInt("CS_COUNT"));	//조회수
+				dto.setCs_date(rs.getDate("CS_DATE"));	//작성일자
+//				dto.setCs_notice(rs.getInt("CS_NOTICE"));	//공지사항여부
+				dto.setId(rs.getString("id"));	//작성자 아이디
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}		
+		}
+		
+		return 0;
 	}
 }
