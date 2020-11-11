@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.or.wic.action.Action;
 import kr.or.wic.action.ActionForward;
+import kr.or.wic.service.MyclosetShowAction;
+import kr.or.wic.service.MypageEditAction;
 
 /*
  * 회원 관련 컨트롤러
@@ -48,10 +50,14 @@ public class MemberController extends HttpServlet {
     		
     	} else if (url_Command.equals("signOut.my")) { //로그아웃
     		
-    	} else if (url_Command.equals("myPage.my")) { //마이페이지 
-    		
-    	} else if (url_Command.equals("myInfoEditPage.my")) { //내 정보 수정 페이지 & 정보 수정 취소 페이지
-    		
+    	} else if (url_Command.equals("/myPage.my")) { //마이페이지 
+    		action=new MyclosetShowAction();
+    		forward = action.execute(request, response);
+    	} else if (url_Command.equals("/myInfoEditPage.my")) { //내 정보 수정 페이지 & 정보 수정 취소 페이지
+    		/*
+    		action=new MypageEditAction();
+    		forward = action.execute(request, response);
+    		*/
     	} else if (url_Command.equals("myInfoEdit.my")) { //정보 수정하기 
     		
     	} else if (url_Command.equals("myCart.my")) { //찜하기
