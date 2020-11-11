@@ -43,7 +43,9 @@
 			</div>
 		</div>
 	</section>
-
+	
+	
+	<c:set var="currentPage" value="${requestScope.currentPage}"/>
 	<!-- page title -->
 	<section class="section">
 		<div class="container">
@@ -52,7 +54,7 @@
 			<div class="row">
 				<form>
 					<select name="pageSize" class="form-control" onchange="submit()">
-						<c:forEach var="i" begin="10" end="20" step="5">
+						<c:forEach var="i" begin="5" end="20" step="5">
 							<c:choose>
 								<c:when test="${pageSize == i}">
 									<option value="${i}" selected>${i}</option>
@@ -81,7 +83,7 @@
 							<tr class="table-tr">
 								<td class="py-auto">${csList.cs_num}</td>
 								<td> 
-									<a href="<%= request.getContextPath()%>/BoardDetail.do?cs_num=${csList.cs_num}&currentPage=${currentPage}&pageSize=${pageSize}">${csList.cs_title}</a>
+									<a href="<%= request.getContextPath()%>/csDetailPage.cs?cs_num=${csList.cs_num}&currentPage=${currentPage}&pageSize=${pageSize}">${csList.cs_title}</a>
 									</td>
 								<td>${csList.id}</td>
 								<td>${csList.cs_date}</td>
@@ -90,38 +92,44 @@
 						</c:forEach>
 				</table>
 				
-				<c:set var="currentPage" value="${requestScope.currentPage}"/>
+
 				<c:set var="pageSize" value="${requestScope.pageSize}"/>			
 				<c:set var="maxPageCount" value="${requestScope.maxPageCount}"/>
 				<c:set var="startPage" value="${requestScope.startPage}"/>
 				<c:set var="endPage" value="${requestScope.endPage}"/>
-				<table class="table table-striped table-responsive-md text-center">
-					<tr>
-						<td>
-							<c:if test="${currentPage>1}">
-								<a href="<%= request.getContextPath()%>/csPage.cs?currentPage=${currentPage-1}&pageSize=${pageSize}">이전</a>
-							</c:if> 
-							<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
-								<c:choose>
-									<c:when test="${currentPage==i}">${i}</c:when>
-									<c:otherwise>
-										<a
-											href="<%= request.getContextPath()%>/csPage.cs?currentPage=${i}&pageSize=${pageSize}"><b>${i}</b></a>
-									</c:otherwise>
-								</c:choose>
-							</c:forEach> 
-							<c:if test="${currentPage<pageCount}">
-								<a
-									href="<%= request.getContextPath()%>/csPage.cs?currentPage=${currentPage+1}&pageSize=${pageSize}">다음</a>
-							</c:if></td>
-					</tr>
-				</table>
-			</div>
-			<div class="btn-grounp">
-				<a href="<%=request.getContextPath()%>/csWritePage.cs?currentPage=${currentPage}&pageSize=${pageSize}">
-					<input type="button" value="글쓰기" class="btn btn-primary mt-2" style="align-right">
-				</a>
-			</div>
+				
+				</div>
+				<div class="row">
+					<table class="table table-responsive-md text-center col-md-12">
+						<tr>
+							<td>
+								<c:if test="${currentPage>1}">
+									<a href="<%= request.getContextPath()%>/csPage.cs?currentPage=${currentPage-1}&pageSize=${pageSize}">이전</a>
+								</c:if> 
+								<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
+									<c:choose>
+										<c:when test="${currentPage==i}">${i}</c:when>
+										<c:otherwise>
+											<a
+												href="<%= request.getContextPath()%>/csPage.cs?currentPage=${i}&pageSize=${pageSize}"><b>${i}</b></a>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach> 
+								<c:if test="${currentPage<maxPageCount}">
+									<a
+										href="<%= request.getContextPath()%>/csPage.cs?currentPage=${currentPage+1}&pageSize=${pageSize}">다음</a>
+								</c:if></td>
+						</tr>
+					</table>
+				</div>
+				<div class="row">
+					<div class="btn-grounp">
+						<a href="<%=request.getContextPath()%>/csWritePage.cs?currentPage=${currentPage}&pageSize=${pageSize}">
+							<input type="button" value="글쓰기" class="btn btn-primary mt-2" class="float-right" >
+						</a>
+					</div>
+				</div>
+			
 		</div>
 	</section>
 	<!-- bottom-->
