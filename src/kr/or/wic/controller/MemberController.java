@@ -15,7 +15,6 @@ import kr.or.wic.service.MemberCheckIdAction;
 import kr.or.wic.service.MemberLogInAction;
 import kr.or.wic.service.MemberRegisterAction;
 
-
 /*
  * 회원 관련 컨트롤러
  */
@@ -26,12 +25,9 @@ public class MemberController extends HttpServlet {
        
     public MemberController() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-    @SuppressWarnings("unused")
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
     	String requestURI = request.getRequestURI();
     	String contextPath = request.getContextPath();
     	String url_Command = requestURI.substring(contextPath.length());
@@ -81,12 +77,10 @@ public class MemberController extends HttpServlet {
     }
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doProcess(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doProcess(request, response);
 	}
 
