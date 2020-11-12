@@ -13,11 +13,8 @@ public class ProductFileDeleteAjaxAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
 		String filename = request.getParameter("filename");
-		System.out.println(filename);
 		String uploadpath = request.getSession().getServletContext().getRealPath("upload");
-		System.out.println(uploadpath);
 		
 		File deleteFile = new File(uploadpath+"/"+filename);
 		
@@ -25,12 +22,7 @@ public class ProductFileDeleteAjaxAction implements Action {
 			deleteFile.delete();
 			ProductDAO dao = new ProductDAO();
 			dao.deleteFile(filename);
-		
-		}else {
-			
 		}
-		
-		
 		return null;
 	}
 

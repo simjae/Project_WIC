@@ -5,6 +5,8 @@ public class FilesDTO {
 	private String files_name;
 	private String files_path;
 	private int prd_num;
+	private String id;
+	
 	public int getFiles_num() {
 		return files_num;
 	}
@@ -29,10 +31,17 @@ public class FilesDTO {
 	public void setPrd_num(int prd_num) {
 		this.prd_num = prd_num;
 	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	
 	@Override
 	public String toString() {
 		return "FilesDTO [files_num=" + files_num + ", files_name=" + files_name + ", files_path=" + files_path
-				+ ", prd_num=" + prd_num + "]";
+				+ ", prd_num=" + prd_num + ", id=" + id + "]";
 	}
 	
 	

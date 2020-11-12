@@ -21,11 +21,6 @@ public class MypageEditAction implements Action{
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
-
-			
-			
-
 			request.setAttribute("username", name);
 			request.setAttribute("address", addr);
 			request.setAttribute("userintro", intro);

@@ -27,7 +27,7 @@
 		<div class="row py-4">
 			<h1 class="mx-auto py-4 ">Product</h1>
 		</div>
-		<form action="<%=request.getContextPath()%>/uploadProduct.Pd" method="post" id="upload">
+		<form action="<%=request.getContextPath()%>/ProductUpload.Pd" method="post" id="upload">
 			<div class="row">
 				<div class="col-md-6">
 					<div class="container">
