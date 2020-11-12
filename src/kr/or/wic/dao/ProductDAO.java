@@ -74,7 +74,6 @@ public class ProductDAO {
 	}
 	
 	//1-1.상품정보 조회(ProductListPage 정보만 조회(prd_num, prd_title, prd_content)
-	//(굳이 세개만 조회해야 하나? 이게 효율이 좋나, 아니면 그냥 정보 조회 모두 한 다음에 prd객체에서 해당 정보만 뽑아 오는 것이 좋나?)
 	public List<ProductDTO> getProductNumTitleContentList(){
 		List<ProductDTO> productList = new ArrayList<ProductDTO>();
 		
@@ -109,6 +108,33 @@ public class ProductDAO {
 			}
 		}
 		return productList;
+	}
+	
+	//1-2.closet_num으로 prd_num 조회
+	public int getCloset_numByPrd_num(int closet_num) {
+		int prd_num;
+		try {
+			conn = ds.getConnection();
+			String sql = "select prd_num from product where closet_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, closet_num);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				prd_num = rs.getInt("prd_num");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return 0;
 	}
 	
 	//2.회원별 상품 조회(return the productList by ID)
@@ -185,58 +211,53 @@ public class ProductDAO {
 		return product;
 	}
 	
-	//3.상품 정보 등록(insert the new product)
-	public int insertProduct(ProductDTO product,String id) {
-		int result = 0;
-	
+	//2-2.prd_seq.currval 조회
+	public int getPrd_seqCurrval() {
+		int prd_num = 0;
 		try {
-			String sql = "select files_name from files where id = ? and prd_num is null";
+			conn = ds.getConnection();
+			String sql = "select prd_seq.currval from dual";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1,id);
-			System.out.println(rs);
 			rs = pstmt.executeQuery();
 			
-			
-			if(rs.next()) {
-				sql = "delete from files where id=? and prd_num is null";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, id);
-				result = pstmt.executeUpdate();
-				
+			while(rs.next()) {
+				prd_num = rs.getInt("currval");
+				System.out.println("getprd_seqcurrval에서의 prd_num: " + prd_num);
 			}
-			
-			sql ="select closet_num from member where id=?";
-			pstmt =conn.prepareStatement(sql);
-			pstmt.setString(1, id);
-			System.out.println(rs);
-			rs = pstmt.executeQuery();
-
-			
-			if(rs.next()) {
-				ClosetDTO cdto = new ClosetDTO();
-				cdto.setCloset_num(rs.getInt("closet_num"));
-				sql = "insert into product(prd_num, prd_title, prd_price, prd_date, prd_content, prd_state, prd_count, closet_num)"
-						+ "values(prd_num.nextval,?,?,sysdate,?,0,0,?)";
-				
-				pstmt = conn.prepareStatement(sql);
-				
-				pstmt.setString(1, product.getPrd_title());
-				pstmt.setInt(2, product.getPrd_price());
-				pstmt.setString(3, product.getPrd_content());
-				pstmt.setInt(4, cdto.getCloset_num());
-				result = pstmt.executeUpdate();
-				
-				sql = "update files set prd_num=prd_num.currval where prd_num is null and id=?";
-				pstmt.setString(1,id);
-				result = pstmt.executeUpdate();
-			}
-			
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			try {
 				rs.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return prd_num;
+	}
+	
+	//3.상품 정보 등록(insert the new product)
+	public int insertProduct(ProductDTO product) {
+		int result = 0;
+		try {
+			conn = ds.getConnection();
+			String sql = "insert into product(prd_num, prd_title, prd_price, prd_date, prd_content, prd_state, prd_count, closet_num)"
+						+ "values(prd_seq.nextval,?,?,sysdate,?,0,0,?)";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, product.getPrd_title());
+			pstmt.setInt(2, product.getPrd_price());
+			pstmt.setString(3, product.getPrd_content());
+			pstmt.setInt(4, product.getCloset_num());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
 				pstmt.close();
 				conn.close();
 			} catch (SQLException e) {
@@ -298,17 +319,30 @@ public class ProductDAO {
 	}
 	
 	//6.파일 등록 (upload the file)
-	public int updateFile(String files_name, String files_path, String id) {
+	public int updateFile(String files_name, String files_path) {
 		int row = 0;
 		
 		try {
 			conn = ds.getConnection();
-			String sql = "insert into files (files_num,files_name,files_path,id) values(filesNum.nextval,?,?,?)";
+			String sql = "select max(prd_num) from product";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, files_name);
-			pstmt.setString(2, files_path);
-			pstmt.setString(3, id);
-			row = pstmt.executeUpdate();
+			rs = pstmt.executeQuery();
+			
+			
+			if(rs.next()) {
+				
+				System.out.println("maxprdnum: " + rs.getInt("max(prd_num)"));
+				sql = "insert into files (files_num,files_name,files_path,prd_num) values(prd_num.nextval,?,?,?)";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, files_name);
+				pstmt.setString(2, files_path);
+				pstmt.setInt(3, rs.getInt("max(prd_num)"));
+				row = pstmt.executeUpdate();
+				
+			}else {
+				System.out.println("rs 없음 ");
+			}
+			
 		
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -11,18 +11,18 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import kr.or.wic.action.Action;
 import kr.or.wic.action.ActionForward;
+import kr.or.wic.dao.FilesDAO;
 import kr.or.wic.dao.ProductDAO;
+import kr.or.wic.dto.FilesDTO;
 
 public class ProductUploadAjaxAction implements Action{
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
 		String uploadpath = request.getSession().getServletContext().getRealPath("upload");
 		System.out.println(uploadpath);
 		int size = 1024*1024*10;
 		MultipartRequest multi=null;
-		String id = (String) request.getSession().getAttribute("id");
 		
 		try {
 			 multi = new MultipartRequest(
@@ -34,19 +34,29 @@ public class ProductUploadAjaxAction implements Action{
 					);
 			 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("여긴가?");
 		} //파일 업로드 완료
-		String filename ="";
 		
+		//filename
 		Enumeration filenames = multi.getFileNames();	
 		String file = (String)filenames.nextElement();
-		filename = multi.getFilesystemName(file);
-		System.out.println(filename);
+		String filename = multi.getFilesystemName(file);
 		
-		ProductDAO dao = new ProductDAO();
-		dao.updateFile(filename, uploadpath+"/"+filename,id);
+		//filepath
+		String filepath = uploadpath+"/"+filename;
+		
+		//id
+		String id = (String)request.getSession().getAttribute("id");
+		
+		//filesDTO 객체에 정보 입력(prd_num 제외)
+		FilesDTO uploadingFile = new FilesDTO();
+		uploadingFile.setFiles_name(filename);
+		uploadingFile.setFiles_path(filepath);
+		uploadingFile.setId(id);
+		
+		FilesDAO fdao = new FilesDAO();
+		fdao.insertFilePrdNull(uploadingFile);
 		
 		return null;
 	}
