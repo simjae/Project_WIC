@@ -72,30 +72,67 @@ public class ProductDAO {
 		}
 		return productList;
 	}
+	//1-0 상품별 대표 사진 뽑기
+	private List<Integer> getProductPic(){
+		List<Integer> pic = new ArrayList<Integer>();
+		
+		try {
+			conn = ds.getConnection();
+			String sql = "select min(f.files_num) as num\n" + 
+					"from product p join files f ON p.prd_num = f.prd_num\n" + 
+					"GROUP BY p.prd_num order by p.prd_num desc";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				pic.add(rs.getInt("num"));
+				
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+			
+		return pic;
+	}
 	
 	//1-1.상품정보 조회(ProductListPage 정보만 조회(prd_num, prd_title, prd_content)
 	public List<ProductDTO> getProductNumTitleContentList(){
 		List<ProductDTO> productList = new ArrayList<ProductDTO>();
+		List<Integer> picNumList = getProductPic();
 		
 		try {
-			conn = ds.getConnection();
-			String sql = "select p.prd_num, p.prd_title, p.prd_content f.files_name, f.files_path from product p join files f on p.prd_num = f.prd_num";
-			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				ProductDTO product = new ProductDTO();
-				product.setPrd_num(rs.getInt("p.prd_num"));
-				product.setPrd_title(rs.getString("p.prd_title"));
-				product.setPrd_content(rs.getString("p.prd_content"));
-				FilesDTO file = new FilesDTO();
-				file.setFiles_name(rs.getString("f.files_name"));
-				file.setFiles_path(rs.getString("f.files_path"));
-				product.setFiles(file);
-				
-				productList.add(product);
-				
+				conn = ds.getConnection();
+			for(int i : picNumList) {
+				String sql = "select p.prd_num, p.prd_title, p.prd_content, f.files_name, f.files_path from product p join files f on p.prd_num = f.prd_num\n" + 
+						"WHERE f.files_num=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, i);
+				rs = pstmt.executeQuery();
+				while(rs.next()) {
+					
+					FilesDTO file = new FilesDTO();
+					file.setFiles_name(rs.getString("files_name"));
+					file.setFiles_path(rs.getString("files_path"));
+					
+					ProductDTO product = new ProductDTO();
+					product.setPrd_num(rs.getInt("prd_num"));
+					product.setPrd_title(rs.getString("prd_title"));
+					product.setPrd_content(rs.getString("prd_content"));
+					product.setFiles(file);
+					
+					productList.add(product);
+				}
 			}
+				
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
