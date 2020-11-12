@@ -1,0 +1,190 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
+
+.inner-form {
+	background: linear-gradient(to right, #2c6dd5 0%, #2c6dd5 28%, #ff4b5a 91%, #ff4b5a
+		100%);
+	border-radius: 25px;
+	position: relative;
+}
+#wrapper{
+	clear:both;
+	
+}
+
+.profile{
+	text-align: center;
+}
+
+.user-state{
+	margin:5%;
+	
+}
+
+#cnt{
+	margin-top:5%;
+}
+
+.fa-heart-o {
+  color: red;
+  cursor: pointer;
+}
+
+.fa-heart {
+  color: red;
+  cursor: pointer;
+}
+
+.profile-image img{
+    border-radius:50%;
+    width:170px;
+    height:130px;
+}
+
+.profile-user-settings,
+.profile-stats,
+.profile-bio{
+    /*float:left;*/
+    width:calc(66.666%-2rem);
+}
+.profile-user-settings{
+    margin-top:1.1rem;
+    
+}
+.profile-user-name{
+    display:inline-block;
+    font-size:2.2rem;
+
+}
+
+
+.profile-real-name,
+.profile-stat-count,
+.profile-edit-btn{
+    font-weight:600;
+}
+
+
+
+
+
+
+.inner-grid {
+  position: relative;
+  height: 200px;
+  overflow: auto;
+ 
+	/*
+  float: left;
+  width: 30%;
+  */
+  
+}
+
+.inner-grid img{
+	max-width:100%;
+	max-height:100%;
+	display: block;
+	
+}
+
+.inner-grid .overlay{
+	position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /*min-height: 100%;*/
+    overflow:hidden;
+    opacity:0;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1em;
+
+    
+	
+	/*
+	width:100%;
+	height:100%;
+	position: absolute;
+	overflow:hidden;
+	top:0;
+	left: 0;
+	opacity:0;
+	*/
+}
+.inner-grid .overlay p{
+	position: absolute;
+	bottom: 20px;
+    color:#fff;
+    margin-left: 4em;
+  }
+
+
+.inner-grid .overlay:hover{
+	opacity:0.9;
+	background-color:rgba(0,0,0.3);
+	transform: scale(1.05);
+	
+}
+
+
+
+input{
+	display:none;
+}
+
+label{
+	display:inline-block;
+	margin:0 0 -1px;
+	padding : 15px 25px;
+	font-weight: 600;
+	text-align:center;
+	color:#bbb;
+	border:1px solid transparent;
+}
+
+label:hover {
+	color:#555;
+	cursor:pointer;
+}
+
+input:checked + label{
+	color:#555;
+
+}
+
+
+
+/* */
+.outer-grid {
+   display: flex ;
+   flex-wrap: wrap;
+   padding: 0 4px;
+
+}
+.inner-grid {
+   flex: 25%;
+   max-width: 25%;
+   padding: 0 4px;
+}
+.inner-grid img {
+   margin-top: 8px;
+   width: 100%;
+   padding: 10px;
+}
+@media screen and (max-width: 800px) {
+   .inner-grid {
+      flex: 50%;
+      max-width: 50%;
+   }
+}
+@media screen and (max-width: 600px) {
+   .inner-grid {
+      flex: 100%;
+      max-width: 100%;
+   }
+}
