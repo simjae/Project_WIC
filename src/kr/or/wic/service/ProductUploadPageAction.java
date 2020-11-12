@@ -22,11 +22,11 @@ public class ProductUploadPageAction implements Action{
 			if(file.getPrd_num() == 0) {
 				fdao.deleteFile(file.getFiles_num());
 			}
+
 		}
 			
 		ActionForward forward = new ActionForward();
 		forward.setPath("/ProductUploadPage.jsp");
-		
 		
 		return forward;
 	}
