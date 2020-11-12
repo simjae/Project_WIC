@@ -80,18 +80,18 @@ public class ProductDAO {
 		
 		try {
 			conn = ds.getConnection();
-			String sql = "select p.prd_num, p.prd_title, p.prd_content f.files_name, f.files_path from product p join files f on p.prd_num = f.prd_num";
+			String sql = "select p.prd_num, p.prd_title, p.prd_content, f.files_name, f.files_path from product p join files f on p.prd_num = f.prd_num";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
 				ProductDTO product = new ProductDTO();
-				product.setPrd_num(rs.getInt("p.prd_num"));
-				product.setPrd_title(rs.getString("p.prd_title"));
-				product.setPrd_content(rs.getString("p.prd_content"));
+				product.setPrd_num(rs.getInt("prd_num"));
+				product.setPrd_title(rs.getString("prd_title"));
+				product.setPrd_content(rs.getString("prd_content"));
 				FilesDTO file = new FilesDTO();
-				file.setFiles_name(rs.getString("f.files_name"));
-				file.setFiles_path(rs.getString("f.files_path"));
+				file.setFiles_name(rs.getString("files_name"));
+				file.setFiles_path(rs.getString("files_path"));
 				product.setFiles(file);
 				
 				productList.add(product);

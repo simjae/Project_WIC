@@ -36,9 +36,7 @@ public class ProductListPageAction implements Action{
 		List<ProductDTO> productList = pdao.getProductNumTitleContentList();
 		request.setAttribute("productList", productList);
 		
-		FilesDAO fdao = new FilesDAO();
-		List<FilesDTO> filesList = fdao.getFilesNamePrdNumList();
-		request.setAttribute("filesList", filesList);
+		
 		
 		//이동경로(viewpage)
 		viewpage = "ProductListPage.jsp";

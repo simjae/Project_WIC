@@ -41,21 +41,22 @@
 	
 	<!-- prdList, filesList(JSTL) / test -->
 	<c:set var="prdList" value="${requestScope.productList}"/>
-	<c:set var="filesList" value="${requestScope.filesList}"/>
 	
 	<div class="col-md-9 mx-auto my-2" id="autoScroll">
 		<div class="grid" id="grid">
 			<c:forEach var="product" items="${prdList}">
 				<div class="grid-item">
-					<a href="location.href='<%=request.getContextPath()%>/ProductDetailPage.Pd?prd_num=${product.prd_num}'">
-						<img src="upload/${fileList.filename}"ß>
-					</a>
+					
+						<img src="upload/${product.files.files_name}">
+					
 					<div class="overlay"> 
+						<a href="<%=request.getContextPath()%>/ProductDetailPage.Pd?prd_num=${product.prd_num}">
 						<h3>${product.prd_title}</h3>
+						</a>
 						<p> ${product.prd_content}</p>
 						<button id="like">좋아요</button>
 						${product.prd_num}
-						<button onclick="location.href='<%=request.getContextPath()%>/ProductDetailPage.Pd?prd_num=${product.prd_num}'">상세보기</button>
+						<button onclick="location.href='<%=request.getContextPath() %>/ProductDetailPage.Pd?prd_num=${product.prd_num}'">상세보기</button>
 					</div>	
 				</div>
 			</c:forEach>
