@@ -18,7 +18,7 @@
             <div class="box">
                 <h2>Contact Us</h2>
                 <div class="contact">
-                <li><a href="#">Customer Service</a></li>
+                <li><a href="<%= request.getContextPath()%>/csPage.cs?currentPage=1&pageSize=10">Customer Service</a></li>
                 <li><a href="#">FAQs</a></li>
                 </div>
             </div>

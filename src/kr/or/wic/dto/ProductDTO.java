@@ -11,7 +11,14 @@ public class ProductDTO {
 	private int prd_state;
 	private int prd_count;
 	private int closet_num;
+	private FilesDTO files;
 
+	public FilesDTO getFiles() {
+		return files;
+	}
+	public void setFiles(FilesDTO files) {
+		this.files = files;
+	}
 	public int getPrd_num() {
 		return prd_num;
 	}

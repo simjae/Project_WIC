@@ -16,6 +16,7 @@ import kr.or.wic.service.ProductEditAction;
 import kr.or.wic.service.ProductEditPageAction;
 import kr.or.wic.service.ProductListPageAction;
 import kr.or.wic.service.ProductUploadAction;
+import kr.or.wic.service.ProductUploadPageAction;
 
 /*
  * 상품관련 컨트롤러 (uploadPorduct 쪽도 포함)
@@ -39,10 +40,10 @@ public class ProductController extends HttpServlet {
     	Action action = null;
     	ActionForward forward = null;
     	
-    	if(url_Command.equals("/uploadProductPage.Pd")) { //상품 등록 페이지 
-    		
-    		
-    	} else if (url_Command.equals("/uploadProduct.Pd")) { //상품 등록  
+    	if(url_Command.equals("/ProductUploadPage.Pd")) { //상품 등록 페이지 
+    		action = new ProductUploadPageAction();
+    		forward = action.execute(request, response);		
+    	} else if (url_Command.equals("/ProductUpload.Pd")) { //상품 등록  
     		action = new ProductUploadAction();
     		forward = action.execute(request, response);
     	} else if (url_Command.equals("/uploadProductCancle.Pd")) { //상품 등록 취소  

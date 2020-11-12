@@ -21,6 +21,8 @@
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<script src="resource/javascript/bootstrap.bundle.js"></script>
 	<link rel="stylesheet" href="resource/style/productListPage-style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+	
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/Top.jsp"></jsp:include>
@@ -41,21 +43,20 @@
 	
 	<!-- prdList, filesList(JSTL) / test -->
 	<c:set var="prdList" value="${requestScope.productList}"/>
-	<c:set var="filesList" value="${requestScope.filesList}"/>
 	
 	<div class="col-md-9 mx-auto my-2" id="autoScroll">
 		<div class="grid" id="grid">
 			<c:forEach var="product" items="${prdList}">
 				<div class="grid-item">
-					<a href="location.href='<%=request.getContextPath()%>/ProductDetailPage.Pd?prd_num=${product.prd_num}'">
-						<img src="resource/image/710cae15d1a6ea3efbedb8baf2319151-sticker.png">
-					</a>
+						<img src="upload/${product.files.files_name}">
 					<div class="overlay"> 
+						<a href="<%=request.getContextPath()%>/ProductDetailPage.Pd?prd_num=${product.prd_num}">
 						<h3>${product.prd_title}</h3>
+						</a>
 						<p> ${product.prd_content}</p>
-						<button id="like">좋아요</button>
-						${product.prd_num}
-						<button onclick="location.href='<%=request.getContextPath()%>/ProductDetailPage.Pd?prd_num=${product.prd_num}'">상세보기</button>
+						<button class="far fa-heart like" id="like" value="${product.prd_num}"></button>
+						<input type="text" value="{$product.prd_num}" name="prd_num" hidden>
+						<button onclick="location.href='<%=request.getContextPath() %>/ProductDetailPage.Pd?prd_num=${product.prd_num}'">상세보기</button>
 					</div>	
 				</div>
 			</c:forEach>
@@ -203,6 +204,7 @@
 	
 </body>
 <script src="resource/javascript/masonry.pkgd.min.js"></script>
+
 <script>
 $('.grid').masonry({
 	  // options
@@ -210,8 +212,34 @@ $('.grid').masonry({
 	  gutter : 15
 
 	});
-
-
+	
+$('.like').on("click",function(){
+	
+		if($(this).hasClass('far')){
+			$(this).removeClass('far');
+			$(this).addClass('fas');
+			console.log($(this).val());
+			
+			$.ajax({ 
+				url:'myCart.my',
+				data : {prd_num:$(this).val()},
+				type:"get",
+				dataType:"html",
+				success:function(){
+					
+				}
+				
+			});
+			
+		}else if($(this).hasClass('fas')){
+			$(this).removeClass('fas');
+			$(this).addClass('far');
+		}
+		
+	
+		
+});
+	
 
 	
 </script>

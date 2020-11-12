@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -11,6 +13,7 @@ import javax.sql.DataSource;
 
 import kr.or.wic.dto.ClosetDTO;
 import kr.or.wic.dto.MemberDTO;
+import kr.or.wic.dto.ProductDTO;
 
 public class MemberDAO {
 
@@ -159,5 +162,67 @@ public class MemberDAO {
 			}
 		}
 		return dto;
+	}
+	
+	//회원 정보 조회하기(closet_num만 가져오기)
+	public int getCloset_numById(String id) {
+		int closet_num = 0;
+		try {
+			conn = ds.getConnection();
+			String sql = "select closet_num from member where id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				closet_num = rs.getInt("closet_num");
+			}
+		} catch (SQLException e) {
+			System.out.println("getMemberInfoForCs Error");
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return closet_num;
+	}
+	
+	//회원 정보 조회(byId)
+	public MemberDTO getMemberById(String id){
+		MemberDTO member = new MemberDTO();
+		
+		try {
+			conn = ds.getConnection();
+			
+			String sql = "select id, pwd, name, addr, profile_pic, closet_num from member where id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				member.setName(id);
+				member.setPwd(rs.getNString("pwd"));
+				member.setAddr(rs.getString("addr"));
+				member.setProfile_pic(rs.getString("profile_pic"));
+				member.setCloset_num(rs.getInt("closet_num"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return member;
 	}
 }

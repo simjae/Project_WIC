@@ -21,7 +21,6 @@ public class FilesDAO {
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
 	
-	
 	static {
 		InitialContext ctx;
 		try {
@@ -69,7 +68,6 @@ public class FilesDAO {
 	}
 	
 	//1-1.파일정보 조회(ProductListPage 정보만 조회(files_name, prd_num)
-	//(굳이 두개만 조회해야 하나? 이게 효율이 좋나, 아니면 그냥 정보 조회 모두 한 다음에 files객체에서 해당 정보만 뽑아 오는 것이 좋나?)
 	public List<FilesDTO> getFilesNamePrdNumList(){
 		List<FilesDTO> filesList = new ArrayList<FilesDTO>();
 		
@@ -107,9 +105,7 @@ public class FilesDAO {
 		
 		try {
 			conn = ds.getConnection();
-			String sql = "select f.files_num, f.files_name, f.files_path, f.prd_num"
-						+ "files f, product p, member m"
-						+ "where p.closet_num = m.closet_num and f.prd_num = p.prd_num and m.id=?";
+			String sql = "select files_num, files_name, files_path, prd_num, id from files where id = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
@@ -121,6 +117,7 @@ public class FilesDAO {
 				file.setFiles_name(rs.getString("files_name"));
 				file.setFiles_path(rs.getString("files_path"));
 				file.setPrd_num(rs.getInt("prd_num"));
+				file.setId(rs.getString("id"));
 				
 				filesList.add(file);
 			}
@@ -178,14 +175,42 @@ public class FilesDAO {
 		int result = 0;
 		try {
 			conn = ds.getConnection();
-			String sql = "insert into files(files_num, files_name, files_path, prd_num)"
-						+ "values(?,?,?,?)";
+			String sql = "insert into files(files_num, files_name, files_path, prd_num, id)"
+						+ "values(?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, file.getFiles_num());
 			pstmt.setString(2, file.getFiles_name());
 			pstmt.setString(3, file.getFiles_path());
 			pstmt.setInt(4, file.getPrd_num());
+			pstmt.setString(5, file.getId());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+	
+	//3-1.파일정보 등록(ajax 파일 임시 등록 시 prd_num은 null)
+	public int insertFilePrdNull(FilesDTO file) {
+		int result = 0;
+		try {
+			conn = ds.getConnection();
+			String sql = "insert into files(files_num, files_name, files_path, id)"
+						+ "values(files_seq.nextval,?,?,?)";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, file.getFiles_name());
+			pstmt.setString(2, file.getFiles_path());
+			pstmt.setString(3, file.getId());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -229,13 +254,38 @@ public class FilesDAO {
 		return row;
 	}
 	
+	//4-1.파일 정보 수정(prd_num만 업데이트)
+	public int updateFilePrd_num(int prd_num, String id) {
+		int row =0;
+		
+		try {
+			conn = ds.getConnection(); 
+			String sql = "update files set prd_num=? where prd_num is null and id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, prd_num);
+			pstmt.setString(2, id);
+			
+			row = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return row;
+	}
+	
 	//5.파일 정보 삭제(delete the file)
 	public int deleteFile(int files_num) {
 		int row = 0;
 		
 		try {
 			conn = ds.getConnection();
-			String sql = "delete from product where files_num=?";
+			String sql = "delete from files where files_num=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, files_num);
 			row = pstmt.executeUpdate();

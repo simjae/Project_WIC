@@ -11,6 +11,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import kr.or.wic.dto.ClosetDTO;
+import kr.or.wic.dto.FilesDTO;
 import kr.or.wic.dto.ProductDTO;
 
 public class ProductDAO {
@@ -70,26 +72,67 @@ public class ProductDAO {
 		}
 		return productList;
 	}
-	
-	//1-1.상품정보 조회(ProductListPage 정보만 조회(prd_num, prd_title, prd_content)
-	//(굳이 세개만 조회해야 하나? 이게 효율이 좋나, 아니면 그냥 정보 조회 모두 한 다음에 prd객체에서 해당 정보만 뽑아 오는 것이 좋나?)
-	public List<ProductDTO> getProductNumTitleContentList(){
-		List<ProductDTO> productList = new ArrayList<ProductDTO>();
+	//1-0 상품별 대표 사진 뽑기
+	private List<Integer> getProductPic(){
+		List<Integer> pic = new ArrayList<Integer>();
 		
 		try {
 			conn = ds.getConnection();
-			String sql = "select prd_num, prd_title, prd_content from product";
+			String sql = "select min(f.files_num) as num\n" + 
+					"from product p join files f ON p.prd_num = f.prd_num\n" + 
+					"GROUP BY p.prd_num order by p.prd_num desc";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-			
 			while(rs.next()) {
-				ProductDTO product = new ProductDTO();
-				product.setPrd_num(rs.getInt("prd_num"));
-				product.setPrd_title(rs.getString("prd_title"));
-				product.setPrd_content(rs.getString("prd_content"));
+				pic.add(rs.getInt("num"));
 				
-				productList.add(product);
 			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+			
+		return pic;
+	}
+	
+	//1-1.상품정보 조회(ProductListPage 정보만 조회(prd_num, prd_title, prd_content)
+	public List<ProductDTO> getProductNumTitleContentList(){
+		List<ProductDTO> productList = new ArrayList<ProductDTO>();
+		List<Integer> picNumList = getProductPic();
+		
+		try {
+				conn = ds.getConnection();
+			for(int i : picNumList) {
+				String sql = "select p.prd_num, p.prd_title, p.prd_content, f.files_name, f.files_path from product p join files f on p.prd_num = f.prd_num\n" + 
+						"WHERE f.files_num=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, i);
+				rs = pstmt.executeQuery();
+				while(rs.next()) {
+					
+					FilesDTO file = new FilesDTO();
+					file.setFiles_name(rs.getString("files_name"));
+					file.setFiles_path(rs.getString("files_path"));
+					
+					ProductDTO product = new ProductDTO();
+					product.setPrd_num(rs.getInt("prd_num"));
+					product.setPrd_title(rs.getString("prd_title"));
+					product.setPrd_content(rs.getString("prd_content"));
+					product.setFiles(file);
+					
+					productList.add(product);
+				}
+			}
+				
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -102,6 +145,33 @@ public class ProductDAO {
 			}
 		}
 		return productList;
+	}
+	
+	//1-2.closet_num으로 prd_num 조회
+	public int getCloset_numByPrd_num(int closet_num) {
+		int prd_num;
+		try {
+			conn = ds.getConnection();
+			String sql = "select prd_num from product where closet_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, closet_num);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				prd_num = rs.getInt("prd_num");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return 0;
 	}
 	
 	//2.회원별 상품 조회(return the productList by ID)
@@ -178,24 +248,47 @@ public class ProductDAO {
 		return product;
 	}
 	
+	//2-2.prd_seq.currval 조회
+	public int getPrd_seqCurrval() {
+		int prd_num = 0;
+		try {
+			conn = ds.getConnection();
+			String sql = "select prd_seq.currval from dual";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				prd_num = rs.getInt("currval");
+				System.out.println("getprd_seqcurrval에서의 prd_num: " + prd_num);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return prd_num;
+	}
+	
 	//3.상품 정보 등록(insert the new product)
 	public int insertProduct(ProductDTO product) {
 		int result = 0;
 		try {
 			conn = ds.getConnection();
 			String sql = "insert into product(prd_num, prd_title, prd_price, prd_date, prd_content, prd_state, prd_count, closet_num)"
-						+ "values(?,?,?,?,?,?,?)";
+						+ "values(prd_seq.nextval,?,?,sysdate,?,0,0,?)";
 			
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setInt(1, product.getPrd_num());
-			pstmt.setString(2, product.getPrd_title());
-			pstmt.setInt(3, product.getPrd_price());
-			pstmt.setDate(4, (java.sql.Date)product.getPrd_date());
-			pstmt.setString(5, product.getPrd_content());
-			pstmt.setInt(6, product.getPrd_state());
-			pstmt.setInt(7, product.getPrd_count());
-			pstmt.setInt(8, product.getCloset_num());
+			pstmt.setString(1, product.getPrd_title());
+			pstmt.setInt(2, product.getPrd_price());
+			pstmt.setString(3, product.getPrd_content());
+			pstmt.setInt(4, product.getCloset_num());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

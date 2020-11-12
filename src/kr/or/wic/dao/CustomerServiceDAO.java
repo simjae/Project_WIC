@@ -45,7 +45,7 @@ public class CustomerServiceDAO {
 			conn = ds.getConnection();
 			String sql = "select * \r\n" + 
 					"from (select ROWNUM as rnum, A.*\r\n" + 
-					"    from (select * from customerservice order by cs_notice desc, cs_refer desc, cs_depth) A)\r\n" + 
+					"    from (select * from customerservice order by cs_refer desc, cs_depth) A)\r\n" + 
 					"where rnum>=? and rnum<=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startRow); 
@@ -57,8 +57,8 @@ public class CustomerServiceDAO {
 				dto.setCs_title(rs.getString("CS_TITLE"));	 //글제목
 //				dto.setCs_content(rs.getString("CS_CONTENT"));	//글내용
 //				dto.setCs_reffer(rs.getInt("CS_REFFER"));	//그룹번호
-//				dto.setCs_depth(rs.getInt("CS_DEPTH"));	//그룹 내 순서
-//				dto.setCs_step(rs.getInt("CS_STEP"));	//들여쓰기
+				dto.setCs_depth(rs.getInt("CS_DEPTH"));	//그룹 내 순서
+				dto.setCs_step(rs.getInt("CS_STEP"));	//들여쓰기
 				dto.setCs_count(rs.getInt("CS_COUNT"));	//조회수
 				dto.setCs_date(rs.getDate("CS_DATE"));	//작성일자
 //				dto.setCs_notice(rs.getInt("CS_NOTICE"));	//공지사항여부
@@ -138,28 +138,56 @@ public class CustomerServiceDAO {
 		}
 	}
 	
-	//공지사항 상세페이지 
-	public int csDetailPage(int cs_num) {
+	//조회 수 올리기
+	public void csDetailCounting(int cs_num) {
+		System.out.println("csDetailCounting 진입");
+		
+		try {
+			conn = ds.getConnection();
+			String sql = "update customerservice set cs_count=cs_count+1 where cs_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cs_num);
+			rs = pstmt.executeQuery();
+			
+		} catch (SQLException e) {
+			System.out.println("csDetailCounting 예외 발생");
+			e.printStackTrace();
+		}finally {
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}		
+		}
+	}
+	
+	//공지사항 상세페이지 & 수정페이지
+	public CustomerServiceDTO csDetailPage(int cs_num) {
 		System.out.println("csDetailPage() 진입");
 		CustomerServiceDTO dto = new CustomerServiceDTO();
 		
 		try {
 			conn  = ds.getConnection();
-			String sql = "select * from customerservice where cs_num=?";
+			String sql = "select c.cs_num, c.cs_title, c.cs_content, c.cs_count, c.cs_date, c.id, m.name, c.cs_refer, c.cs_depth, c.cs_step \r\n" + 
+					"from customerservice c, member m\r\n" +  
+					"where c.cs_num=? and c.id = m.id";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, cs_num);	
+			pstmt.setInt(1, cs_num);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				dto.setCs_num(rs.getInt("CS_NUM"));	//글번호
-				dto.setCs_title(rs.getString("CS_TITLE"));	 //글제목
-				dto.setCs_content(rs.getString("CS_CONTENT"));	//글내용
-//				dto.setCs_reffer(rs.getInt("CS_REFFER"));	//그룹번호
-//				dto.setCs_depth(rs.getInt("CS_DEPTH"));	//그룹 내 순서
-//				dto.setCs_step(rs.getInt("CS_STEP"));	//들여쓰기
-				dto.setCs_count(rs.getInt("CS_COUNT"));	//조회수
-				dto.setCs_date(rs.getDate("CS_DATE"));	//작성일자
-//				dto.setCs_notice(rs.getInt("CS_NOTICE"));	//공지사항여부
+				dto.setCs_num(rs.getInt("cs_num"));	//글번호
+				dto.setCs_title(rs.getString("cs_title"));	 //글제목
+				dto.setCs_content(rs.getString("cs_content"));	//글내용
+				dto.setCs_count(rs.getInt("cs_count"));	//조회수
+				dto.setCs_date(rs.getDate("cs_date"));	//작성일자
 				dto.setId(rs.getString("id"));	//작성자 아이디
+				dto.setName(rs.getString("name"));	//작성자 이름
+				dto.setCs_reffer(rs.getInt("cs_refer"));	//refer
+				dto.setCs_depth(rs.getInt("cs_depth"));	//depth
+				dto.setCs_step(rs.getInt("cs_step"));	//step
+				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -172,7 +200,98 @@ public class CustomerServiceDAO {
 				e.printStackTrace();
 			}		
 		}
-		
-		return 0;
+		return dto;
+	}
+	
+	
+	//글 수정하기!
+	public int csEdit(int cs_num, String title, String content) {
+		int result = 0;
+		try {
+			conn = ds.getConnection();
+			String sql = "update CUSTOMERSERVICE\r\n" + 
+					"set cs_title=? , cs_content=?" + 
+					"where cs_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, title);
+			pstmt.setString(2, content);
+			pstmt.setInt(3, cs_num);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				System.out.println("csEdit() 성공!!");
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("csEdit() Error");
+		} finally {
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}		
+		}
+		return result;
+	}
+	
+	@SuppressWarnings("finally")
+	public boolean csRewrite(String title, String content, String id, int cs_num, int cs_refer, int cs_depth, int cs_step) {
+		boolean result = false;
+		try {
+			conn = ds.getConnection();
+			conn.setAutoCommit(false);
+			String sql = "update CUSTOMERSERVICE\r\n" + 
+					"    set cs_depth= ?\r\n" + 
+					"    where cs_refer=? and cs_depth>?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cs_depth+1);
+			pstmt.setInt(2, cs_refer);
+			pstmt.setInt(3, cs_depth);
+			rs = pstmt.executeQuery();
+//			if(rs.next()) {
+//			}
+			System.out.println("1차 성공");
+			sql = "insert into customerservice(CS_NUM, CS_REFER, CS_DEPTH, CS_STEP, CS_NOTICE, ID, CS_TITLE, CS_CONTENT, CS_COUNT, CS_DATE) \r\n" + 
+					"    values(CUSTOMERSERVICE_CS_NUM.nextval, ?, ?, ?, 0, ?, ?, ?, 0, sysdate)"; 
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cs_refer);
+			pstmt.setInt(2, cs_depth+1);
+			pstmt.setInt(3, cs_step+1);
+			pstmt.setString(4, "minchan");
+			pstmt.setString(5, title);
+			pstmt.setString(6,content);
+			System.out.println("2차 실행 중");
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				result = true;
+				System.out.println("2차 성공");
+				conn.commit();
+			}
+		} catch (SQLException e) {
+			System.out.println("csRewrite() 오류");
+			conn.rollback();
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return result;
+		}
+
 	}
 }
+
+
+
+
+
+
+
+

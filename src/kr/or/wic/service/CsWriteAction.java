@@ -15,15 +15,12 @@ public class CsWriteAction implements Action{
 		
 		CustomerServiceDAO dao = new CustomerServiceDAO();
 		CustomerServiceDTO dto = new CustomerServiceDTO();
-		System.out.println("CsWriteAction.java1");
-		//Request 객체 작업 내용 => CsWritePage.jsp값 받기
+		
+		
 //		dto.setId(request.getParameter("id"));
 		dto.setCs_title(request.getParameter("title"));
-		System.out.println(dto.getCs_title());
 		dto.setCs_content(request.getParameter("content"));
 		System.out.println(dto.getCs_content());
-		System.out.println("CsWriteAction.java2");
-		
 		
 		dao.writeCs("minchan", dto.getCs_title(), dto.getCs_content());
 		
