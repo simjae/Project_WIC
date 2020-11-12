@@ -44,7 +44,7 @@ public class MemberController extends HttpServlet {
     	if(url_Command.equals("/mainPage.my")) { //메인페이지 
     		forward = new ActionForward();
     		forward.setPath("Main.jsp");
-    	} else if (url_Command.equals("/signUpPage.my")) { //회원가입 페이지  
+    	} else if (url_Command.equals("/signUpPage.my")) { //회원가입&로그인 겸용 페이지  
     		forward = new ActionForward();
     		forward.setPath("loginRegister.jsp");
     	} else if (url_Command.equals("/signUp.my")) { //회원 가입 

@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -130,6 +132,42 @@ public class MemberDAO {
 			}
 		}
 		return memberDto;
+	}
+	
+	
+	//get all memberList 
+	public List<MemberDTO> getMemberList(){
+		List<MemberDTO> memberList = new ArrayList<MemberDTO>();
+		
+		try {
+			conn = ds.getConnection();
+			String sql = "select id, name, addr, profile_pic, closet_num from member";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				MemberDTO memberDto = new MemberDTO();
+				
+				memberDto.setId(rs.getString(1));
+				memberDto.setName(rs.getString(2));
+				memberDto.setAddr(rs.getString(3));
+				memberDto.setProfile_pic(rs.getString(4));
+				memberDto.setCloset_num(rs.getInt(5));
+				
+				memberList.add(memberDto);
+			}
+		} catch (SQLException e) {
+			System.out.println("getMemberList error:"+e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return memberList;
 	}
 	
 	public MemberDTO getMemberInfoForCs(String id) {
