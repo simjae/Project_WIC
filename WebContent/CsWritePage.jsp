@@ -56,11 +56,23 @@
           <p class="pt-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla elit dolor, blandit vel euismod ac, lentesque et dolor. Ut id tempus ipsum.</p>
         </div>
       </div>
+      
       <div class="row">
           <div class="col-md-12">
                   <form action="<%=request.getContextPath()%>/csWrite.cs">
                       <fieldset class="p-4">
                           <div class="form-group">
+                          <div class="row">
+									<div class="col-md-10"></div>
+									<div class="col-md-2">
+										<form>
+											<select name="pageSize" class="form-control">
+												<option value="1">공지사항</option>
+												<option selected value="0">일반글</option>
+											</select>
+										</form>
+									</div>
+								</div>
                               <div class="row">
                                   <div class="col-lg-6 pt-2">
                                     ID <input type="email" value="${dto.id}" class="form-control" readonly name="id">
