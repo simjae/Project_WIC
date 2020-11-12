@@ -11,7 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.or.wic.action.Action;
 import kr.or.wic.action.ActionForward;
+import kr.or.wic.service.CsDetailPageAction;
+import kr.or.wic.service.CsEditAction;
+import kr.or.wic.service.CsEditPageAction;
 import kr.or.wic.service.CsPageAction;
+import kr.or.wic.service.CsReWriteAction;
+import kr.or.wic.service.CsReWritePageAction;
 import kr.or.wic.service.CsWriteAction;
 import kr.or.wic.service.CsWritePageAction;
 
@@ -39,27 +44,36 @@ public class CsController extends HttpServlet {
     	ActionForward forward = null;
     	
     	if(url_Command.equals("/csPage.cs")) { //고객센터 페이지
-    		System.out.println("csPage.cs 컨트롤러 탄다!");
     		action = new CsPageAction();
     		forward = action.execute(request, response);
-    	
     	} else if (url_Command.equals("/csWritePage.cs")) { //고객센터 글쓰기 페이지
-    		System.out.println("csWritePage.cs 컨트롤러 탄다!");
     		action = new CsWritePageAction();
-    		System.out.println("csWritePage.cs 컨트롤러 끝!");
     		forward = action.execute(request, response);
-    	
     	} else if (url_Command.equals("/csWrite.cs")) { //고객센터 글쓰기
-    		System.out.println("csWrite.cs 컨트롤러 탄다!");
     		action = new CsWriteAction();
-    		System.out.println("컨트롤러 실행완료");
     		forward = action.execute(request, response);
-    	} else if (url_Command.equals("/csDetailPage.cs")) { //고객센터 글쓰기 취소
-    		System.out.println("csWrite.cs 컨트롤러 탄다!");
-    		action = new CsWriteAction();
-    		System.out.println("컨트롤러 실행완료");
+    	} else if (url_Command.equals("/csDetailPage.cs")) { //고객센터 글 상세보기 페이지
+    		action = new CsDetailPageAction();
+    		forward = action.execute(request, response);
+    	} else if (url_Command.equals("/csEditPage.cs")) { //글 수정하기 페이지
+    		action = new CsEditPageAction();
+    		forward = action.execute(request, response);
+    	} else if (url_Command.equals("/csEdit.cs")) { //글 수정하기
+    		action = new CsEditAction();
+    		forward = action.execute(request, response);
+    	} else if (url_Command.equals("/csReWritePage.cs")) { //글 수정하기
+    		action = new CsReWritePageAction();
+    		forward = action.execute(request, response);
+    	} else if (url_Command.equals("/csReWrite.cs")) { //글 수정하기
+    		action = new CsReWriteAction();
     		forward = action.execute(request, response);
     	} 
+    	
+    	
+    	
+    	
+    	
+
     	
     	RequestDispatcher dis = request.getRequestDispatcher(forward.getPath());
     	dis.forward(request, response);

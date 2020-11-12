@@ -52,26 +52,39 @@
 			<h1 class="text-center">CONTACT-US-MAIN</h1>
 			<br>
 			<div class="row">
+				<div class= "col-md-2"> 
 				<form>
 					<select name="pageSize" class="form-control" onchange="submit()">
 						<c:forEach var="i" begin="5" end="20" step="5">
 							<c:choose>
 								<c:when test="${pageSize == i}">
-									<option value="${i}" selected>${i}</option>
+									<option value="${i}" selected>${i}개</option>
 								</c:when>
 								<c:otherwise>
-									<option value="${i}">${i}</option>
+									<option value="${i}">${i}개</option>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
 					</select>
 				</form>
+				</div>
+				<div class="col-md-8">
+				</div>
+				<div class="col-md-2">
+					<form>
+						<select name="pageSize" class="form-control" onchange="#ID 또는 NAME">
+								<option selected>전체 글보기</option>
+								<option>공지사항</option>
+								<option>Q&A</option>
+						</select>
+					</form>
+				</div>
 			</div>
 			<br>
 			<div class="row">
-				<table class="table table-striped table-responsive-md text-center">
+				<table class="table table-striped table-responsive-md ">
 					<thead>
-						<tr>
+						<tr class="text-center">
 							<th>글번호</th>
 							<th>제목</th>
 							<th>작성자</th>
@@ -81,13 +94,26 @@
 					</thead>
 						<c:forEach var="csList" items="${requestScope.csList}">
 							<tr class="table-tr">
-								<td class="py-auto">${csList.cs_num}</td>
+								<td class="py-auto text-center">${csList.cs_num}</td>
 								<td> 
-									<a href="<%= request.getContextPath()%>/csDetailPage.cs?cs_num=${csList.cs_num}&currentPage=${currentPage}&pageSize=${pageSize}">${csList.cs_title}</a>
+									<c:forEach var="i" begin="1" end="${csList.cs_depth}" step="1">
+                        				&nbsp;&nbsp;&nbsp;
+                    		 		</c:forEach>  
+                    				<c:if test="${csList.cs_depth>0}">
+										<img src='resource/image/re.gif'/>
+									</c:if>
+									<c:choose>
+										<c:when test="${csList.cs_step == 0}">	                            	
+		                            		<a href="<%= request.getContextPath()%>/csDetailPage.cs?cs_num=${csList.cs_num}&currentPage=${currentPage}&pageSize=${pageSize}"><b>${csList.cs_title}<b/></a>
+		                        		</c:when>
+										<c:otherwise>
+		                            		<a href="<%= request.getContextPath()%>/csDetailPage.cs?cs_num=${csList.cs_num}&currentPage=${currentPage}&pageSize=${pageSize}">${csList.cs_title}</a>
+		                               </c:otherwise>
+										</c:choose>
 									</td>
-								<td>${csList.id}</td>
-								<td>${csList.cs_date}</td>
-								<td>${csList.cs_count}</td>
+								<td class="text-center">${csList.id}</td>
+								<td class="text-center">${csList.cs_date}</td>
+								<td class="text-center">${csList.cs_count}</td>
 							</tr>
 						</c:forEach>
 				</table>
@@ -122,18 +148,23 @@
 						</tr>
 					</table>
 				</div>
-				<div class="row">
-					<div class="btn-grounp">
-						<a href="<%=request.getContextPath()%>/csWritePage.cs?currentPage=${currentPage}&pageSize=${pageSize}">
-							<input type="button" value="글쓰기" class="btn btn-primary mt-2" class="float-right" >
-						</a>
-					</div>
+						<div class="btn-grounp">
+							<a href="<%=request.getContextPath()%>/csWritePage.cs?currentPage=${currentPage}&pageSize=${pageSize}">
+								<input type="button" value="글쓰기" class="btn btn-primary mt-2 float-right"  >
+							</a>
+
+
+				</div>
+
 				</div>
 			
-		</div>
+
 	</section>
 	<!-- bottom-->
 	<jsp:include page="WEB-INF/views/common/Bottom.jsp"></jsp:include>
 	<!-- /bottom -->
 </body>
+<script>
+	//Jquery를 통해서 $.ajax
+</script>
 </html>
