@@ -64,7 +64,8 @@
 								
 							</div>
 							</div>
-							<button id="editBtn" onclick="editFunction" type="button">수정</button>
+							<button id="editBtn" onclick="location.href='<%=request.getContextPath()%>/myInfoEditPage.my?id=${member.id}'" type="button">회원정보 수정</button>
+							<button id="editBtn" onclick="" type="button">옷장정보 수정</button>
 						</div>
 					</div>
 				</div>
