@@ -43,7 +43,7 @@
             </div>
             <li class="search-icon">
                 <form action="#">
-                    <input type="search" placeholder="Search" required>
+                    <input class="text" id="productName" type="text" name="search" required>      
                     <button id="btn-search" type="submit" class="fas fa-search"></button>
                 </form>
             </li>

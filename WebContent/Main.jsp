@@ -133,10 +133,11 @@ p .{
 							</h1>
 						</div>
 					</div>
-					<form action="#" method="get">
+					<form action="ProductSearchPage.Pd" method="get">
 						<div class="search_wrap">
-							<input class="text" type="text" name="search"> <input
-								type="button" value="검색" onclick="">
+							<input class="text" id="productName" type="text" name="search"> 
+							<button type="submit">search</button>
+							<input type="button" value="검색" >
 						</div>
 					</form>
 				</div>
