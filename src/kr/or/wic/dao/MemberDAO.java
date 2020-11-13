@@ -138,7 +138,7 @@ public class MemberDAO {
 	//get all memberList 
 	public List<MemberDTO> getMemberList(){
 		List<MemberDTO> memberList = new ArrayList<MemberDTO>();
-		
+		System.out.println("enter getMemberList dao");
 		try {
 			conn = ds.getConnection();
 			String sql = "select id, name, addr, profile_pic, closet_num from member";
@@ -168,6 +168,94 @@ public class MemberDAO {
 			}
 		}
 		return memberList;
+	}
+	
+	//getMemberInfo byId for edit Member from Admin Manage Site 
+	public MemberDTO getMemberById(String id) {
+		MemberDTO memberDto = new MemberDTO();
+		
+		try {
+			conn=ds.getConnection();
+			String sql = "select id, pwd, name, addr, profile_pic, closet_num from member where id=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1,id);
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				memberDto.setId(rs.getString(1));
+				memberDto.setPwd(rs.getString(2));
+				memberDto.setName(rs.getString(3));
+				memberDto.setAddr(rs.getString(4));
+				memberDto.setProfile_pic(rs.getString(5));
+				memberDto.setCloset_num(rs.getInt(6));
+			}
+		} catch (SQLException e) {
+			System.out.println("error get memberById");
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return memberDto;
+	}
+	
+	//update member's info
+	public int updateMember(String id, String pwd, String name, String addr, String profile_pic) {
+		int result=0;
+		
+		try {
+			conn=ds.getConnection();
+			String sql="update member set id=?, pwd=?, name=?,addr=?,profile_pic=? where id=?";
+			pstmt=conn.prepareStatement(sql);
+			
+			pstmt.setString(1, id);
+			pstmt.setString(2, pwd);
+			pstmt.setString(3, name);
+			pstmt.setString(4, addr);
+			pstmt.setString(5, profile_pic);
+			
+			result=pstmt.executeUpdate();
+		}catch (SQLException e) {
+			System.out.println("update member error");
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+	
+	//delete member
+	public int deleteMember(String id) {
+		int result=0;
+		
+		try {
+			conn=ds.getConnection();
+			String sql="delete from member where id=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			result=pstmt.executeUpdate();
+		}catch (SQLException e) {
+			System.out.println("delete member error");
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
 	}
 	
 	public MemberDTO getMemberInfoForCs(String id) {

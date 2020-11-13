@@ -6,7 +6,12 @@ import javax.servlet.http.HttpServletResponse;
 import kr.or.wic.action.Action;
 import kr.or.wic.action.ActionForward;
 import kr.or.wic.dao.MemberDAO;
-
+/* 
+@Project : WIC
+@File name : MemberDeleteAction.java
+@Date : 2020.11.13
+@Author : 문지연
+*/
 public class MemberDeleteAction implements Action {
 
 	@Override

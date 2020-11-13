@@ -1,7 +1,12 @@
 @charset "EUC-KR";
 @import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,500&display=swap');
-
+/* 
+@Project : WIC
+@File name : memberEditPage-style.css
+@Date : 2020.11.13
+@Author : ¹®Áö¿¬
+*/
 * {
 	box-sizing: border-box;
 }
