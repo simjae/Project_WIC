@@ -47,7 +47,5 @@ public class MemberDTO {
 	public String toString() {
 		return "MemberDTO [id=" + id + ", pwd=" + pwd + ", name=" + name + ", addr=" + addr + ", profile_pic="
 				+ profile_pic + ", closet_num=" + closet_num + "]";
-	}
-	
-	
+	}	
 }
