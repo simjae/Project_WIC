@@ -19,30 +19,39 @@
 
 
 <body>
+	<!-- 변수 선언 -->
+	<c:set var="member" value="${requestScope.member}"/>
+	<c:set var="getLike" value="${requestScope.getLike}"/>
+	<c:set var="closet" value="${requestScope.closet}"/>
+	<c:set var="productList" value="${requestScope.productList}"/>
+	<c:set var="fileList" value="${requestScope.fileList}"/>
+	
 	<jsp:include page="/WEB-INF/views/common/Top.jsp"></jsp:include>
 	<div id="wrapper" class="my-4">
 		<div class="container">
 			<div class="row">
+				<!-- Left -->
 				<div class="col-md-4 mx-auto my-auto" >
 					<div>
-					<c:set var="member" value="${requestScope.member}" />
 						<div class="profile">
 							<div class="closet-name">
-								<h1>##의 옷장</h1>
+								<h1>${member.name}의 옷장</h1>
 							</div>
 							<div class="user-state">
+								<!-- <i id="heart" class="far fa-heart"></i> -->
+								<!-- <i onclick="myFunction(x)" class="fas fa-heart"></i> -->
+								
 								<span id = heart><i class="fa fa-heart-o" aria-hidden="true" ></i> </span>
 								<div id="cnt">
-									100
+									${getLike}
 								</div>
 							</div>
 							<div class="profile">
 							<div class="profile-image">
-								<img src="resource/image/mypage/man.png"  alt="">
-								
+								<img src="upload/${member.profile_pic}"  alt="사진 등록 필요">
 							</div>
 							<div class="profile-user-setting">
-								<h1 class="profile-user-name">${member.name}</h1>
+								<h1 class="profile-user-name">${closet.closet_title}</h1>
 					
 							</div>
 							<div>
@@ -51,94 +60,99 @@
 							
 							
 							<div class="profile-bio">
-								<p>intro</p>
+								<p>${closet.closet_content}</p>
 								
 							</div>
 							</div>
-							<button id="edit" class="" onclick="location.href='<%=request.getContextPath()%>/myInfoEditPage.my?id=${member.id}'">수정</button>
+							<button id="editBtn" onclick="editFunction" type="button">수정</button>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-8 mx-auto my-4" >
-				<div class="tabmenu">
-				<input id="tab1" type="radio" name="tabs" checked>
-				<label for="tab1">판매목록</label>
-				<input id="tab2" type="radio" name="tabs" >
-				<label for="tab2">찜목록</label>
 				
-				</div>
-			
+				<!-- Right -->
+				<div class="col-md-8 mx-auto my-4" id="autoScroll">
+					<div class="tabmenu">
+						<div class="">
+							<input id="tab1" type="radio" name="tabs" checked>
+							<label for="tab1">판매목록</label>
+							<input id="tab2" type="radio" name="tabs">
+							<label class="mrAuto" for="tab2">찜목록</label>
+						</div>
+						<button class="btn" onclick="location.href='<%=request.getContextPath()%>/ProductUploadPage.Pd'">상품등록</button>
+					</div>
 					
-				  
+					
+					<!-- test -->
+					<div class="outer-grid">
+						<c:forEach var="product" items="${productList}">
+							<div class="inner-grid">
+								<a href="<%=request.getContextPath()%>/ProductDetailPage.Pd?prd_num=${product.prd_num}">
+									<img src="upload/${product.files.files_name}">
+								</a>
+								<div class="overlay"> 
+									<p> Like </p>
+								</div>
+							</div>
+						</c:forEach>
+					</div>
+					
+					
+					
+					
+					
+					
+					<!-- 판매상품 목록
 					<div class="outer-grid">
 						<div class="inner-grid">
 							<a href="#">
 								<img src="resource/image/mypage/1.jpg">
 							</a>
-								<div class="overlay"> 
-										<span><i class="fas fa-heart"></i>&nbsp;30</span>
-										&nbsp;&nbsp;&nbsp;
-										<span><i class="fas fa-comment"></i>&nbsp;5</span>
-								</div>
-								
+							<div class="overlay"> 
+								<p> Like </p>
+							</div>
 						</div>
-						
 						<div class="inner-grid">
 							<a href="#">
 								<img src="resource/image/mypage/2.jpg">
 							</a>
-								<div class="overlay"> 
-										<span><i class="fas fa-heart"></i>&nbsp;30</span>
-										&nbsp;&nbsp;&nbsp;
-										<span><i class="fas fa-comment"></i>&nbsp;5</span>
-								</div>
-								
+							<div class="overlay">
+								<p> Like </p>
+							</div>
 						</div>
 						<div class="inner-grid">
 							<a href="#">
 								<img src="resource/image/mypage/3.jpg">
 							</a>
-								<div class="overlay"> 
-										<span><i class="fas fa-heart"></i>&nbsp;30</span>
-										&nbsp;&nbsp;&nbsp;
-										<span><i class="fas fa-comment"></i>&nbsp;5</span>
-								</div>
-							
+							<div class="overlay"> 
+								<p> Like </p>
+							</div>	
 						</div>
 						<div class="inner-grid">
 							<a href="#">
 								<img src="resource/image/mypage/4.jpg">
 							</a>
-								<div class="overlay"> 
-										<span><i class="fas fa-heart"></i>&nbsp;30</span>
-										&nbsp;&nbsp;&nbsp;
-										<span><i class="fas fa-comment"></i>&nbsp;5</span>
-								</div>
-							
+							<div class="overlay"> 
+								<p> Like </p>
+							</div>	
 						</div>
 						<div class="inner-grid">
 							<a href="#">
 								<img src="resource/image/mypage/5.png">
 							</a>
-								<div class="overlay"> 
-										<span><i class="fas fa-heart"></i>&nbsp;30</span>
-										&nbsp;&nbsp;&nbsp;
-										<span><i class="fas fa-comment"></i>&nbsp;5</span>
-								</div>
-							
+							<div class="overlay"> 
+								<p> Like </p>
+							</div>
 						</div>
 						<div class="inner-grid">
-							<a href="#">
-								<img src="resource/image/mypage/1.jpg">
-							</a>
-								<div class="overlay"> 
-										<span><i class="fas fa-heart"></i>&nbsp;30</span>
-										&nbsp;&nbsp;&nbsp;
-										<span><i class="fas fa-comment"></i>&nbsp;5</span>
-								</div>
-							
+						<a href="#">
+							<img src="resource/image/mypage/1.jpg">
+						</a>
+							<div class="overlay"> 
+								<p> Like </p>
+							</div>
 						</div>
 					</div> 
+					-->
 				</div>
 			</div>
 		</div>

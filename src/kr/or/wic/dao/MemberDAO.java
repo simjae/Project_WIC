@@ -206,7 +206,7 @@ public class MemberDAO {
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				member.setName(id);
+				member.setName("name");
 				member.setPwd(rs.getNString("pwd"));
 				member.setAddr(rs.getString("addr"));
 				member.setProfile_pic(rs.getString("profile_pic"));

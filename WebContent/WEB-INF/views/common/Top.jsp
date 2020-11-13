@@ -26,7 +26,6 @@
 	                <li><a href="<%=request.getContextPath()%>/managePage.Mg">MANAGE</a></li>
 	                <li><a href="<%=request.getContextPath()%>/signOut.my">LOGOUT</a></li>
 	                <li><a href="<%=request.getContextPath()%>/ProductListPage.Pd">PRODUCT</a></li>
-	                <li><a href="<%=request.getContextPath()%>/ProductUploadPage.Pd">Upload</a></li> <!-- 삭제 -->
 	                </c:if>
 	                <c:if test="${id !='admin@admin.com' }">
 	                <li><a href="<%=request.getContextPath()%>/mainPage.my">HOME</a></li>

@@ -35,17 +35,16 @@ public class Like_RecordDAO {
 	//1.좋아요 수 조회(return the getLike)
 	public int getGetLikeById(String id){
 		int getLike = 0;
-		
 		try {
 			conn = ds.getConnection();
 			
-			String sql = "select sum(get_id) from like_record where id=?";
+			String sql = "select count(get_id) from like_record where get_id=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				getLike = rs.getInt("sum(get_id)");
+				getLike = rs.getInt("count(get_id)");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

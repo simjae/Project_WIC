@@ -63,8 +63,8 @@ public class MemberController extends HttpServlet {
     		forward.setPath("/WEB-INF/views/MemberSignOut.jsp");
     		System.out.println("signOut");
     	} else if (url_Command.equals("/myPage.my")) { //마이페이지 
-    		forward = new ActionForward();
     		action = new MyClosetPageAction();	
+    		forward = action.execute(request, response);
     	} else if (url_Command.equals("/myInfoEditPage.my")) { //내 정보 수정 페이지 & 정보 수정 취소 페이지
     		forward = new ActionForward();
     		action = new MyClosetEditAction();
@@ -77,8 +77,10 @@ public class MemberController extends HttpServlet {
     		
     	} 
     	
+    	if(forward!=null) {
     	RequestDispatcher dis = request.getRequestDispatcher(forward.getPath());
     	dis.forward(request, response);
+    	}
     	
     }
     
