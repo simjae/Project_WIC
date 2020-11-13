@@ -16,13 +16,13 @@ function findAddress() {
 	new daum.Postcode({
 		oncomplete: function(data) {
 		
-			let addr = ''; // 주소
+			let address = ''; // 주소
 			let extraAddr = ''; // 상세주소
 
 			if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-				addr = data.roadAddress;
+				address = data.roadAddress;
 			} else { // 사용자가 지번 주소를 선택했을 경우(J)
-				addr = data.jibunAddress;
+				address = data.jibunAddress;
 			}
 
 			if(data.userSelectedType === 'R'){
@@ -44,8 +44,8 @@ function findAddress() {
 			}
 
 			document.getElementById('postcode').value = data.zonecode;
-			document.getElementById("address").value = addr;
-			document.getElementById("detailAddr").focus();
+			document.getElementById('addr').value = address;
+			document.getElementById('detailAddr').focus();
 		}
 	}).open();
 }
