@@ -13,6 +13,14 @@ public class CustomerServiceDTO {
 	private Date cs_date;		//작성일자 
 	private int cs_notice;		//공지사항여부  ->  0:일반글, 1:공지글
 	private String id;			//작성자 아이디
+	private String name;
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public int getCs_num() {
 		return cs_num;
 	}
@@ -80,8 +88,5 @@ public class CustomerServiceDTO {
 				+ ", cs_reffer=" + cs_reffer + ", cs_depth=" + cs_depth + ", cs_step="
 				+ cs_step + ", cs_count=" + cs_count + ", cs_date=" + cs_date + ", cs_notice=" + cs_notice + ", id="
 				+ id + "]";
-	}
-	
-	
-	
+	}	
 }

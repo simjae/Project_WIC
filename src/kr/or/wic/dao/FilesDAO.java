@@ -285,7 +285,7 @@ public class FilesDAO {
 		
 		try {
 			conn = ds.getConnection();
-			String sql = "delete from product where files_num=?";
+			String sql = "delete from files where files_num=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, files_num);
 			row = pstmt.executeUpdate();

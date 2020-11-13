@@ -17,28 +17,35 @@ public class CsWritePageAction implements Action{
 		String id="";
 		int currentPage = 1;
 		int pageSize = 10;
+		ActionForward forward = new ActionForward();
 		
 		if(request.getSession().getAttribute("id") != null) {
 			id = (String)request.getSession().getAttribute("id");			
+			if(request.getParameter("currentPage") != null) {
+				currentPage = Integer.parseInt(request.getParameter("currentPage"));			
+			}
+			if(request.getParameter("pageSize") != null) {
+				pageSize = Integer.parseInt(request.getParameter("pageSize"));			
+			}
+			
+			MemberDAO dao = new MemberDAO();
+			MemberDTO dto = dao.getMemberInfoForCs(id);
+			
+			request.setAttribute("dto", dto);
+			request.setAttribute("currentPage", currentPage);
+			request.setAttribute("pageSize", pageSize);
+			
+			System.out.println("CsWritePageAction");
+			
+			forward.setPath("CsWritePage.jsp");
+			System.out.println("csWritePageAction 실행 완료");
+		}else {
+			
+			String url = "/csPage.cs?currentPage="+currentPage+"&pageSize="+pageSize;
+			request.setAttribute("msg", "권한이 없습니다. 회원가입 후 이용해주세요.");
+			request.setAttribute("url", url);
+			forward.setPath("Redirect.jsp");
 		}
-		if(request.getParameter("currentPage") != null) {
-			currentPage = Integer.parseInt(request.getParameter("currentPage"));			
-		}
-		if(request.getParameter("pageSize") != null) {
-			pageSize = Integer.parseInt(request.getParameter("pageSize"));			
-		}
-		
-		MemberDAO dao = new MemberDAO();
-		MemberDTO dto = dao.getMemberInfoForCs(id);
-		
-		request.setAttribute("dto", dto);
-		request.setAttribute("currentPage", currentPage);
-		request.setAttribute("pageSize", pageSize);
-		
-		System.out.println("CsWritePageAction");
-		ActionForward forward = new ActionForward();
-		forward.setPath("CsWritePage.jsp");
-		System.out.println("csWritePageAction 실행 완료");
 		return forward;
 	}
 

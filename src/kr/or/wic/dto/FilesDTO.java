@@ -43,6 +43,4 @@ public class FilesDTO {
 		return "FilesDTO [files_num=" + files_num + ", files_name=" + files_name + ", files_path=" + files_path
 				+ ", prd_num=" + prd_num + ", id=" + id + "]";
 	}
-	
-	
 }
