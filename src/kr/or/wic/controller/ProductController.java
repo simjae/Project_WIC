@@ -15,6 +15,7 @@ import kr.or.wic.service.ProductDetailPageAction;
 import kr.or.wic.service.ProductEditAction;
 import kr.or.wic.service.ProductEditPageAction;
 import kr.or.wic.service.ProductListPageAction;
+import kr.or.wic.service.ProductSearchPageAction;
 import kr.or.wic.service.ProductUploadAction;
 import kr.or.wic.service.ProductUploadPageAction;
 
@@ -73,7 +74,12 @@ public class ProductController extends HttpServlet {
     	} else if (url_Command.equals("/ProductEditCancle.Pd")) { //상품 수정 취소 
     		
     		
-    	}   
+    	} else if (url_Command.equals("/ProductSearchPage.Pd")) { //상품 검색 
+    		System.out.println("13123123123");
+    		action = new ProductSearchPageAction();
+    		forward = action.execute(request, response);
+    		
+    	}
     	
     	if(forward != null) {
 	    	RequestDispatcher dis = request.getRequestDispatcher(forward.getPath());

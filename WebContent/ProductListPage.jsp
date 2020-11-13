@@ -43,10 +43,12 @@
 	
 	<!-- prdList, filesList(JSTL) / test -->
 	<c:set var="prdList" value="${requestScope.productList}"/>
+	<c:set var="cartList" value="${requestScope.cartList}"/>
 	
 	<div class="col-md-9 mx-auto my-2" id="autoScroll">
 		<div class="grid" id="grid">
-			<c:forEach var="product" items="${prdList}">
+			<c:forEach var="product" items="${prdList}"> 
+			
 				<div class="grid-item">
 						<img src="upload/${product.files.files_name}">
 					<div class="overlay"> 
@@ -54,8 +56,20 @@
 						<h3>${product.prd_title}</h3>
 						</a>
 						<p> ${product.prd_content}</p>
-						<button class="far fa-heart like" id="like" value="${product.prd_num}"></button>
-						<input type="text" value="{$product.prd_num}" name="prd_num" hidden>
+					<c:forEach var="cart" items="${cartList}">
+						<c:if test="${product.prd_num != cart.prd_num}">
+						
+							<button class="far fa-heart like" id="like" value="${product.prd_num}"></button>
+							<input type="text" value="off" name="check" id="check" hidden>
+						
+						</c:if>
+					</c:forEach>
+					<c:forEach var="cart" items="${cartList}">
+						<c:if test="${product.prd_num == cart.prd_num}">
+							<button class="fas fa-heart like" id="like" value="${product.prd_num}"></button>
+							<input type="text" value="on" name="check" id="check" hidden >
+						</c:if>
+					</c:forEach>
 						<button onclick="location.href='<%=request.getContextPath() %>/ProductDetailPage.Pd?prd_num=${product.prd_num}'">상세보기</button>
 					</div>	
 				</div>
@@ -90,112 +104,6 @@
 					<button id="like">좋아요</button>
 				</div>	
 			</div>
-			<div class="grid-item">
-			<img src="resource/image/IMG_0324.jpeg">
-			<div class="overlay"> 
-					<h3>여기에 제목</h3>
-					<p> 여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명 </p>
-					<button id="like">좋아요</button>
-				</div>	
-			</div>
-			<div class="grid-item">
-				<img src="resource/image/710cae15d1a6ea3efbedb8baf2319151-sticker.png">
-			<div class="overlay"> 
-					<h3>여기에 제목</h3>
-					<p> 여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명 </p>
-					<button id="like">좋아요</button>
-				</div>		
-			</div>
-			<div class="grid-item">
-			<img src="resource/image/IMG_0355.png">
-			<div class="overlay"> 
-					<h3>여기에 제목</h3>
-					<p> 여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명 </p>
-					<button id="like">좋아요</button>
-				</div>	
-			</div>
-			<div class="grid-item">
-			<img src="resource/image/IMG_0457.jpeg">
-			<div class="overlay"> 
-					<h3>여기에 제목</h3>
-					<p> 여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명 </p>
-					<button id="like">좋아요</button>
-				</div>	
-			</div>
-			<div class="grid-item">
-			<img src="resource/image/IMG_0324.jpeg">
-			<div class="overlay"> 
-					<h3>여기에 제목</h3>
-					<p> 여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명 </p>
-					<button id="like">좋아요</button>
-				</div>	
-			</div>
-			<div class="grid-item">
-			<img src="resource/image/IMG_0260.jpeg">
-			<div class="overlay"> 
-					<h3>여기에 제목</h3>
-					<p> 여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명 </p>
-					<button id="like">좋아요</button>
-				</div>	
-			</div>
-			<div class="grid-item">
-			<img src="resource/image/EVA.gif">
-			<div class="overlay"> 
-					<h3>여기에 제목</h3>
-					<p> 여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명 </p>
-					<button id="like">좋아요</button>
-				</div>	
-			</div>
-			<div class="grid-item">
-			<img src="resource/image/IMG_0261.jpeg">
-			<div class="overlay"> 
-					<h3>여기에 제목</h3>
-					<p> 여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명 </p>
-					<button id="like">좋아요</button>
-				</div>	
-			</div>
-			<div class="grid-item">
-			<img src="resource/image/IMG_0568.jpeg">
-			<div class="overlay"> 
-					<h3>여기에 제목</h3>
-					<p> 여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명 </p>
-					<button id="like">좋아요</button>
-				</div>	
-			</div>
-			<div class="grid-item">
-			<img src="resource/image/IMG_0260.jpeg">
-			<div class="overlay"> 
-					<h3>여기에 제목</h3>
-					<p> 여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명 </p>
-					<button id="like">좋아요</button>
-				</div>	
-			</div>
-			<div class="grid-item">
-			<img src="resource/image/EVA.gif">
-			<div class="overlay"> 
-					<h3>여기에 제목</h3>
-					<p> 여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명 </p>
-					<button id="like">좋아요</button>
-				</div>	
-			</div>
-			<div class="grid-item">
-			<img src="resource/image/IMG_0261.jpeg">
-			<div class="overlay"> 
-					<h3>여기에 제목</h3>
-					<p> 여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명 </p>
-					<button id="like">좋아요</button>
-				</div>	
-			</div>
-			<div class="grid-item">
-			<img src="resource/image/IMG_0568.jpeg">
-			<div class="overlay"> 
-					<h3>여기에 제목</h3>
-					<p> 여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명 </p>
-					<button id="like">좋아요</button>
-				</div>	
-			</div>
-			
-			
 		</div>
 	</div>
 	</div>
@@ -213,34 +121,40 @@ $('.grid').masonry({
 
 	});
 	
-$('.like').on("click",function(){
 	
+$('.like').on("click",function(){
 		if($(this).hasClass('far')){
 			$(this).removeClass('far');
 			$(this).addClass('fas');
-			console.log($(this).val());
-			
 			$.ajax({ 
 				url:'myCart.my',
-				data : {prd_num:$(this).val()},
+				data : {
+					prd_num:$(this).val(),
+					check:$('#check').val()
+						},
 				type:"get",
-				dataType:"html",
 				success:function(){
-					
+					$('#check').val("on");
 				}
-				
 			});
 			
 		}else if($(this).hasClass('fas')){
 			$(this).removeClass('fas');
 			$(this).addClass('far');
-		}
-		
-	
-		
-});
-	
+			$.ajax({ 
+				url:'myCart.my',
+				data : {
+					prd_num:$(this).val(),
+					check:$('#check').val()
+						},
+				type:"get",
+				success:function(){
+					$('#check').val("off");
+				}
 
-	
+			});
+		}
+
+	});
 </script>
 </html>

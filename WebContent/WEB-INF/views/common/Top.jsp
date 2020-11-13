@@ -26,7 +26,6 @@
 	                <li><a href="<%=request.getContextPath()%>/managePage.Mg">MANAGE</a></li>
 	                <li><a href="<%=request.getContextPath()%>/signOut.my">LOGOUT</a></li>
 	                <li><a href="<%=request.getContextPath()%>/ProductListPage.Pd">PRODUCT</a></li>
-	                <li><a href="<%=request.getContextPath()%>/ProductUploadPage.Pd">Upload</a></li> <!-- 삭제 -->
 	                </c:if>
 	                <c:if test="${id !='admin@admin.com' }">
 	                <li><a href="<%=request.getContextPath()%>/mainPage.my">HOME</a></li>
@@ -44,7 +43,7 @@
             </div>
             <li class="search-icon">
                 <form action="#">
-                    <input type="search" placeholder="Search" required>
+                    <input class="text" id="productName" type="text" name="search" required>      
                     <button id="btn-search" type="submit" class="fas fa-search"></button>
                 </form>
             </li>

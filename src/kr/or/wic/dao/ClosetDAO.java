@@ -55,4 +55,35 @@ public class ClosetDAO {
 		}
 		return result;
 	}
+	
+	//1.옷장정보 조회(return the closet)
+	public ClosetDTO getClosetById(String id){
+		ClosetDTO closet = new ClosetDTO();
+		
+		try {
+			conn = ds.getConnection();
+			
+			String sql = "select c.closet_num, c.closet_title, c.closet_content from member m, closet c where m.closet_num = c.closet_num and m.id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				closet.setCloset_num(rs.getInt("closet_num"));
+				closet.setCloset_title(rs.getString("closet_title"));
+				closet.setCloset_content(rs.getNString("closet_content"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return closet;
+	}
 }
