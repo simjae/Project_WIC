@@ -73,7 +73,7 @@ public class ProductDAO {
 		return productList;
 	}
 	//1-0-1. 상품별 대표 사진 뽑기
-	private List<Integer> getProductPic(){
+	private List<Integer> getProductPic(){ 
 		List<Integer> pic = new ArrayList<Integer>();
 		
 		try {
@@ -485,4 +485,48 @@ public class ProductDAO {
 		}
 		return row;
 	}
+	// 0검색기능
+		// 검색하면 데이터를 디비에서 찾아서 가져옴
+		// 디비에서 LIKE구문으로 특정검색
+		public ArrayList<ProductDTO> search(String productName) {
+			//DTO를 담는 list 생성 search(String productName) 매개변수를 가지고있는 search 함수 
+			//검색한 단어를 포함하면 나오게 함 LIKE
+			ArrayList<ProductDTO> productList = new ArrayList<ProductDTO>();
+				
+			//리스트 초기화 
+			try {
+				conn = ds.getConnection();
+				String sql = "select * from product where prd_title like '%'||?||'%'";
+				pstmt = conn.prepareStatement(sql);//연결된 데이터베이스를 넣어줌 
+				pstmt.setString(1,productName); //? 안에 파라미터값 넣어줌 
+				System.out.println("1"+productName);
+				rs = pstmt.executeQuery(); //결과가 나오면 실행시켜서  rs  담는다 
+				
+				while(rs.next()) {
+					ProductDTO product = new ProductDTO();
+					//뽑아오는 내용 
+					product.setPrd_num(rs.getInt("Prd_num"));
+					product.setPrd_title(rs.getString("Prd_title"));
+					product.setPrd_price(rs.getInt("Prd_price"));
+					product.setPrd_date(rs.getDate("Prd_date"));
+					product.setPrd_content(rs.getString("Prd_content"));
+					product.setPrd_state(rs.getInt("Prd_state"));
+					product.setPrd_count(rs.getInt("Prd_count"));
+					product.setCloset_num(rs.getInt("Closet_num"));
+					productList.add(product);
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					rs.close();
+					pstmt.close();
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			return productList;
+		}
 }

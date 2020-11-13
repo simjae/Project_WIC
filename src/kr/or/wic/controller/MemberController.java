@@ -17,6 +17,7 @@ import kr.or.wic.service.MypageMemberEditPageAction;
 import kr.or.wic.service.MemberLogInAction;
 import kr.or.wic.service.MemberRegisterAction;
 import kr.or.wic.service.MyCartAddAction;
+import kr.or.wic.service.MyClosetEditAction;
 import kr.or.wic.service.MyClosetPageAction;
 
 /*
@@ -44,7 +45,7 @@ public class MemberController extends HttpServlet {
     	if(url_Command.equals("/mainPage.my")) { //메인페이지 
     		forward = new ActionForward();
     		forward.setPath("Main.jsp");
-    	} else if (url_Command.equals("/signUpPage.my")) { //회원가입 페이지  
+    	} else if (url_Command.equals("/signUpPage.my")) { //회원가입&로그인 겸용 페이지  
     		forward = new ActionForward();
     		forward.setPath("loginRegister.jsp");
     	} else if (url_Command.equals("/signUp.my")) { //회원 가입 
@@ -67,17 +68,20 @@ public class MemberController extends HttpServlet {
     		action = new MyClosetPageAction();	
     		forward = action.execute(request, response);
     	} else if (url_Command.equals("/myInfoEditPage.my")) { //내 정보 수정 페이지 & 정보 수정 취소 페이지
-    		action = new MypageMemberEditPageAction();	
+    		action = new MyClosetEditAction();
     		forward = action.execute(request, response);
     	} else if (url_Command.equals("/myInfoEdit.my")) { //정보 수정하기 
     		action = new MypageMemberEditAction();	
     		forward = action.execute(request, response);
-    	} else if (url_Command.equals("/myCart.my")) { //찜하기
+    	} else if(url_Command.equals("myClosetEdit.my")) {
+    		action = new MyClosetEditAction();
+    		forward = action.execute(request, response);
+		} else if (url_Command.equals("/myCart.my")) { //찜하기
     		action = new MyCartAddAction();
     		forward = action.execute(request, response);
     	} else if (url_Command.equals("/Like.my")) { //좋아요 (사람)
     		
-    	} 
+    	}
     	
     	if(forward!=null) {
     	RequestDispatcher dis = request.getRequestDispatcher(forward.getPath());

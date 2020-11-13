@@ -22,20 +22,11 @@ public class ProductListPageAction implements Action{
 		String viewpage = "";
 		ActionForward forward = new ActionForward();
 		
-		/*
-		 * 본 service에서 해당 회원과 관리자만 접근이 가능하게 하는 기능을 여기서 구현할지 결정해야
-		String id = (String)request.getSession().getAttribute("id");
-		if(id == null || !id.equals("admin")) {
-			viewpage = "/WEB-INF/LoginRegister/Login.jsp";
-			forward.setPath(viewpage);
-			return forward;
-		}
-		*/
-		
 		//DAO, DTO 처리
 		ProductDAO pdao = new ProductDAO();
 		List<ProductDTO> productList = pdao.getProductNumTitleContentList();
 		request.setAttribute("productList", productList);
+		System.out.println(productList);
 		
 		CartDAO cdao = new CartDAO();
 		List<CartDTO> cartList = cdao.getCartList(id);

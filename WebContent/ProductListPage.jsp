@@ -57,18 +57,18 @@
 						</a>
 						<p> ${product.prd_content}</p>
 					<c:forEach var="cart" items="${cartList}">
-					<c:if test="${product.prd_num != cart.prd_num}">
-					
-						<button class="far fa-heart like" id="like" value="${product.prd_num}"></button>
-						<input type="text" value="off" name="check" id="check" hidden>
-					
-					</c:if>
+						<c:if test="${product.prd_num != cart.prd_num}">
+						
+							<button class="far fa-heart like" id="like" value="${product.prd_num}"></button>
+							<input type="text" value="off" name="check" id="check" hidden>
+						
+						</c:if>
 					</c:forEach>
 					<c:forEach var="cart" items="${cartList}">
-					<c:if test="${product.prd_num == cart.prd_num}">
-						<button class="fas fa-heart like" id="like" value="${product.prd_num}"></button>
-						<input type="text" value="on" name="check" id="check" hidden >
-					</c:if>
+						<c:if test="${product.prd_num == cart.prd_num}">
+							<button class="fas fa-heart like" id="like" value="${product.prd_num}"></button>
+							<input type="text" value="on" name="check" id="check" hidden >
+						</c:if>
 					</c:forEach>
 						<button onclick="location.href='<%=request.getContextPath() %>/ProductDetailPage.Pd?prd_num=${product.prd_num}'">상세보기</button>
 					</div>	
@@ -104,112 +104,6 @@
 					<button id="like">좋아요</button>
 				</div>	
 			</div>
-			<div class="grid-item">
-			<img src="resource/image/IMG_0324.jpeg">
-			<div class="overlay"> 
-					<h3>여기에 제목</h3>
-					<p> 여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명 </p>
-					<button id="like">좋아요</button>
-				</div>	
-			</div>
-			<div class="grid-item">
-				<img src="resource/image/710cae15d1a6ea3efbedb8baf2319151-sticker.png">
-			<div class="overlay"> 
-					<h3>여기에 제목</h3>
-					<p> 여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명 </p>
-					<button id="like">좋아요</button>
-				</div>		
-			</div>
-			<div class="grid-item">
-			<img src="resource/image/IMG_0355.png">
-			<div class="overlay"> 
-					<h3>여기에 제목</h3>
-					<p> 여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명 </p>
-					<button id="like">좋아요</button>
-				</div>	
-			</div>
-			<div class="grid-item">
-			<img src="resource/image/IMG_0457.jpeg">
-			<div class="overlay"> 
-					<h3>여기에 제목</h3>
-					<p> 여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명 </p>
-					<button id="like">좋아요</button>
-				</div>	
-			</div>
-			<div class="grid-item">
-			<img src="resource/image/IMG_0324.jpeg">
-			<div class="overlay"> 
-					<h3>여기에 제목</h3>
-					<p> 여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명 </p>
-					<button id="like">좋아요</button>
-				</div>	
-			</div>
-			<div class="grid-item">
-			<img src="resource/image/IMG_0260.jpeg">
-			<div class="overlay"> 
-					<h3>여기에 제목</h3>
-					<p> 여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명 </p>
-					<button id="like">좋아요</button>
-				</div>	
-			</div>
-			<div class="grid-item">
-			<img src="resource/image/EVA.gif">
-			<div class="overlay"> 
-					<h3>여기에 제목</h3>
-					<p> 여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명 </p>
-					<button id="like">좋아요</button>
-				</div>	
-			</div>
-			<div class="grid-item">
-			<img src="resource/image/IMG_0261.jpeg">
-			<div class="overlay"> 
-					<h3>여기에 제목</h3>
-					<p> 여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명 </p>
-					<button id="like">좋아요</button>
-				</div>	
-			</div>
-			<div class="grid-item">
-			<img src="resource/image/IMG_0568.jpeg">
-			<div class="overlay"> 
-					<h3>여기에 제목</h3>
-					<p> 여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명 </p>
-					<button id="like">좋아요</button>
-				</div>	
-			</div>
-			<div class="grid-item">
-			<img src="resource/image/IMG_0260.jpeg">
-			<div class="overlay"> 
-					<h3>여기에 제목</h3>
-					<p> 여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명 </p>
-					<button id="like">좋아요</button>
-				</div>	
-			</div>
-			<div class="grid-item">
-			<img src="resource/image/EVA.gif">
-			<div class="overlay"> 
-					<h3>여기에 제목</h3>
-					<p> 여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명 </p>
-					<button id="like">좋아요</button>
-				</div>	
-			</div>
-			<div class="grid-item">
-			<img src="resource/image/IMG_0261.jpeg">
-			<div class="overlay"> 
-					<h3>여기에 제목</h3>
-					<p> 여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명 </p>
-					<button id="like">좋아요</button>
-				</div>	
-			</div>
-			<div class="grid-item">
-			<img src="resource/image/IMG_0568.jpeg">
-			<div class="overlay"> 
-					<h3>여기에 제목</h3>
-					<p> 여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명 </p>
-					<button id="like">좋아요</button>
-				</div>	
-			</div>
-			
-			
 		</div>
 	</div>
 	</div>

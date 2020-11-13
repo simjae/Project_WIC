@@ -1,11 +1,12 @@
 @charset "UTF-8";
+
 @import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,500&display=swap');
 /* 
 @Project : WIC
 @File name : memberEditPage-style.css
 @Date : 2020.11.13
-@Author : ¹®Áö¿¬
+@Author : 문지연
 */
 * {
 	box-sizing: border-box;
@@ -56,11 +57,11 @@ body {
 .form-control input.id {
 	background-color:#dad9db;
 }
-/*
+
 .form-control input.pwd {
 	background-color:#dad9db;
 }
-*/
+
 .form-control input:focus {
 	outline: 0;
 	border-color: #777;
