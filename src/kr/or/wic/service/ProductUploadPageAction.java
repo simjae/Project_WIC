@@ -24,9 +24,9 @@ public class ProductUploadPageAction implements Action{
 			}
 
 		}
-			
+
 		ActionForward forward = new ActionForward();
-		forward.setPath("/ProductUploadPage.jsp");
+		forward.setPath("ProductUploadPage.jsp");
 		
 		return forward;
 	}

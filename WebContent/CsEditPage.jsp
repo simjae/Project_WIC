@@ -8,6 +8,7 @@
 %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,7 +42,9 @@
 	<!-- Container End -->
 </section>
 <!-- page title -->
-
+	<c:set var="dto" value="${requestScope.dto}"/>
+	<c:set var="currentPage" value="${requestScope.currentPage}"/>
+	<c:set var="pageSize" value="${requestScope.pageSize}"/>
 <!-- contact us start-->
 <section class="section">
     <div class="container">
@@ -53,31 +56,31 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                    <form action="#">
+                    <form action="<%=request.getContextPath()%>/csEdit.cs?currentPage=${currentPage}&pageSize=${pageSize}" method="post">
                         <fieldset class="p-4">
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-lg-6 py-2">
-                                      Number <input type="text" value="3" class="form-control" readonly>
+                                      Number <input type="text" value="${dto.cs_num}" class="form-control" name="cs_num" readonly>
                                     </div>
                                     <div class="col-lg-6 pt-2">
-                                        WRITEDATE <input type="text" value="yyyy-mm-dd" class="form-control" readonly>
+                                        WRITEDATE <input type="text" value="${dto.cs_date}" class="form-control"  readonly>
                                       </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-6 pt-2">
-                                        ID <input type="email" value="minchan@naver.com" class="form-control" readonly>
+                                        ID <input type="email" value="${dto.id }" class="form-control" readonly>
                                     </div>
                                     <div class="col-lg-6 py-2">
-                                      NAME <input type="text" value="minchan" class="form-control" readonly>
+                                      NAME <input type="text" value="${dto.name }" class="form-control" readonly>
                                     </div>
                                 </div>
                             </div>   
                               SUBJECT
-                            <input type="text" value="불량회원신고" class="form-control" >
-                            <textarea name="message" placeholder="Message *" class="border w-100 p-3 mt-3 mt-lg-4" >dddddddddddddddd</textarea>
+                            <input type="text" value="${dto.cs_title }" class="form-control" name="title" >
+                            <textarea name="content" placeholder="Message *" class="border w-100 p-3 mt-3 mt-lg-4" >${dto.cs_content }</textarea>
                             <div class="btn-grounp">
-                              <a href="./contact-us-write.html"> 
+                              <a href="<%=request.getContextPath()%>/csDetailPage.cs?cs_num=${dto.cs_num}&currentPage=${currentPage}&pageSize=${pageSize}"> 
                                 <button type="button"  class="btn btn-primary mt-2 ">뒤로</button>
                               </a>
                                 <button type="submit" class="btn btn-primary mt-2 float-right">수정</button> 
