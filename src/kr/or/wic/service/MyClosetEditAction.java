@@ -17,18 +17,24 @@ import kr.or.wic.dto.FilesDTO;
 import kr.or.wic.dto.MemberDTO;
 import kr.or.wic.dto.ProductDTO;
 
-public class MypageEditAction implements Action{
+public class MyClosetEditAction implements Action{
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
-			request.setAttribute("username", name);
-			request.setAttribute("address", addr);
-			request.setAttribute("userintro", intro);
+		@Override
+		public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
+			response.setContentType("text/html;charset=UTF-8"); // 클라언트에게 전달한 페이지의 정보 구성
+			String viewpage = "";
+			ActionForward forward = new ActionForward();
+			String id = (String)request.getSession().getAttribute("id");
 			
+			MemberDAO memberdao=new MemberDAO();
+			MemberDTO member = memberdao.getMemberById(id);
+			request.setAttribute("member", member);
+
+			////////// 다시 경로 ~ 
 			ActionForward forward = new ActionForward();
 			forward.setPath("MyCloset.jsp");
-		
-			
 			return forward;
 		}
 	
