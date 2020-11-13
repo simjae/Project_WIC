@@ -17,7 +17,7 @@ import kr.or.wic.dto.FilesDTO;
 import kr.or.wic.dto.MemberDTO;
 import kr.or.wic.dto.ProductDTO;
 
-public class MypageEditAction implements Action{
+public class MyClosetEditAction implements Action{
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {

@@ -15,6 +15,7 @@ import kr.or.wic.service.MemberCheckIdAction;
 import kr.or.wic.service.MemberLogInAction;
 import kr.or.wic.service.MemberRegisterAction;
 import kr.or.wic.service.MyCartAddAction;
+import kr.or.wic.service.MyClosetEditAction;
 import kr.or.wic.service.MyClosetPageAction;
 
 /*
@@ -65,7 +66,8 @@ public class MemberController extends HttpServlet {
     		action = new MyClosetPageAction();	
     		forward = action.execute(request, response);
     	} else if (url_Command.equals("/myInfoEditPage.my")) { //내 정보 수정 페이지 & 정보 수정 취소 페이지
-    		
+    		action = new MyClosetEditAction();
+    		forward = action.execute(request, response);
     	} else if (url_Command.equals("/myInfoEdit.my")) { //정보 수정하기 
     		
     	} else if (url_Command.equals("/myCart.my")) { //찜하기
@@ -73,7 +75,7 @@ public class MemberController extends HttpServlet {
     		forward = action.execute(request, response);
     	} else if (url_Command.equals("/Like.my")) { //좋아요 (사람)
     		
-    	} 
+    	}
     	
     	if(forward!=null) {
     	RequestDispatcher dis = request.getRequestDispatcher(forward.getPath());

@@ -73,7 +73,7 @@ public class ProductDAO {
 		return productList;
 	}
 	//1-0-1. 상품별 대표 사진 뽑기
-	private List<Integer> getProductPic(){
+	private List<Integer> getProductPic(){ 
 		List<Integer> pic = new ArrayList<Integer>();
 		
 		try {
