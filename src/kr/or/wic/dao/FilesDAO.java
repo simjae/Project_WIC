@@ -139,7 +139,7 @@ public class FilesDAO {
 		List<FilesDTO> filesList = new ArrayList<FilesDTO>();
 		try {
 			conn = ds.getConnection();
-			String sql = "select files_num, files_name, files_path, prd_num from files where prd_num=?";
+			String sql = "select files_num, files_name, files_path, prd_num, id from files where prd_num=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, prd_num);
 			rs = pstmt.executeQuery();
@@ -151,6 +151,7 @@ public class FilesDAO {
 				file.setFiles_name(rs.getString("files_name"));
 				file.setFiles_path(rs.getString("files_path"));
 				file.setPrd_num(rs.getInt("prd_num"));
+				file.setId(rs.getString("id"));
 				
 				filesList.add(file);
 			}

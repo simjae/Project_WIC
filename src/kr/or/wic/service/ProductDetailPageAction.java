@@ -36,19 +36,24 @@ public class ProductDetailPageAction implements Action{
 		fileList = fdao.getFilesListByPrdNum(prd_num);
 		
 		//member 객체
-		String id = (String)request.getSession().getAttribute("id");
+		String get_id = fileList.get(0).getId();
 		MemberDTO member = new MemberDTO();
 		MemberDAO mdao = new MemberDAO();
-		member = mdao.getMemberById(id);
+		member = mdao.getMemberById(get_id);
 		
 		//좋아요 count
 		Like_RecordDAO ldao = new Like_RecordDAO();
-		int getLike = ldao.getGetLikeById(id);
+		int getLike = ldao.getGetLikeById(get_id);
+		
+		//좋아요 여부
+		String send_id = (String)request.getSession().getAttribute("id");
+		int checkLike = ldao.checkLike(send_id, get_id);
 		
 		request.setAttribute("product", product);
 		request.setAttribute("fileList", fileList);
 		request.setAttribute("member", member);
 		request.setAttribute("getLike", getLike);
+		request.setAttribute("checkLike", checkLike);
 		
 		//이동경로(viewpage)
 		viewpage = "ProductDetailPage.jsp";

@@ -41,7 +41,8 @@
 #heart{
 	margin-right: 7px;
 	margin-bottom: 2px;
-	color: #000000;
+	color: red;
+	cursor: pointer;
 	
 }
 

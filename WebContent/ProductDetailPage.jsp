@@ -33,6 +33,7 @@
 <c:set var="fileList" value="${requestScope.fileList}"></c:set>
 <c:set var="member" value="${requestScope.member}"></c:set>
 <c:set var="getLike" value="${requestScope.getLike}"></c:set>
+<c:set var="checkLike" value="${requestScope.checkLike}"></c:set>
 
 <div class="mb-5"></div>
 <div class="container">
@@ -114,7 +115,15 @@
 					<img id="userPic" src="upload/${member.profile_pic}">
 					<div class="mr-auto">
 						${member.name}<br>
-						<i id="heart" class="far fa-heart"></i><span id="cnt">${getLike}</span>
+						<c:choose>
+							<c:when test="${checkLike eq 0}">
+								<i id="heart" class="far fa-heart" aria-hidden="true"></i>
+							</c:when>
+							<c:otherwise>
+								<i id="heart" class="fas fa-heart" aria-hidden="true"></i>
+							</c:otherwise>
+						</c:choose>
+						<span id="cnt">${getLike}</span>
 					</div>
 					<button id="edit" class="btn btn-primary" onclick="location.href='<%=request.getContextPath()%>/ProductEditPage.Pd?prd_num=${product.prd_num}'">글수정</button>
 				</div>
@@ -183,5 +192,46 @@
 <div class="mb-5"></div>
 <jsp:include page="WEB-INF/views/common/Bottom.jsp"></jsp:include>
 </body>
+<script>
+$(document).ready(function(){
+	
+	$("#heart").click(function(e) {
+		if($(this).hasClass('far fa-heart')){
+			$.ajax(
+				{
+					url: "<%=request.getContextPath()%>/sendLike.Ajax",
+					data:{send_id:'<%=request.getSession().getAttribute("id")%>', get_id:'${member.id}'},
+					type:"post",
+					dataType:"html",  
+					success:function(responsedata, textStatus, xhr){
+						$("#heart").attr('class', 'fas fa-heart');
+						$("#cnt").html(responsedata);
+					},
+					error:function(xhr){
+						alert(xhr.status + " : ERROR");
+					}
+				}	   
+			);
+			$(this).attr('class', 'fas fa-heart');			
+		} else {
+			$.ajax(
+				{
+					url: "<%=request.getContextPath()%>/deleteLike.Ajax",
+					data:{send_id:'<%=request.getSession().getAttribute("id")%>', get_id:'${member.id}'},
+					type:"post",
+					dataType:"html",  
+					success:function(responsedata, textStatus, xhr){
+						$("#heart").attr('class', 'far fa-heart');
+						$("#cnt").html(responsedata);
+					},
+					error:function(xhr){
+						alert(xhr.status + " : ERROR");
+					}
+				}	   
+			);			
+		}
+	});
+});
+</script>
 
 </html>

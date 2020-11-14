@@ -26,7 +26,6 @@ public class ProductListPageAction implements Action{
 		ProductDAO pdao = new ProductDAO();
 		List<ProductDTO> productList = pdao.getProductNumTitleContentList();
 		request.setAttribute("productList", productList);
-		System.out.println(productList);
 		
 		CartDAO cdao = new CartDAO();
 		List<CartDTO> cartList = cdao.getCartList(id);
