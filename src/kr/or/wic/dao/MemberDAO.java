@@ -13,7 +13,6 @@ import javax.sql.DataSource;
 
 import kr.or.wic.dto.ClosetDTO;
 import kr.or.wic.dto.MemberDTO;
-import kr.or.wic.dto.ProductDTO;
 
 public class MemberDAO {
 
@@ -41,7 +40,7 @@ public class MemberDAO {
 		try {
 			conn = ds.getConnection();
 			
-			String sql = "insert into member(id,pwd,name,addr,profile_pic,closet_num) values(?,?,?,?,?,CLOSET_CLOSET_NUM.currval)";
+			String sql = "insert into member(id,pwd,name,addr,profile_pic,closet_num) values(?,?,?,?,?,closet_seq.currval)";
 
 			pstmt = conn.prepareStatement(sql);
 

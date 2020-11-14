@@ -76,40 +76,6 @@
 			</c:forEach>
 		</div>
 	</div>
-	
-	<!-- 지금은 예시를 보여줄라고 이렇게 많이 해놓은거 사실상 한 세트만 보면 됨 -->
-	<div class="col-md-9 mx-auto my-2" id="autoScroll">
-		<div class="grid" id="grid">
-			<div class="grid-item">
-				<img src="resource/image/710cae15d1a6ea3efbedb8baf2319151-sticker.png">
-				<div class="overlay"> 
-					<h3>여기에 제목</h3>
-					<p> 여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명 </p>
-					<button id="like">좋아요</button>
-				</div>	
-			</div>
-			<div class="grid-item">
-				<img src="resource/image/IMG_0355.png">
-				<div class="overlay"> 
-					<h3>여기에 제목</h3>
-					<p> 여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명 </p>
-					<button id="like">좋아요</button>
-				</div>		
-			</div>
-			<div class="grid-item">
-			<img src="resource/image/IMG_0457.jpeg">
-			<div class="overlay"> 
-					<h3>여기에 제목</h3>
-					<p> 여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명여기에 설명 </p>
-					<button id="like">좋아요</button>
-				</div>	
-			</div>
-		</div>
-	</div>
-	</div>
-	<jsp:include page="WEB-INF/views/common/Bottom.jsp"></jsp:include>
-	
-	
 </body>
 <script src="resource/javascript/masonry.pkgd.min.js"></script>
 
