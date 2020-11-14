@@ -121,7 +121,7 @@
 	  });
 	});
 	
-	//판매목록, 찜목
+	//판매목록, 찜목록
 	$("input[name=tabs]").change(function(e) {
 		if(e.target.id == 'tab1'){
 			$(".outer-grid").html('<c:forEach var="product" items="${productList}"><div class="inner-grid"><a href="<%=request.getContextPath()%>/ProductDetailPage.Pd?prd_num=${product.prd_num}"><img src="upload/${product.files.files_name}"></a><div class="overlay"><span><i class="fas fa-heart"></i>&nbsp;30</span>&nbsp;&nbsp;&nbsp;<span><i class="fas fa-comment"></i>&nbsp;5</span></div></div></c:forEach>');

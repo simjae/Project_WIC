@@ -30,6 +30,7 @@
 	height: 50px;
 	margin-right: 13px;
 	display: inline-block;
+	border-radius: 50px;
 }
 
 #userName{

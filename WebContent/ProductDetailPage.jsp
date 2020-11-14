@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,51 +27,95 @@
 <!-- Top -->
 <jsp:include page="WEB-INF/views/common/Top.jsp"></jsp:include>
 
+
+<!-- 변수선언 -->
+<c:set var="product" value="${requestScope.product}"></c:set>
+<c:set var="fileList" value="${requestScope.fileList}"></c:set>
+<c:set var="member" value="${requestScope.member}"></c:set>
+<c:set var="getLike" value="${requestScope.getLike}"></c:set>
+
 <div class="mb-5"></div>
 <div class="container">
 	<div class="row">
 		<div class="col-md-6 mb-5">
+			
+			<!-- carousel slide -->
 			<div id="imgCarousel" class="carousel slide" data-interval="false">
-				 <ol class="carousel-indicators">
-				    <li data-target="imgCarousel" data-slide-to="0" class="active"></li>
-				    <li data-target="imgCarousel" data-slide-to="1"></li>
-				    <li data-target="imgCarousel" data-slide-to="2"></li>
-				    <li data-target="imgCarousel" data-slide-to="3"></li>
-  				</ol>
+				
+				<!-- data-target -->
+				<c:choose>
+					<c:when test="${fn:length(fileList) <= 1}"></c:when>
+					<c:otherwise>
+						<ol class="carousel-indicators">
+						    <li data-target="imgCarousel" data-slide-to="0" class="active"></li>
+						    <c:forEach var="i" begin="1" end="${fn:length(fileList) - 1}">
+		    				    <li data-target="imgCarousel" data-slide-to="${i}"></li>
+						    </c:forEach>
+						</ol>
+					</c:otherwise>
+				</c:choose>
+				
+				<!-- carousel-inner 이미지 -->
 				<div class="carousel-inner">
-					<div class="carousel-item active">
-						<img src="resource/image/prdDetail1.jpg" alt="">		
-					</div>
-					<div class="carousel-item">
-						<img src="resource/image/prdDetail2.jpg" alt="">			
-					</div>
-					<div class="carousel-item">
-						<img src="resource/image/prdDetail3.jpg" alt="">
-					</div>
-					<div class="carousel-item">
-						<img src="resource/image/prdDetail4.jpg" alt="">
-					</div>
-					<a class="carousel-control-prev" href="#imgCarousel" role="button" data-slide="prev">
-						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-						<span class="sr-only">Previous</span>
-					</a>
-					<a class="carousel-control-next" href="#imgCarousel" role="button" data-slide="next">
-						<span class="carousel-control-next-icon" aria-hidden="true"></span>
-						<span class="sr-only">Next</span>
-					</a>
+					<c:choose>
+						<c:when test="${fn:length(fileList) eq 0}">
+							<div class="carousel-item active">
+								<img src="upload/xmark.png" alt="">
+							</div>
+						</c:when>
+						<c:when test="${fn:length(fileList) eq 1}">
+							<div class="carousel-item active">
+								<c:forEach var="file" items="${fileList}">
+									<img src="upload/${file.files_name}" alt="">
+								</c:forEach>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<c:forEach var="file" items="${fileList}" varStatus="status">
+								<c:choose>
+									<c:when test="${status.first}">
+										<div class="carousel-item active">
+											<img src="upload/${file.files_name}" alt="">
+										</div>
+									</c:when>
+									<c:otherwise>
+										<div class="carousel-item">
+											<img src="upload/${file.files_name}" alt="">
+										</div>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
+					
+					<!-- 이전/다음페이지 아이콘(이미지가 없거나 1개이면 삭제) -->
+					<c:choose>
+						<c:when test="${fn:length(fileList) <= 1}"></c:when>
+						<c:otherwise>
+							<a class="carousel-control-prev" href="#imgCarousel" role="button" data-slide="prev">
+								<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+								<span class="sr-only">Previous</span>
+							</a>
+							<a class="carousel-control-next" href="#imgCarousel" role="button" data-slide="next">
+								<span class="carousel-control-next-icon" aria-hidden="true"></span>
+								<span class="sr-only">Next</span>
+							</a>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>	
 		</div>
+		
+		<!-- Right -->
+		<!-- member(profile_pic, name, addr), like_record(count수), product(prd_num, prd_title, prd_price, prd_content, files) -->
 		<div class="col-md-6 rightDiv">
 			<div class="mb-4">
 				<div class="d-flex justify-content-between">
-					<img id="userPic" src="resource/image/user.png">
+					<img id="userPic" src="upload/${member.profile_pic}">
 					<div class="mr-auto">
-						채채니<br>
-						<i id="heart" class="far fa-heart"></i><span id="cnt">100</span>
+						${member.name}<br>
+						<i id="heart" class="far fa-heart"></i><span id="cnt">${getLike}</span>
 					</div>
-					<!-- product 객체(JSTL) -->
-					<c:set var="product" value="${requestScope.product}"></c:set>
 					<button id="edit" class="btn btn-primary" onclick="location.href='<%=request.getContextPath()%>/ProductEditPage.Pd?prd_num=${product.prd_num}'">글수정</button>
 				</div>
 			</div>
@@ -78,7 +123,7 @@
 				<h3 id="title">${product.prd_title}</h3>
 			</div>
 			<div class="mb-2">
-				<h5 id="price">${product.prd_price}<span id="location">서울시 강남구</span></h5>
+				<h5 id="price">${product.prd_price}<span id="location">${member.addr}</span></h5>
 			</div>
 			<div class="mb-4 description">
 				${product.prd_content}
