@@ -83,7 +83,7 @@
 					</div>
 					
 					
-					<!-- test -->
+					<!-- 판매 상품 목록 -->
 					<div class="outer-grid">
 						<c:forEach var="product" items="${productList}">
 							<div class="inner-grid">
@@ -98,74 +98,12 @@
 							</div>
 						</c:forEach>
 					</div>
-					
-					
-					
-					
-					
-					
-					<!-- 판매상품 목록
-					<div class="outer-grid">
-						<div class="inner-grid">
-							<a href="#">
-								<img src="resource/image/mypage/1.jpg">
-							</a>
-							<div class="overlay"> 
-								<p> Like </p>
-							</div>
-						</div>
-						<div class="inner-grid">
-							<a href="#">
-								<img src="resource/image/mypage/2.jpg">
-							</a>
-							<div class="overlay">
-								<p> Like </p>
-							</div> 
-						</div>
-						<div class="inner-grid">
-							<a href="#">
-								<img src="resource/image/mypage/3.jpg">
-							</a>
-							<div class="overlay"> 
-								<p> Like </p>
-							</div>	
-						</div>
-						<div class="inner-grid">
-							<a href="#">
-								<img src="resource/image/mypage/4.jpg">
-							</a>
-							<div class="overlay"> 
-								<p> Like </p>
-							</div>	
-						</div>
-						<div class="inner-grid">
-							<a href="#">
-								<img src="resource/image/mypage/5.png">
-							</a>
-							<div class="overlay"> 
-								<p> Like </p>
-							</div>
-						</div>
-						<div class="inner-grid">
-						<a href="#">
-							<img src="resource/image/mypage/1.jpg">
-						</a>
-							<div class="overlay"> 
-								<p> Like </p>
-							</div>
-						</div>
-					</div> 
-					-->
 				</div>
 			</div>
 		</div>
 	</div>
-
-
-
 	
-
-	
+	<!-- Bottom -->
 	<jsp:include page="WEB-INF/views/common/Bottom.jsp"></jsp:include>
 	
 	
@@ -182,7 +120,16 @@
 	    }
 	  });
 	});
+	
+	//판매목록, 찜목
+	$("input[name=tabs]").change(function(e) {
+		if(e.target.id == 'tab1'){
+			$(".outer-grid").html('<c:forEach var="product" items="${productList}"><div class="inner-grid"><a href="<%=request.getContextPath()%>/ProductDetailPage.Pd?prd_num=${product.prd_num}"><img src="upload/${product.files.files_name}"></a><div class="overlay"><span><i class="fas fa-heart"></i>&nbsp;30</span>&nbsp;&nbsp;&nbsp;<span><i class="fas fa-comment"></i>&nbsp;5</span></div></div></c:forEach>');
+		} else {
+			$(".outer-grid").html('cart 리스트');
+		}
+			
+	});
 </script>
-
 
 </html>

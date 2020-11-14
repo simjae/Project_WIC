@@ -21,6 +21,7 @@ public class MyClosetEditAction implements Action{
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
+		/*
 			request.setAttribute("username", name);
 			request.setAttribute("address", addr);
 			request.setAttribute("userintro", intro);
@@ -30,6 +31,8 @@ public class MyClosetEditAction implements Action{
 		
 			
 			return forward;
+			*/
+		return null;
 		}
 	
 	}
