@@ -34,6 +34,7 @@
 <c:set var="member" value="${requestScope.member}"></c:set>
 <c:set var="getLike" value="${requestScope.getLike}"></c:set>
 <c:set var="checkLike" value="${requestScope.checkLike}"></c:set>
+<c:set var="id" value="${sessionScope.id}"></c:set>
 
 <div class="mb-5"></div>
 <div class="container">
@@ -192,15 +193,20 @@
 <div class="mb-5"></div>
 <jsp:include page="WEB-INF/views/common/Bottom.jsp"></jsp:include>
 </body>
+
 <script>
 $(document).ready(function() {
+	if(!('${member.id}' == '${id}' || '${id}' == 'admin@admin.com')) {
+		$("#edit").hide();
+	}
+	
 	$("#heart").click(function(e) {
-		if('<%=request.getSession().getAttribute("id")%>' != 'null') {	
+		if('${id}' != '') {	
 			if($(this).hasClass('far fa-heart')){
 				$.ajax(
 					{
 						url: "<%=request.getContextPath()%>/sendLike.Ajax",
-						data:{send_id:'<%=request.getSession().getAttribute("id")%>', get_id:'${member.id}'},
+						data:{send_id:'${id}', get_id:'${member.id}'},
 						type:"post",
 						dataType:"html",  
 						success:function(responsedata, textStatus, xhr){
