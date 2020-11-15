@@ -21,7 +21,7 @@ public class LikeDeleteAjaxAction implements Action{
 		int getTestLike = dao.getGetLikeById(get_id);
 		
 		request.setAttribute("getTestLike", getTestLike);
-		forward.setPath("aTmp.jsp");
+		forward.setPath("LikeTestPage.jsp");
 		
 		return forward;
 	}
