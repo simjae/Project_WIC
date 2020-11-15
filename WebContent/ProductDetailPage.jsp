@@ -193,42 +193,43 @@
 <jsp:include page="WEB-INF/views/common/Bottom.jsp"></jsp:include>
 </body>
 <script>
-$(document).ready(function(){
-	
+$(document).ready(function() {
 	$("#heart").click(function(e) {
-		if($(this).hasClass('far fa-heart')){
-			$.ajax(
-				{
-					url: "<%=request.getContextPath()%>/sendLike.Ajax",
-					data:{send_id:'<%=request.getSession().getAttribute("id")%>', get_id:'${member.id}'},
-					type:"post",
-					dataType:"html",  
-					success:function(responsedata, textStatus, xhr){
-						$("#heart").attr('class', 'fas fa-heart');
-						$("#cnt").html(responsedata);
-					},
-					error:function(xhr){
-						alert(xhr.status + " : ERROR");
-					}
-				}	   
-			);
-			$(this).attr('class', 'fas fa-heart');			
-		} else {
-			$.ajax(
-				{
-					url: "<%=request.getContextPath()%>/deleteLike.Ajax",
-					data:{send_id:'<%=request.getSession().getAttribute("id")%>', get_id:'${member.id}'},
-					type:"post",
-					dataType:"html",  
-					success:function(responsedata, textStatus, xhr){
-						$("#heart").attr('class', 'far fa-heart');
-						$("#cnt").html(responsedata);
-					},
-					error:function(xhr){
-						alert(xhr.status + " : ERROR");
-					}
-				}	   
-			);			
+		if('<%=request.getSession().getAttribute("id")%>' != 'null') {	
+			if($(this).hasClass('far fa-heart')){
+				$.ajax(
+					{
+						url: "<%=request.getContextPath()%>/sendLike.Ajax",
+						data:{send_id:'<%=request.getSession().getAttribute("id")%>', get_id:'${member.id}'},
+						type:"post",
+						dataType:"html",  
+						success:function(responsedata, textStatus, xhr){
+							$("#heart").attr('class', 'fas fa-heart');
+							$("#cnt").html(responsedata);
+						},
+						error:function(xhr){
+							alert(xhr.status + " : ERROR");
+						}
+					}	   
+				);
+				$(this).attr('class', 'fas fa-heart');			
+			} else {
+				$.ajax(
+					{
+						url: "<%=request.getContextPath()%>/deleteLike.Ajax",
+						data:{send_id:'<%=request.getSession().getAttribute("id")%>', get_id:'${member.id}'},
+						type:"post",
+						dataType:"html",  
+						success:function(responsedata, textStatus, xhr){
+							$("#heart").attr('class', 'far fa-heart');
+							$("#cnt").html(responsedata);
+						},
+						error:function(xhr){
+							alert(xhr.status + " : ERROR");
+						}
+					}	   
+				);			
+			}
 		}
 	});
 });
