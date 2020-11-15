@@ -1,5 +1,6 @@
 package kr.or.wic.service;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import kr.or.wic.action.Action;
 import kr.or.wic.action.ActionForward;
 import kr.or.wic.dto.FilesDTO;
 import kr.or.wic.dto.MemberDTO;
+import kr.or.wic.dto.PriceFormat;
 import kr.or.wic.dto.ProductDTO;
 import kr.or.wic.dao.FilesDAO;
 import kr.or.wic.dao.Like_RecordDAO;
@@ -29,7 +31,11 @@ public class ProductDetailPageAction implements Action{
 		int prd_num = Integer.parseInt(request.getParameter("prd_num"));
 		ProductDAO pdao = new ProductDAO();
 		ProductDTO product = pdao.getProduct(prd_num);
-	
+		
+		//가격 원단위 환산
+		PriceFormat format = new PriceFormat();
+		String price = format.makeCommaWon(product.getPrd_price());
+		
 		//해당 product에 대한 fileList 객체
 		List<FilesDTO> fileList = new ArrayList<FilesDTO>();
 		FilesDAO fdao = new FilesDAO();
@@ -50,6 +56,7 @@ public class ProductDetailPageAction implements Action{
 		int checkLike = ldao.checkLike(send_id, get_id);
 		
 		request.setAttribute("product", product);
+		request.setAttribute("price", price);
 		request.setAttribute("fileList", fileList);
 		request.setAttribute("member", member);
 		request.setAttribute("getLike", getLike);
@@ -60,6 +67,12 @@ public class ProductDetailPageAction implements Action{
 		forward.setPath(viewpage);
 		
 		return forward;
+	}
+	
+	private String makeComma(int num) {
+		DecimalFormat formatter = new DecimalFormat("###,###");
+		String result = formatter.format(num) + "원";
+		return result;
 	}
 
 }

@@ -10,6 +10,7 @@ import kr.or.wic.action.Action;
 import kr.or.wic.action.ActionForward;
 import kr.or.wic.dto.FilesDTO;
 import kr.or.wic.dto.MemberDTO;
+import kr.or.wic.dto.PriceFormat;
 import kr.or.wic.dto.ProductDTO;
 import kr.or.wic.dao.FilesDAO;
 import kr.or.wic.dao.MemberDAO;
@@ -42,6 +43,10 @@ public class ProductEditPageAction implements Action{
 		ProductDAO dao = new ProductDAO();
 		ProductDTO product = dao.getProduct(prd_num);
 		
+		//가격 원단위 환산
+		PriceFormat format = new PriceFormat();
+		String price = format.makeComma(product.getPrd_price());
+		
 		//file 정보
 		List<FilesDTO> fileList = new ArrayList<FilesDTO>();
 		fileList = fdao.getFilesListByPrdNum(prd_num);
@@ -49,9 +54,11 @@ public class ProductEditPageAction implements Action{
 		//member 정보
 		MemberDTO member = new MemberDTO();
 		MemberDAO mdao = new MemberDAO();
-		member = mdao.getMemberById(id);
+		String sellerId = fileList.get(0).getId();
+		member = mdao.getMemberById(sellerId);
 		
 		request.setAttribute("product", product);
+		request.setAttribute("price", price);
 		request.setAttribute("fileList", fileList);
 		request.setAttribute("member", member);
 		

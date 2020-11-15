@@ -17,6 +17,7 @@
 	
 	<!-- 객체 호출 -->
 	<c:set var="product" value="${requestScope.product}"></c:set>
+	<c:set var="price" value="${requestScope.price}"></c:set>
 	<c:set var="fileList" value="${requestScope.fileList}"></c:set>
 	<c:set var="member" value="${requestScope.member}"></c:set>
 	
@@ -50,7 +51,7 @@
 						<div class="row ml-4">
 							<h3 class="my-0">가격 :</h3>
 							&nbsp; <input class="col-sm-8" type="text" id="productPrice"
-								name="productPrice" value="${product.prd_price}">
+								name="productPrice" value="${price}">
 						</div>
 						<br>
 						<div class="ml-4 mb-4">
@@ -64,7 +65,7 @@
 				<!-- 사진파일 -->
 				<div class="col-md-6">
 					<div class =" row">
-						<input class="col-md-3 mx-auto mb-3" type="submit" id="submit" name="submit" value="UPLOAD">
+						<input class="col-md-3 mx-auto mb-3" type="submit" id="submit" name="submit" value="EDIT">
 						<input class="col-md-3 mx-auto mb-3" type="reset" id="reset" name="reset" value="CANCLE">
 					</div>
 					<div class="col-md-10 mx-auto" id="drop">

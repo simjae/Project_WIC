@@ -30,6 +30,7 @@
 
 <!-- 변수선언 -->
 <c:set var="product" value="${requestScope.product}"></c:set>
+<c:set var="price" value="${requestScope.price}"></c:set>
 <c:set var="fileList" value="${requestScope.fileList}"></c:set>
 <c:set var="member" value="${requestScope.member}"></c:set>
 <c:set var="getLike" value="${requestScope.getLike}"></c:set>
@@ -133,7 +134,7 @@
 				<h3 id="title">${product.prd_title}</h3>
 			</div>
 			<div class="mb-2">
-				<h5 id="price">${product.prd_price}<span id="location">${member.addr}</span></h5>
+				<h5 id="price">${price}<span id="location">${member.addr}</span></h5>
 			</div>
 			<div class="mb-4 description">
 				${product.prd_content}
