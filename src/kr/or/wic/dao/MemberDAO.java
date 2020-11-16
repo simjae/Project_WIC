@@ -282,41 +282,6 @@ public class MemberDAO {
 		return result;
 	}
 	
-	//Search Member By Id from Admin page
-	public List<MemberDTO> searchMemberById(String id){
-		List<MemberDTO> memberlist = new ArrayList<MemberDTO>();
-		try {
-			System.out.println("searchmem");
-			conn=ds.getConnection();
-			String sql = "select id, pwd, name, addr, closet_num, profile_pic from member where id=?";
-			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, "%"+id+"%");
-			rs=pstmt.executeQuery();
-			System.out.println(id);
-			while(rs.next()) {
-				MemberDTO memberDto = new MemberDTO();
-				memberDto.setId(rs.getString(1));
-				memberDto.setPwd(rs.getString(2));
-				memberDto.setName(rs.getString(3));
-				memberDto.setAddr(rs.getString(4));
-				memberDto.setCloset_num(rs.getInt(5));
-				memberDto.setProfile_pic(rs.getString(6));
-				memberlist.add(memberDto);
-			}
-			}catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				try {
-					rs.close();
-					pstmt.close();
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			return memberlist;
-		}
-	
 	
 	public MemberDTO getMemberInfoForCs(String id) {
 
