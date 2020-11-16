@@ -97,6 +97,7 @@
 			</c:forEach>
 		</div>
 	</div>
+
 	<c:set var="pageSize" value="${requestScope.pageSize}"/>			
 	<c:set var="maxPageCount" value="${requestScope.maxPageCount}"/>
 	<c:set var="startPage" value="${requestScope.startPage}"/>
@@ -129,7 +130,7 @@
 	</div>
 	<jsp:include page="WEB-INF/views/common/Bottom.jsp"></jsp:include>
 	
-	
+
 </body>
 <script src="resource/javascript/masonry.pkgd.min.js"></script>
 
