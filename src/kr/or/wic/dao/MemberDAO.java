@@ -109,6 +109,7 @@ public class MemberDAO {
 			rs = pstmt.executeQuery();
 			
 			if (rs.next()) {
+				System.out.println("rs 존재");
 				if (pwd.equals(rs.getString("pwd"))) {
 					memberDto.setId(rs.getString("id"));
 					memberDto.setPwd(rs.getString("pwd"));
@@ -312,7 +313,44 @@ public class MemberDAO {
 				e.printStackTrace();
 			}
 		}
-		
 		return closet_num;
+	}
+	
+	//옷장 정보 수정
+	public void setClosetInfo(String id, String contentedit) {
+		MemberDTO dto = new MemberDTO();
+			int result=0;
+		
+		try {
+			conn = ds.getConnection();
+			String sql = "select closet_num from member where id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				int closet_num = rs.getInt("closet_num");
+				sql = "update closet set closet_content where closet_num=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, closet_num);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					result = rs.getInt(1);
+					System.out.println(result);
+				}
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }
