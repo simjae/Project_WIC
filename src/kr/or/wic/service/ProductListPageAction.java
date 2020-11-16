@@ -18,7 +18,7 @@ public class ProductListPageAction implements Action{
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		response.setContentType("text/html;charset=UTF-8"); // 클라언트에게 전달한 페이지의 정보 구성
 		String id = (String) request.getSession().getAttribute("id");
-		
+
 		String viewpage = "";
 		ActionForward forward = new ActionForward();
 		
@@ -26,7 +26,6 @@ public class ProductListPageAction implements Action{
 		ProductDAO pdao = new ProductDAO();
 		List<ProductDTO> productList = pdao.getProductNumTitleContentList();
 		request.setAttribute("productList", productList);
-		System.out.println(productList);
 		
 		CartDAO cdao = new CartDAO();
 		List<CartDTO> cartList = cdao.getCartList(id);
@@ -38,5 +37,4 @@ public class ProductListPageAction implements Action{
 		
 		return forward;
 	}
-
 }
