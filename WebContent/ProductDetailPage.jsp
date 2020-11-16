@@ -98,36 +98,53 @@
 						</tr>
 					</thead>
 					<tbody>
+					<c:forEach var = "dto" items="${requestScope.chatRoomDTOs}"  >
 						<tr>
-							<td>1</td>
-							<td><a href="#">상품 문의드려요.</a></td>
-							<td>문지</td>
+							<td>${dto.ch_num}</td>
+							<td><a href="#">${dto.ch_title}</a></td>
+							<td>${dto.name}</td>
 						</tr>
-						<tr>
-							<td>2</td>
-							<td><a href="#">에눌 가능한가요?</a></td>
-							<td>재형이</td>
-						</tr>
+					</c:forEach>
 					</tbody>
 				</table>
-				
+				<c:set var = "startPage" value = "${requestScope.startPage}"/>  
+				<c:set var = "endPage" value = "${requestScope.endPage}"/>  
+				<c:set var = "pageSize" value = "${requestScope.pageSize}"/>  
+				<c:set var = "currentPage" value = "${requestScope.currentPage}"/>  
+				<c:set var = "maxPage" value = "${requestScope.maxPage}"/>  
 				<!-- Pagination -->
 				<div class="">
 					<nav aria-label="Page navigation">
 						<ul class="pagination pagination-sm justify-content-center" style="margin-bottom: 0px;">
 							<li class="page-item">
+							<c:if test= "${cureentPage > 1}">
 								<a class="page-link" href="#" aria-label="Previous">
 									<span aria-hidden="true">&laquo;</span>
 								</a>
+							</c:if>
 							</li>
-							<li class="page-item"><a class="page-link" href="#">1</a></li>
-							<li class="page-item"><a class="page-link" href="#">2</a></li>
-							<li class="page-item"><a class="page-link" href="#">3</a></li>
+							<c:forEach var = "i" begin = "${startPage}" end ="${endPage}" step = "1">
+							<c:choose>
+							<c:when test = "${currentPage == i}">
+							<li class="page-item">
+								<a class="page-link" >${i}</a>
+							</li>
+							</c:when>
+							<c:otherwise>
+							<li class="page-item">
+								<a class="page-link" href="#">${i}</a>
+							</li>
+							</c:otherwise>
+							
+							</c:choose>
+							</c:forEach>	
+							<c:if test= "${cureentPage < maxPage }">
 							<li class="page-item">
 								<a class="page-link" href="#" aria-label="Next">
 									<span aria-hidden="true">&raquo;</span>
 								</a>
 							</li>
+							</c:if>
 						</ul>
 					</nav>
 				</div>
