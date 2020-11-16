@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import kr.or.wic.action.Action;
 import kr.or.wic.action.ActionForward;
 import kr.or.wic.service.ProductFileDeleteAjaxAction;
+import kr.or.wic.service.ProductListAjaxAction;
 import kr.or.wic.service.ProductUploadAjaxAction;
 
 /*
@@ -60,6 +61,9 @@ public class AjaxController extends HttpServlet {
     		forward = action.execute(request, response);
     	} else if (url_Command.equals("/fileDelete.Ajax")) { //파일삭제
     		action = new ProductFileDeleteAjaxAction();
+    		forward = action.execute(request, response);
+    	} else if (url_Command.equals("/ProductList.Ajax")) { //파일삭제
+    		action = new ProductListAjaxAction();
     		forward = action.execute(request, response);
     	}
     	

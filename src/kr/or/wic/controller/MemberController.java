@@ -24,7 +24,7 @@ import kr.or.wic.service.MyClosetPageAction;
  * 회원 관련 컨트롤러
  */
 
-@WebServlet("*.my")
+@WebServlet(urlPatterns="*.my")
 public class MemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

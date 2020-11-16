@@ -41,7 +41,7 @@ public class MemberDAO {
 		try {
 			conn = ds.getConnection();
 			
-			String sql = "insert into member(id,pwd,name,addr,profile_pic,closet_num) values(?,?,?,?,?,CLOSET_CLOSET_NUM.currval)";
+			String sql = "insert into member(id,pwd,name,addr,profile_pic,closet_num) values(?,?,?,?,?,closet_seq.currval)";
 
 			pstmt = conn.prepareStatement(sql);
 
@@ -79,9 +79,9 @@ public class MemberDAO {
 
 			if (!rs.next())
 				result = "true";
-		} catch (Exception e) {
-			System.out.println("isEmail Exception : " + e.getMessage());
-		} finally {
+			} catch (Exception e) {
+				System.out.println("isEmail Exception : " + e.getMessage());
+			} finally {
 			if (pstmt != null)
 				try {
 					pstmt.close();
@@ -95,12 +95,12 @@ public class MemberDAO {
 		}
 		System.out.println(result);
 		return result;
-	}
+		}
 	
 	
-	//sign In
-	public MemberDTO signedIn(String id, String pwd) {
-		MemberDTO memberDto = new MemberDTO();
+		//sign In
+		public MemberDTO signedIn(String id, String pwd) {
+			MemberDTO memberDto = new MemberDTO();
 		
 		try {
 			conn = ds.getConnection();
@@ -117,24 +117,24 @@ public class MemberDAO {
 					memberDto.setId(rs.getString("id"));
 					memberDto.setPwd(null);
 				}
-			} else {
-				memberDto.setPwd(null);
-				memberDto.setId(null);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				rs.close();
-				pstmt.close();
-				conn.close();
+				} else {
+					memberDto.setPwd(null);
+					memberDto.setId(null);
+				}
 			} catch (SQLException e) {
 				e.printStackTrace();
+			} finally {
+				try {
+					rs.close();
+					pstmt.close();
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
+			return memberDto;
 		}
-		return memberDto;
-	}
-	
+		
 	
 	//get all memberList 
 	public List<MemberDTO> getMemberList(){
@@ -195,7 +195,7 @@ public class MemberDAO {
 			e.printStackTrace();
 		} finally {
 			try {
-				rs.close();
+				rs.close(); 
 				pstmt.close();
 				conn.close();
 			} catch (SQLException e) {
@@ -205,25 +205,72 @@ public class MemberDAO {
 		return memberDto;
 	}
 	
-	//update member's info
-	public int updateMember(String id, String pwd, String name, String addr, String profile_pic) {
+	//update member's info from Adminn
+	public int updateMember(String name, String addr, String profile_pic, String id) {
+		int result=0;
+		try {
+			conn=ds.getConnection();
+			String sql="update member name=?,addr=?,profile_pic=? where id=?";
+			pstmt=conn.prepareStatement(sql);
+			
+			pstmt.setString(1, name);
+			pstmt.setString(2, addr);
+			
+			if(profile_pic!=null) {
+				pstmt.setString(3, profile_pic);
+			}else {
+				MemberDTO memberDto=getMemberById(id);
+				pstmt.setString(3, memberDto.getProfile_pic());
+			}
+			pstmt.setString(4, id);
+			result=pstmt.executeUpdate();
+			}catch (SQLException e) {
+				System.out.println("update member error:"+e.getMessage());
+				e.printStackTrace();
+			} finally {
+				try {
+					pstmt.close();
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			return result;
+		}
+	
+	//delete member
+	public int deleteMember(String id,int closet_num) {
 		int result=0;
 		
 		try {
 			conn=ds.getConnection();
-			String sql="update member set id=?, pwd=?, name=?,addr=?,profile_pic=? where id=?";
+			/* delete Cart */
+			String sql= "delete from cart where id=?";
 			pstmt=conn.prepareStatement(sql);
-			
-			pstmt.setString(1, id);
-			pstmt.setString(2, pwd);
-			pstmt.setString(3, name);
-			pstmt.setString(4, addr);
-			pstmt.setString(5, profile_pic);
-			
+			pstmt.setString(1,id);
 			result=pstmt.executeUpdate();
+			//System.out.println("delete cart");
+			/* delete files */
+			sql= "delete from files where id=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1,id);
+			result=pstmt.executeUpdate();
+			//System.out.println("delete file");
+			/* delete member */
+			sql="delete from member where id=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1,id);
+			result=pstmt.executeUpdate();
+			//System.out.println("delete member");
+			/* delete closet */
+			sql="delete from closet where closet_num=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1,closet_num);
+			result=pstmt.executeUpdate();
+			//System.out.println("delete closet");
 		}catch (SQLException e) {
-			System.out.println("update member error");
 			e.printStackTrace();
+			System.out.println("delete member error:"+e.getMessage());
 		} finally {
 			try {
 				pstmt.close();
@@ -235,29 +282,6 @@ public class MemberDAO {
 		return result;
 	}
 	
-	//delete member
-	public int deleteMember(String id) {
-		int result=0;
-		
-		try {
-			conn=ds.getConnection();
-			String sql="delete from member where id=?";
-			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, id);
-			result=pstmt.executeUpdate();
-		}catch (SQLException e) {
-			System.out.println("delete member error");
-			e.printStackTrace();
-		} finally {
-			try {
-				pstmt.close();
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return result;
-	}
 	
 	public MemberDTO getMemberInfoForCs(String id) {
 
